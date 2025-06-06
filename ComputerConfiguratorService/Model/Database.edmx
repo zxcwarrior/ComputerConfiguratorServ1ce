@@ -1,0 +1,1990 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BuildCaseCooling">
+          <Key>
+            <PropertyRef Name="BuildCaseCoolingID" />
+          </Key>
+          <Property Name="BuildCaseCoolingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="CaseCoolingID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildRAMs">
+          <Key>
+            <PropertyRef Name="BuildRAMID" />
+          </Key>
+          <Property Name="BuildRAMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="RAMID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Builds">
+          <Key>
+            <PropertyRef Name="BuildID" />
+          </Key>
+          <Property Name="BuildID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GPUID" Type="int" Nullable="false" />
+          <Property Name="CPUID" Type="int" Nullable="false" />
+          <Property Name="MotherboardID" Type="int" Nullable="false" />
+          <Property Name="CPUCoolingID" Type="int" Nullable="false" />
+          <Property Name="PowerSupplyID" Type="int" Nullable="false" />
+          <Property Name="CaseID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildStorages">
+          <Key>
+            <PropertyRef Name="BuildStorageID" />
+          </Key>
+          <Property Name="BuildStorageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="StorageID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CaseCooling">
+          <Key>
+            <PropertyRef Name="CaseCoolingID" />
+          </Key>
+          <Property Name="CaseCoolingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FanSize" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CaseFormFactors">
+          <Key>
+            <PropertyRef Name="CaseFFID" />
+          </Key>
+          <Property Name="CaseFFID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CaseFFName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cases">
+          <Key>
+            <PropertyRef Name="CaseID" />
+          </Key>
+          <Property Name="CaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CaseFFID" Type="int" Nullable="false" />
+          <Property Name="MaxGPULength" Type="int" Nullable="false" />
+          <Property Name="MaxCoolers" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CoolingTypes">
+          <Key>
+            <PropertyRef Name="CoolingTypeID" />
+          </Key>
+          <Property Name="CoolingTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CoolingType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CPUCooling">
+          <Key>
+            <PropertyRef Name="CPUCoolingID" />
+          </Key>
+          <Property Name="CPUCoolingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CoolingTypeID" Type="int" Nullable="false" />
+          <Property Name="MaxSupportedTDP" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CPUs">
+          <Key>
+            <PropertyRef Name="CPUID" />
+          </Key>
+          <Property Name="CPUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="SocketID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cores" Type="int" Nullable="false" />
+          <Property Name="Threads" Type="int" Nullable="false" />
+          <Property Name="BaseClock" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="BoostClock" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="TDP" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="EfficiencyRatings">
+          <Key>
+            <PropertyRef Name="EfficiencyRatingID" />
+          </Key>
+          <Property Name="EfficiencyRatingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GPUMemoryTypes">
+          <Key>
+            <PropertyRef Name="GPUMemoryTypeID" />
+          </Key>
+          <Property Name="GPUMemoryTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemoryType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GPUs">
+          <Key>
+            <PropertyRef Name="GPUID" />
+          </Key>
+          <Property Name="GPUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="VendorID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GPUMemoryTypeID" Type="int" Nullable="false" />
+          <Property Name="MemoryGB" Type="int" Nullable="false" />
+          <Property Name="CoreBaseClock" Type="int" Nullable="false" />
+          <Property Name="CoreBoostClock" Type="int" />
+          <Property Name="MemoryClock" Type="int" />
+          <Property Name="GPULength" Type="int" Nullable="false" />
+          <Property Name="PowerConsumption" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Manufacturers">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MotherboardFormFactor">
+          <Key>
+            <PropertyRef Name="MotherboardFFID" />
+          </Key>
+          <Property Name="MotherboardFFID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MotherboardFFName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Motherboards">
+          <Key>
+            <PropertyRef Name="MotherboardID" />
+          </Key>
+          <Property Name="MotherboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SocketID" Type="int" Nullable="false" />
+          <Property Name="RAMTypeID" Type="int" Nullable="false" />
+          <Property Name="MotherboardFFID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PowerSupplies">
+          <Key>
+            <PropertyRef Name="PowerSupplyID" />
+          </Key>
+          <Property Name="PowerSupplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Wattage" Type="int" Nullable="false" />
+          <Property Name="EfficiencyRatingID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="RAMs">
+          <Key>
+            <PropertyRef Name="RAMID" />
+          </Key>
+          <Property Name="RAMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CapacityGB" Type="int" Nullable="false" />
+          <Property Name="SpeedMHz" Type="int" Nullable="false" />
+          <Property Name="RAMTypeID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="RAMTypes">
+          <Key>
+            <PropertyRef Name="RAMTypeID" />
+          </Key>
+          <Property Name="RAMTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RAMType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sockets">
+          <Key>
+            <PropertyRef Name="SocketID" />
+          </Key>
+          <Property Name="SocketID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SocketName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Storages">
+          <Key>
+            <PropertyRef Name="StorageID" />
+          </Key>
+          <Property Name="StorageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StorageTypeID" Type="int" Nullable="false" />
+          <Property Name="CapacityGB" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="StorageTypes">
+          <Key>
+            <PropertyRef Name="StorageTypeID" />
+          </Key>
+          <Property Name="StorageTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StorageType" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__BuildRAMs__Build__72C60C4A">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildRAMs">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BuildRAMs__RAMID__73BA3083">
+          <End Role="RAMs" Type="Self.RAMs" Multiplicity="1" />
+          <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAMs">
+              <PropertyRef Name="RAMID" />
+            </Principal>
+            <Dependent Role="BuildRAMs">
+              <PropertyRef Name="RAMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildCaseCooling_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildCaseCooling" Type="Self.BuildCaseCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildCaseCooling">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildCaseCooling_CaseCooling">
+          <End Role="CaseCooling" Type="Self.CaseCooling" Multiplicity="1" />
+          <End Role="BuildCaseCooling" Type="Self.BuildCaseCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaseCooling">
+              <PropertyRef Name="CaseCoolingID" />
+            </Principal>
+            <Dependent Role="BuildCaseCooling">
+              <PropertyRef Name="CaseCoolingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_Cases">
+          <End Role="Cases" Type="Self.Cases" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cases">
+              <PropertyRef Name="CaseID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="CaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_CPUCooling">
+          <End Role="CPUCooling" Type="Self.CPUCooling" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPUCooling">
+              <PropertyRef Name="CPUCoolingID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="CPUCoolingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_CPUs">
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPUs">
+              <PropertyRef Name="CPUID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="CPUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_GPUs">
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPUs">
+              <PropertyRef Name="GPUID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="GPUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_Motherboards">
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motherboards">
+              <PropertyRef Name="MotherboardID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="MotherboardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_PowerSupplies">
+          <End Role="PowerSupplies" Type="Self.PowerSupplies" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PowerSupplies">
+              <PropertyRef Name="PowerSupplyID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="PowerSupplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildStorages_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildStorages" Type="Self.BuildStorages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildStorages">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildStorages_Storages">
+          <End Role="Storages" Type="Self.Storages" Multiplicity="1" />
+          <End Role="BuildStorages" Type="Self.BuildStorages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storages">
+              <PropertyRef Name="StorageID" />
+            </Principal>
+            <Dependent Role="BuildStorages">
+              <PropertyRef Name="StorageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CaseCooling_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="CaseCooling" Type="Self.CaseCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="CaseCooling">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cases_CaseFormFactors">
+          <End Role="CaseFormFactors" Type="Self.CaseFormFactors" Multiplicity="1" />
+          <End Role="Cases" Type="Self.Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaseFormFactors">
+              <PropertyRef Name="CaseFFID" />
+            </Principal>
+            <Dependent Role="Cases">
+              <PropertyRef Name="CaseFFID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cases_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Cases" Type="Self.Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Cases">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUCooling_CoolingTypes">
+          <End Role="CoolingTypes" Type="Self.CoolingTypes" Multiplicity="1" />
+          <End Role="CPUCooling" Type="Self.CPUCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoolingTypes">
+              <PropertyRef Name="CoolingTypeID" />
+            </Principal>
+            <Dependent Role="CPUCooling">
+              <PropertyRef Name="CoolingTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUCooling_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="CPUCooling" Type="Self.CPUCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="CPUCooling">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUs_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="CPUs">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUs_Sockets">
+          <End Role="Sockets" Type="Self.Sockets" Multiplicity="1" />
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sockets">
+              <PropertyRef Name="SocketID" />
+            </Principal>
+            <Dependent Role="CPUs">
+              <PropertyRef Name="SocketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GPUs_GPUMemoryTypes">
+          <End Role="GPUMemoryTypes" Type="Self.GPUMemoryTypes" Multiplicity="1" />
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPUMemoryTypes">
+              <PropertyRef Name="GPUMemoryTypeID" />
+            </Principal>
+            <Dependent Role="GPUs">
+              <PropertyRef Name="GPUMemoryTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GPUs_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="GPUs">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GPUs_Vendors">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="1" />
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="GPUs">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_MotherboardFormFactor">
+          <End Role="MotherboardFormFactor" Type="Self.MotherboardFormFactor" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotherboardFormFactor">
+              <PropertyRef Name="MotherboardFFID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="MotherboardFFID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_RAMTypes">
+          <End Role="RAMTypes" Type="Self.RAMTypes" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAMTypes">
+              <PropertyRef Name="RAMTypeID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="RAMTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_Sockets">
+          <End Role="Sockets" Type="Self.Sockets" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sockets">
+              <PropertyRef Name="SocketID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="SocketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PowerSupplies_EfficiencyRatings">
+          <End Role="EfficiencyRatings" Type="Self.EfficiencyRatings" Multiplicity="1" />
+          <End Role="PowerSupplies" Type="Self.PowerSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EfficiencyRatings">
+              <PropertyRef Name="EfficiencyRatingID" />
+            </Principal>
+            <Dependent Role="PowerSupplies">
+              <PropertyRef Name="EfficiencyRatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PowerSupplies_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="PowerSupplies" Type="Self.PowerSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="PowerSupplies">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RAMs_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="RAMs" Type="Self.RAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="RAMs">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RAMs_RAMTypes">
+          <End Role="RAMTypes" Type="Self.RAMTypes" Multiplicity="1" />
+          <End Role="RAMs" Type="Self.RAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAMTypes">
+              <PropertyRef Name="RAMTypeID" />
+            </Principal>
+            <Dependent Role="RAMs">
+              <PropertyRef Name="RAMTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Storages_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Storages" Type="Self.Storages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Storages">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Storages_StorageTypes">
+          <End Role="StorageTypes" Type="Self.StorageTypes" Multiplicity="1" />
+          <End Role="Storages" Type="Self.Storages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StorageTypes">
+              <PropertyRef Name="StorageTypeID" />
+            </Principal>
+            <Dependent Role="Storages">
+              <PropertyRef Name="StorageTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DatabaseModelContainer">
+          <EntitySet Name="BuildCaseCooling" EntityType="Self.BuildCaseCooling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildRAMs" EntityType="Self.BuildRAMs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Builds" EntityType="Self.Builds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildStorages" EntityType="Self.BuildStorages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseCooling" EntityType="Self.CaseCooling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CaseFormFactors" EntityType="Self.CaseFormFactors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cases" EntityType="Self.Cases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CoolingTypes" EntityType="Self.CoolingTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CPUCooling" EntityType="Self.CPUCooling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CPUs" EntityType="Self.CPUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EfficiencyRatings" EntityType="Self.EfficiencyRatings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GPUMemoryTypes" EntityType="Self.GPUMemoryTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GPUs" EntityType="Self.GPUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MotherboardFormFactor" EntityType="Self.MotherboardFormFactor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motherboards" EntityType="Self.Motherboards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PowerSupplies" EntityType="Self.PowerSupplies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RAMs" EntityType="Self.RAMs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RAMTypes" EntityType="Self.RAMTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sockets" EntityType="Self.Sockets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Storages" EntityType="Self.Storages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StorageTypes" EntityType="Self.StorageTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BuildRAMs__Build__72C60C4A" Association="Self.FK__BuildRAMs__Build__72C60C4A">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildRAMs" EntitySet="BuildRAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BuildRAMs__RAMID__73BA3083" Association="Self.FK__BuildRAMs__RAMID__73BA3083">
+            <End Role="RAMs" EntitySet="RAMs" />
+            <End Role="BuildRAMs" EntitySet="BuildRAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildCaseCooling_Builds" Association="Self.FK_BuildCaseCooling_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildCaseCooling" EntitySet="BuildCaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildCaseCooling_CaseCooling" Association="Self.FK_BuildCaseCooling_CaseCooling">
+            <End Role="CaseCooling" EntitySet="CaseCooling" />
+            <End Role="BuildCaseCooling" EntitySet="BuildCaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_Cases" Association="Self.FK_Builds_Cases">
+            <End Role="Cases" EntitySet="Cases" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_CPUCooling" Association="Self.FK_Builds_CPUCooling">
+            <End Role="CPUCooling" EntitySet="CPUCooling" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_CPUs" Association="Self.FK_Builds_CPUs">
+            <End Role="CPUs" EntitySet="CPUs" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_GPUs" Association="Self.FK_Builds_GPUs">
+            <End Role="GPUs" EntitySet="GPUs" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_Motherboards" Association="Self.FK_Builds_Motherboards">
+            <End Role="Motherboards" EntitySet="Motherboards" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_PowerSupplies" Association="Self.FK_Builds_PowerSupplies">
+            <End Role="PowerSupplies" EntitySet="PowerSupplies" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildStorages_Builds" Association="Self.FK_BuildStorages_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildStorages" EntitySet="BuildStorages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildStorages_Storages" Association="Self.FK_BuildStorages_Storages">
+            <End Role="Storages" EntitySet="Storages" />
+            <End Role="BuildStorages" EntitySet="BuildStorages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CaseCooling_Manufacturers" Association="Self.FK_CaseCooling_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="CaseCooling" EntitySet="CaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cases_CaseFormFactors" Association="Self.FK_Cases_CaseFormFactors">
+            <End Role="CaseFormFactors" EntitySet="CaseFormFactors" />
+            <End Role="Cases" EntitySet="Cases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cases_Manufacturers" Association="Self.FK_Cases_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Cases" EntitySet="Cases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUCooling_CoolingTypes" Association="Self.FK_CPUCooling_CoolingTypes">
+            <End Role="CoolingTypes" EntitySet="CoolingTypes" />
+            <End Role="CPUCooling" EntitySet="CPUCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUCooling_Manufacturers" Association="Self.FK_CPUCooling_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="CPUCooling" EntitySet="CPUCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUs_Manufacturers" Association="Self.FK_CPUs_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="CPUs" EntitySet="CPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUs_Sockets" Association="Self.FK_CPUs_Sockets">
+            <End Role="Sockets" EntitySet="Sockets" />
+            <End Role="CPUs" EntitySet="CPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GPUs_GPUMemoryTypes" Association="Self.FK_GPUs_GPUMemoryTypes">
+            <End Role="GPUMemoryTypes" EntitySet="GPUMemoryTypes" />
+            <End Role="GPUs" EntitySet="GPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GPUs_Manufacturers" Association="Self.FK_GPUs_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="GPUs" EntitySet="GPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GPUs_Vendors" Association="Self.FK_GPUs_Vendors">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="GPUs" EntitySet="GPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_Manufacturers" Association="Self.FK_Motherboards_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_MotherboardFormFactor" Association="Self.FK_Motherboards_MotherboardFormFactor">
+            <End Role="MotherboardFormFactor" EntitySet="MotherboardFormFactor" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_RAMTypes" Association="Self.FK_Motherboards_RAMTypes">
+            <End Role="RAMTypes" EntitySet="RAMTypes" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_Sockets" Association="Self.FK_Motherboards_Sockets">
+            <End Role="Sockets" EntitySet="Sockets" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PowerSupplies_EfficiencyRatings" Association="Self.FK_PowerSupplies_EfficiencyRatings">
+            <End Role="EfficiencyRatings" EntitySet="EfficiencyRatings" />
+            <End Role="PowerSupplies" EntitySet="PowerSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PowerSupplies_Manufacturers" Association="Self.FK_PowerSupplies_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="PowerSupplies" EntitySet="PowerSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RAMs_Manufacturers" Association="Self.FK_RAMs_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="RAMs" EntitySet="RAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RAMs_RAMTypes" Association="Self.FK_RAMs_RAMTypes">
+            <End Role="RAMTypes" EntitySet="RAMTypes" />
+            <End Role="RAMs" EntitySet="RAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Storages_Manufacturers" Association="Self.FK_Storages_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Storages" EntitySet="Storages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Storages_StorageTypes" Association="Self.FK_Storages_StorageTypes">
+            <End Role="StorageTypes" EntitySet="StorageTypes" />
+            <End Role="Storages" EntitySet="Storages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BuildCaseCooling">
+          <Key>
+            <PropertyRef Name="BuildCaseCoolingID" />
+          </Key>
+          <Property Name="BuildCaseCoolingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="CaseCoolingID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildCaseCooling_Builds" FromRole="BuildCaseCooling" ToRole="Builds" />
+          <NavigationProperty Name="CaseCooling" Relationship="Self.FK_BuildCaseCooling_CaseCooling" FromRole="BuildCaseCooling" ToRole="CaseCooling" />
+        </EntityType>
+        <EntityType Name="BuildRAMs">
+          <Key>
+            <PropertyRef Name="BuildRAMID" />
+          </Key>
+          <Property Name="BuildRAMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="RAMID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK__BuildRAMs__Build__72C60C4A" FromRole="BuildRAMs" ToRole="Builds" />
+          <NavigationProperty Name="RAMs" Relationship="Self.FK__BuildRAMs__RAMID__73BA3083" FromRole="BuildRAMs" ToRole="RAMs" />
+        </EntityType>
+        <EntityType Name="Builds">
+          <Key>
+            <PropertyRef Name="BuildID" />
+          </Key>
+          <Property Name="BuildID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GPUID" Type="Int32" Nullable="false" />
+          <Property Name="CPUID" Type="Int32" Nullable="false" />
+          <Property Name="MotherboardID" Type="Int32" Nullable="false" />
+          <Property Name="CPUCoolingID" Type="Int32" Nullable="false" />
+          <Property Name="PowerSupplyID" Type="Int32" Nullable="false" />
+          <Property Name="CaseID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BuildCaseCooling" Relationship="Self.FK_BuildCaseCooling_Builds" FromRole="Builds" ToRole="BuildCaseCooling" />
+          <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__Build__72C60C4A" FromRole="Builds" ToRole="BuildRAMs" />
+          <NavigationProperty Name="Cases" Relationship="Self.FK_Builds_Cases" FromRole="Builds" ToRole="Cases" />
+          <NavigationProperty Name="CPUCooling" Relationship="Self.FK_Builds_CPUCooling" FromRole="Builds" ToRole="CPUCooling" />
+          <NavigationProperty Name="CPUs" Relationship="Self.FK_Builds_CPUs" FromRole="Builds" ToRole="CPUs" />
+          <NavigationProperty Name="GPUs" Relationship="Self.FK_Builds_GPUs" FromRole="Builds" ToRole="GPUs" />
+          <NavigationProperty Name="Motherboards" Relationship="Self.FK_Builds_Motherboards" FromRole="Builds" ToRole="Motherboards" />
+          <NavigationProperty Name="PowerSupplies" Relationship="Self.FK_Builds_PowerSupplies" FromRole="Builds" ToRole="PowerSupplies" />
+          <NavigationProperty Name="BuildStorages" Relationship="Self.FK_BuildStorages_Builds" FromRole="Builds" ToRole="BuildStorages" />
+        </EntityType>
+        <EntityType Name="BuildStorages">
+          <Key>
+            <PropertyRef Name="BuildStorageID" />
+          </Key>
+          <Property Name="BuildStorageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="StorageID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildStorages_Builds" FromRole="BuildStorages" ToRole="Builds" />
+          <NavigationProperty Name="Storages" Relationship="Self.FK_BuildStorages_Storages" FromRole="BuildStorages" ToRole="Storages" />
+        </EntityType>
+        <EntityType Name="CaseCooling">
+          <Key>
+            <PropertyRef Name="CaseCoolingID" />
+          </Key>
+          <Property Name="CaseCoolingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FanSize" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildCaseCooling" Relationship="Self.FK_BuildCaseCooling_CaseCooling" FromRole="CaseCooling" ToRole="BuildCaseCooling" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_CaseCooling_Manufacturers" FromRole="CaseCooling" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="CaseFormFactors">
+          <Key>
+            <PropertyRef Name="CaseFFID" />
+          </Key>
+          <Property Name="CaseFFID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CaseFFName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cases" Relationship="Self.FK_Cases_CaseFormFactors" FromRole="CaseFormFactors" ToRole="Cases" />
+        </EntityType>
+        <EntityType Name="Cases">
+          <Key>
+            <PropertyRef Name="CaseID" />
+          </Key>
+          <Property Name="CaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CaseFFID" Type="Int32" Nullable="false" />
+          <Property Name="MaxGPULength" Type="Int32" Nullable="false" />
+          <Property Name="MaxCoolers" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_Cases" FromRole="Cases" ToRole="Builds" />
+          <NavigationProperty Name="CaseFormFactors" Relationship="Self.FK_Cases_CaseFormFactors" FromRole="Cases" ToRole="CaseFormFactors" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Cases_Manufacturers" FromRole="Cases" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="CoolingTypes">
+          <Key>
+            <PropertyRef Name="CoolingTypeID" />
+          </Key>
+          <Property Name="CoolingTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CoolingType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CPUCooling" Relationship="Self.FK_CPUCooling_CoolingTypes" FromRole="CoolingTypes" ToRole="CPUCooling" />
+        </EntityType>
+        <EntityType Name="CPUCooling">
+          <Key>
+            <PropertyRef Name="CPUCoolingID" />
+          </Key>
+          <Property Name="CPUCoolingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CoolingTypeID" Type="Int32" Nullable="false" />
+          <Property Name="MaxSupportedTDP" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_CPUCooling" FromRole="CPUCooling" ToRole="Builds" />
+          <NavigationProperty Name="CoolingTypes" Relationship="Self.FK_CPUCooling_CoolingTypes" FromRole="CPUCooling" ToRole="CoolingTypes" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_CPUCooling_Manufacturers" FromRole="CPUCooling" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="CPUs">
+          <Key>
+            <PropertyRef Name="CPUID" />
+          </Key>
+          <Property Name="CPUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="SocketID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cores" Type="Int32" Nullable="false" />
+          <Property Name="Threads" Type="Int32" Nullable="false" />
+          <Property Name="BaseClock" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="BoostClock" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="TDP" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_CPUs" FromRole="CPUs" ToRole="Builds" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_CPUs_Manufacturers" FromRole="CPUs" ToRole="Manufacturers" />
+          <NavigationProperty Name="Sockets" Relationship="Self.FK_CPUs_Sockets" FromRole="CPUs" ToRole="Sockets" />
+        </EntityType>
+        <EntityType Name="EfficiencyRatings">
+          <Key>
+            <PropertyRef Name="EfficiencyRatingID" />
+          </Key>
+          <Property Name="EfficiencyRatingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PowerSupplies" Relationship="Self.FK_PowerSupplies_EfficiencyRatings" FromRole="EfficiencyRatings" ToRole="PowerSupplies" />
+        </EntityType>
+        <EntityType Name="GPUMemoryTypes">
+          <Key>
+            <PropertyRef Name="GPUMemoryTypeID" />
+          </Key>
+          <Property Name="GPUMemoryTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemoryType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GPUs" Relationship="Self.FK_GPUs_GPUMemoryTypes" FromRole="GPUMemoryTypes" ToRole="GPUs" />
+        </EntityType>
+        <EntityType Name="GPUs">
+          <Key>
+            <PropertyRef Name="GPUID" />
+          </Key>
+          <Property Name="GPUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="VendorID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GPUMemoryTypeID" Type="Int32" Nullable="false" />
+          <Property Name="MemoryGB" Type="Int32" Nullable="false" />
+          <Property Name="CoreBaseClock" Type="Int32" Nullable="false" />
+          <Property Name="CoreBoostClock" Type="Int32" />
+          <Property Name="MemoryClock" Type="Int32" />
+          <Property Name="GPULength" Type="Int32" Nullable="false" />
+          <Property Name="PowerConsumption" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_GPUs" FromRole="GPUs" ToRole="Builds" />
+          <NavigationProperty Name="GPUMemoryTypes" Relationship="Self.FK_GPUs_GPUMemoryTypes" FromRole="GPUs" ToRole="GPUMemoryTypes" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_GPUs_Manufacturers" FromRole="GPUs" ToRole="Manufacturers" />
+          <NavigationProperty Name="Vendors" Relationship="Self.FK_GPUs_Vendors" FromRole="GPUs" ToRole="Vendors" />
+        </EntityType>
+        <EntityType Name="Manufacturers">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CaseCooling" Relationship="Self.FK_CaseCooling_Manufacturers" FromRole="Manufacturers" ToRole="CaseCooling" />
+          <NavigationProperty Name="Cases" Relationship="Self.FK_Cases_Manufacturers" FromRole="Manufacturers" ToRole="Cases" />
+          <NavigationProperty Name="CPUCooling" Relationship="Self.FK_CPUCooling_Manufacturers" FromRole="Manufacturers" ToRole="CPUCooling" />
+          <NavigationProperty Name="CPUs" Relationship="Self.FK_CPUs_Manufacturers" FromRole="Manufacturers" ToRole="CPUs" />
+          <NavigationProperty Name="GPUs" Relationship="Self.FK_GPUs_Manufacturers" FromRole="Manufacturers" ToRole="GPUs" />
+          <NavigationProperty Name="Motherboards" Relationship="Self.FK_Motherboards_Manufacturers" FromRole="Manufacturers" ToRole="Motherboards" />
+          <NavigationProperty Name="PowerSupplies" Relationship="Self.FK_PowerSupplies_Manufacturers" FromRole="Manufacturers" ToRole="PowerSupplies" />
+          <NavigationProperty Name="RAMs" Relationship="Self.FK_RAMs_Manufacturers" FromRole="Manufacturers" ToRole="RAMs" />
+          <NavigationProperty Name="Storages" Relationship="Self.FK_Storages_Manufacturers" FromRole="Manufacturers" ToRole="Storages" />
+        </EntityType>
+        <EntityType Name="MotherboardFormFactor">
+          <Key>
+            <PropertyRef Name="MotherboardFFID" />
+          </Key>
+          <Property Name="MotherboardFFID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MotherboardFFName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Motherboards" Relationship="Self.FK_Motherboards_MotherboardFormFactor" FromRole="MotherboardFormFactor" ToRole="Motherboards" />
+        </EntityType>
+        <EntityType Name="Motherboards">
+          <Key>
+            <PropertyRef Name="MotherboardID" />
+          </Key>
+          <Property Name="MotherboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SocketID" Type="Int32" Nullable="false" />
+          <Property Name="RAMTypeID" Type="Int32" Nullable="false" />
+          <Property Name="MotherboardFFID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_Motherboards" FromRole="Motherboards" ToRole="Builds" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Motherboards_Manufacturers" FromRole="Motherboards" ToRole="Manufacturers" />
+          <NavigationProperty Name="MotherboardFormFactor" Relationship="Self.FK_Motherboards_MotherboardFormFactor" FromRole="Motherboards" ToRole="MotherboardFormFactor" />
+          <NavigationProperty Name="RAMTypes" Relationship="Self.FK_Motherboards_RAMTypes" FromRole="Motherboards" ToRole="RAMTypes" />
+          <NavigationProperty Name="Sockets" Relationship="Self.FK_Motherboards_Sockets" FromRole="Motherboards" ToRole="Sockets" />
+        </EntityType>
+        <EntityType Name="PowerSupplies">
+          <Key>
+            <PropertyRef Name="PowerSupplyID" />
+          </Key>
+          <Property Name="PowerSupplyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Wattage" Type="Int32" Nullable="false" />
+          <Property Name="EfficiencyRatingID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_PowerSupplies" FromRole="PowerSupplies" ToRole="Builds" />
+          <NavigationProperty Name="EfficiencyRatings" Relationship="Self.FK_PowerSupplies_EfficiencyRatings" FromRole="PowerSupplies" ToRole="EfficiencyRatings" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_PowerSupplies_Manufacturers" FromRole="PowerSupplies" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="RAMs">
+          <Key>
+            <PropertyRef Name="RAMID" />
+          </Key>
+          <Property Name="RAMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CapacityGB" Type="Int32" Nullable="false" />
+          <Property Name="SpeedMHz" Type="Int32" Nullable="false" />
+          <Property Name="RAMTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__RAMID__73BA3083" FromRole="RAMs" ToRole="BuildRAMs" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_RAMs_Manufacturers" FromRole="RAMs" ToRole="Manufacturers" />
+          <NavigationProperty Name="RAMTypes" Relationship="Self.FK_RAMs_RAMTypes" FromRole="RAMs" ToRole="RAMTypes" />
+        </EntityType>
+        <EntityType Name="RAMTypes">
+          <Key>
+            <PropertyRef Name="RAMTypeID" />
+          </Key>
+          <Property Name="RAMTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RAMType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Motherboards" Relationship="Self.FK_Motherboards_RAMTypes" FromRole="RAMTypes" ToRole="Motherboards" />
+          <NavigationProperty Name="RAMs" Relationship="Self.FK_RAMs_RAMTypes" FromRole="RAMTypes" ToRole="RAMs" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Sockets">
+          <Key>
+            <PropertyRef Name="SocketID" />
+          </Key>
+          <Property Name="SocketID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SocketName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CPUs" Relationship="Self.FK_CPUs_Sockets" FromRole="Sockets" ToRole="CPUs" />
+          <NavigationProperty Name="Motherboards" Relationship="Self.FK_Motherboards_Sockets" FromRole="Sockets" ToRole="Motherboards" />
+        </EntityType>
+        <EntityType Name="Storages">
+          <Key>
+            <PropertyRef Name="StorageID" />
+          </Key>
+          <Property Name="StorageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StorageTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CapacityGB" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildStorages" Relationship="Self.FK_BuildStorages_Storages" FromRole="Storages" ToRole="BuildStorages" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Storages_Manufacturers" FromRole="Storages" ToRole="Manufacturers" />
+          <NavigationProperty Name="StorageTypes" Relationship="Self.FK_Storages_StorageTypes" FromRole="Storages" ToRole="StorageTypes" />
+        </EntityType>
+        <EntityType Name="StorageTypes">
+          <Key>
+            <PropertyRef Name="StorageTypeID" />
+          </Key>
+          <Property Name="StorageTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StorageType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Storages" Relationship="Self.FK_Storages_StorageTypes" FromRole="StorageTypes" ToRole="Storages" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GPUs" Relationship="Self.FK_GPUs_Vendors" FromRole="Vendors" ToRole="GPUs" />
+        </EntityType>
+        <Association Name="FK_BuildCaseCooling_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildCaseCooling" Type="Self.BuildCaseCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildCaseCooling">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildCaseCooling_CaseCooling">
+          <End Role="CaseCooling" Type="Self.CaseCooling" Multiplicity="1" />
+          <End Role="BuildCaseCooling" Type="Self.BuildCaseCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaseCooling">
+              <PropertyRef Name="CaseCoolingID" />
+            </Principal>
+            <Dependent Role="BuildCaseCooling">
+              <PropertyRef Name="CaseCoolingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BuildRAMs__Build__72C60C4A">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildRAMs">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BuildRAMs__RAMID__73BA3083">
+          <End Role="RAMs" Type="Self.RAMs" Multiplicity="1" />
+          <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAMs">
+              <PropertyRef Name="RAMID" />
+            </Principal>
+            <Dependent Role="BuildRAMs">
+              <PropertyRef Name="RAMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_Cases">
+          <End Role="Cases" Type="Self.Cases" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cases">
+              <PropertyRef Name="CaseID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="CaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_CPUCooling">
+          <End Role="CPUCooling" Type="Self.CPUCooling" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPUCooling">
+              <PropertyRef Name="CPUCoolingID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="CPUCoolingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_CPUs">
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CPUs">
+              <PropertyRef Name="CPUID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="CPUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_GPUs">
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPUs">
+              <PropertyRef Name="GPUID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="GPUID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_Motherboards">
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motherboards">
+              <PropertyRef Name="MotherboardID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="MotherboardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Builds_PowerSupplies">
+          <End Role="PowerSupplies" Type="Self.PowerSupplies" Multiplicity="1" />
+          <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PowerSupplies">
+              <PropertyRef Name="PowerSupplyID" />
+            </Principal>
+            <Dependent Role="Builds">
+              <PropertyRef Name="PowerSupplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildStorages_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildStorages" Type="Self.BuildStorages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildStorages">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildStorages_Storages">
+          <End Role="Storages" Type="Self.Storages" Multiplicity="1" />
+          <End Role="BuildStorages" Type="Self.BuildStorages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storages">
+              <PropertyRef Name="StorageID" />
+            </Principal>
+            <Dependent Role="BuildStorages">
+              <PropertyRef Name="StorageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CaseCooling_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="CaseCooling" Type="Self.CaseCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="CaseCooling">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cases_CaseFormFactors">
+          <End Role="CaseFormFactors" Type="Self.CaseFormFactors" Multiplicity="1" />
+          <End Role="Cases" Type="Self.Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CaseFormFactors">
+              <PropertyRef Name="CaseFFID" />
+            </Principal>
+            <Dependent Role="Cases">
+              <PropertyRef Name="CaseFFID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cases_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Cases" Type="Self.Cases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Cases">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUCooling_CoolingTypes">
+          <End Role="CoolingTypes" Type="Self.CoolingTypes" Multiplicity="1" />
+          <End Role="CPUCooling" Type="Self.CPUCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CoolingTypes">
+              <PropertyRef Name="CoolingTypeID" />
+            </Principal>
+            <Dependent Role="CPUCooling">
+              <PropertyRef Name="CoolingTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUCooling_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="CPUCooling" Type="Self.CPUCooling" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="CPUCooling">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUs_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="CPUs">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CPUs_Sockets">
+          <End Role="Sockets" Type="Self.Sockets" Multiplicity="1" />
+          <End Role="CPUs" Type="Self.CPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sockets">
+              <PropertyRef Name="SocketID" />
+            </Principal>
+            <Dependent Role="CPUs">
+              <PropertyRef Name="SocketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PowerSupplies_EfficiencyRatings">
+          <End Role="EfficiencyRatings" Type="Self.EfficiencyRatings" Multiplicity="1" />
+          <End Role="PowerSupplies" Type="Self.PowerSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EfficiencyRatings">
+              <PropertyRef Name="EfficiencyRatingID" />
+            </Principal>
+            <Dependent Role="PowerSupplies">
+              <PropertyRef Name="EfficiencyRatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GPUs_GPUMemoryTypes">
+          <End Role="GPUMemoryTypes" Type="Self.GPUMemoryTypes" Multiplicity="1" />
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GPUMemoryTypes">
+              <PropertyRef Name="GPUMemoryTypeID" />
+            </Principal>
+            <Dependent Role="GPUs">
+              <PropertyRef Name="GPUMemoryTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GPUs_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="GPUs">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GPUs_Vendors">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="1" />
+          <End Role="GPUs" Type="Self.GPUs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="GPUs">
+              <PropertyRef Name="VendorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PowerSupplies_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="PowerSupplies" Type="Self.PowerSupplies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="PowerSupplies">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RAMs_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="RAMs" Type="Self.RAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="RAMs">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Storages_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Storages" Type="Self.Storages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Storages">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_MotherboardFormFactor">
+          <End Role="MotherboardFormFactor" Type="Self.MotherboardFormFactor" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MotherboardFormFactor">
+              <PropertyRef Name="MotherboardFFID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="MotherboardFFID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_RAMTypes">
+          <End Role="RAMTypes" Type="Self.RAMTypes" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAMTypes">
+              <PropertyRef Name="RAMTypeID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="RAMTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Motherboards_Sockets">
+          <End Role="Sockets" Type="Self.Sockets" Multiplicity="1" />
+          <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sockets">
+              <PropertyRef Name="SocketID" />
+            </Principal>
+            <Dependent Role="Motherboards">
+              <PropertyRef Name="SocketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RAMs_RAMTypes">
+          <End Role="RAMTypes" Type="Self.RAMTypes" Multiplicity="1" />
+          <End Role="RAMs" Type="Self.RAMs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RAMTypes">
+              <PropertyRef Name="RAMTypeID" />
+            </Principal>
+            <Dependent Role="RAMs">
+              <PropertyRef Name="RAMTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Storages_StorageTypes">
+          <End Role="StorageTypes" Type="Self.StorageTypes" Multiplicity="1" />
+          <End Role="Storages" Type="Self.Storages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StorageTypes">
+              <PropertyRef Name="StorageTypeID" />
+            </Principal>
+            <Dependent Role="Storages">
+              <PropertyRef Name="StorageTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BuildCaseCooling" EntityType="Self.BuildCaseCooling" />
+          <EntitySet Name="BuildRAMs" EntityType="Self.BuildRAMs" />
+          <EntitySet Name="Builds" EntityType="Self.Builds" />
+          <EntitySet Name="BuildStorages" EntityType="Self.BuildStorages" />
+          <EntitySet Name="CaseCooling" EntityType="Self.CaseCooling" />
+          <EntitySet Name="CaseFormFactors" EntityType="Self.CaseFormFactors" />
+          <EntitySet Name="Cases" EntityType="Self.Cases" />
+          <EntitySet Name="CoolingTypes" EntityType="Self.CoolingTypes" />
+          <EntitySet Name="CPUCooling" EntityType="Self.CPUCooling" />
+          <EntitySet Name="CPUs" EntityType="Self.CPUs" />
+          <EntitySet Name="EfficiencyRatings" EntityType="Self.EfficiencyRatings" />
+          <EntitySet Name="GPUMemoryTypes" EntityType="Self.GPUMemoryTypes" />
+          <EntitySet Name="GPUs" EntityType="Self.GPUs" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" />
+          <EntitySet Name="MotherboardFormFactor" EntityType="Self.MotherboardFormFactor" />
+          <EntitySet Name="Motherboards" EntityType="Self.Motherboards" />
+          <EntitySet Name="PowerSupplies" EntityType="Self.PowerSupplies" />
+          <EntitySet Name="RAMs" EntityType="Self.RAMs" />
+          <EntitySet Name="RAMTypes" EntityType="Self.RAMTypes" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Sockets" EntityType="Self.Sockets" />
+          <EntitySet Name="Storages" EntityType="Self.Storages" />
+          <EntitySet Name="StorageTypes" EntityType="Self.StorageTypes" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" />
+          <AssociationSet Name="FK_BuildCaseCooling_Builds" Association="Self.FK_BuildCaseCooling_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildCaseCooling" EntitySet="BuildCaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildCaseCooling_CaseCooling" Association="Self.FK_BuildCaseCooling_CaseCooling">
+            <End Role="CaseCooling" EntitySet="CaseCooling" />
+            <End Role="BuildCaseCooling" EntitySet="BuildCaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BuildRAMs__Build__72C60C4A" Association="Self.FK__BuildRAMs__Build__72C60C4A">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildRAMs" EntitySet="BuildRAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BuildRAMs__RAMID__73BA3083" Association="Self.FK__BuildRAMs__RAMID__73BA3083">
+            <End Role="RAMs" EntitySet="RAMs" />
+            <End Role="BuildRAMs" EntitySet="BuildRAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_Cases" Association="Self.FK_Builds_Cases">
+            <End Role="Cases" EntitySet="Cases" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_CPUCooling" Association="Self.FK_Builds_CPUCooling">
+            <End Role="CPUCooling" EntitySet="CPUCooling" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_CPUs" Association="Self.FK_Builds_CPUs">
+            <End Role="CPUs" EntitySet="CPUs" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_GPUs" Association="Self.FK_Builds_GPUs">
+            <End Role="GPUs" EntitySet="GPUs" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_Motherboards" Association="Self.FK_Builds_Motherboards">
+            <End Role="Motherboards" EntitySet="Motherboards" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Builds_PowerSupplies" Association="Self.FK_Builds_PowerSupplies">
+            <End Role="PowerSupplies" EntitySet="PowerSupplies" />
+            <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildStorages_Builds" Association="Self.FK_BuildStorages_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildStorages" EntitySet="BuildStorages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildStorages_Storages" Association="Self.FK_BuildStorages_Storages">
+            <End Role="Storages" EntitySet="Storages" />
+            <End Role="BuildStorages" EntitySet="BuildStorages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CaseCooling_Manufacturers" Association="Self.FK_CaseCooling_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="CaseCooling" EntitySet="CaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cases_CaseFormFactors" Association="Self.FK_Cases_CaseFormFactors">
+            <End Role="CaseFormFactors" EntitySet="CaseFormFactors" />
+            <End Role="Cases" EntitySet="Cases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cases_Manufacturers" Association="Self.FK_Cases_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Cases" EntitySet="Cases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUCooling_CoolingTypes" Association="Self.FK_CPUCooling_CoolingTypes">
+            <End Role="CoolingTypes" EntitySet="CoolingTypes" />
+            <End Role="CPUCooling" EntitySet="CPUCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUCooling_Manufacturers" Association="Self.FK_CPUCooling_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="CPUCooling" EntitySet="CPUCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUs_Manufacturers" Association="Self.FK_CPUs_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="CPUs" EntitySet="CPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CPUs_Sockets" Association="Self.FK_CPUs_Sockets">
+            <End Role="Sockets" EntitySet="Sockets" />
+            <End Role="CPUs" EntitySet="CPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PowerSupplies_EfficiencyRatings" Association="Self.FK_PowerSupplies_EfficiencyRatings">
+            <End Role="EfficiencyRatings" EntitySet="EfficiencyRatings" />
+            <End Role="PowerSupplies" EntitySet="PowerSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GPUs_GPUMemoryTypes" Association="Self.FK_GPUs_GPUMemoryTypes">
+            <End Role="GPUMemoryTypes" EntitySet="GPUMemoryTypes" />
+            <End Role="GPUs" EntitySet="GPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GPUs_Manufacturers" Association="Self.FK_GPUs_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="GPUs" EntitySet="GPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GPUs_Vendors" Association="Self.FK_GPUs_Vendors">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="GPUs" EntitySet="GPUs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_Manufacturers" Association="Self.FK_Motherboards_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PowerSupplies_Manufacturers" Association="Self.FK_PowerSupplies_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="PowerSupplies" EntitySet="PowerSupplies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RAMs_Manufacturers" Association="Self.FK_RAMs_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="RAMs" EntitySet="RAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Storages_Manufacturers" Association="Self.FK_Storages_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Storages" EntitySet="Storages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_MotherboardFormFactor" Association="Self.FK_Motherboards_MotherboardFormFactor">
+            <End Role="MotherboardFormFactor" EntitySet="MotherboardFormFactor" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_RAMTypes" Association="Self.FK_Motherboards_RAMTypes">
+            <End Role="RAMTypes" EntitySet="RAMTypes" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Motherboards_Sockets" Association="Self.FK_Motherboards_Sockets">
+            <End Role="Sockets" EntitySet="Sockets" />
+            <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RAMs_RAMTypes" Association="Self.FK_RAMs_RAMTypes">
+            <End Role="RAMTypes" EntitySet="RAMTypes" />
+            <End Role="RAMs" EntitySet="RAMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Storages_StorageTypes" Association="Self.FK_Storages_StorageTypes">
+            <End Role="StorageTypes" EntitySet="StorageTypes" />
+            <End Role="Storages" EntitySet="Storages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DatabaseModelContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="BuildCaseCooling">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildCaseCooling">
+              <MappingFragment StoreEntitySet="BuildCaseCooling">
+                <ScalarProperty Name="BuildCaseCoolingID" ColumnName="BuildCaseCoolingID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="CaseCoolingID" ColumnName="CaseCoolingID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildRAMs">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildRAMs">
+              <MappingFragment StoreEntitySet="BuildRAMs">
+                <ScalarProperty Name="BuildRAMID" ColumnName="BuildRAMID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="RAMID" ColumnName="RAMID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Builds">
+            <EntityTypeMapping TypeName="DatabaseModel.Builds">
+              <MappingFragment StoreEntitySet="Builds">
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="BuildName" ColumnName="BuildName" />
+                <ScalarProperty Name="GPUID" ColumnName="GPUID" />
+                <ScalarProperty Name="CPUID" ColumnName="CPUID" />
+                <ScalarProperty Name="MotherboardID" ColumnName="MotherboardID" />
+                <ScalarProperty Name="CPUCoolingID" ColumnName="CPUCoolingID" />
+                <ScalarProperty Name="PowerSupplyID" ColumnName="PowerSupplyID" />
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildStorages">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildStorages">
+              <MappingFragment StoreEntitySet="BuildStorages">
+                <ScalarProperty Name="BuildStorageID" ColumnName="BuildStorageID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="StorageID" ColumnName="StorageID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseCooling">
+            <EntityTypeMapping TypeName="DatabaseModel.CaseCooling">
+              <MappingFragment StoreEntitySet="CaseCooling">
+                <ScalarProperty Name="CaseCoolingID" ColumnName="CaseCoolingID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="FanSize" ColumnName="FanSize" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CaseFormFactors">
+            <EntityTypeMapping TypeName="DatabaseModel.CaseFormFactors">
+              <MappingFragment StoreEntitySet="CaseFormFactors">
+                <ScalarProperty Name="CaseFFID" ColumnName="CaseFFID" />
+                <ScalarProperty Name="CaseFFName" ColumnName="CaseFFName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cases">
+            <EntityTypeMapping TypeName="DatabaseModel.Cases">
+              <MappingFragment StoreEntitySet="Cases">
+                <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="CaseFFID" ColumnName="CaseFFID" />
+                <ScalarProperty Name="MaxGPULength" ColumnName="MaxGPULength" />
+                <ScalarProperty Name="MaxCoolers" ColumnName="MaxCoolers" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CoolingTypes">
+            <EntityTypeMapping TypeName="DatabaseModel.CoolingTypes">
+              <MappingFragment StoreEntitySet="CoolingTypes">
+                <ScalarProperty Name="CoolingTypeID" ColumnName="CoolingTypeID" />
+                <ScalarProperty Name="CoolingType" ColumnName="CoolingType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CPUCooling">
+            <EntityTypeMapping TypeName="DatabaseModel.CPUCooling">
+              <MappingFragment StoreEntitySet="CPUCooling">
+                <ScalarProperty Name="CPUCoolingID" ColumnName="CPUCoolingID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="CoolingTypeID" ColumnName="CoolingTypeID" />
+                <ScalarProperty Name="MaxSupportedTDP" ColumnName="MaxSupportedTDP" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CPUs">
+            <EntityTypeMapping TypeName="DatabaseModel.CPUs">
+              <MappingFragment StoreEntitySet="CPUs">
+                <ScalarProperty Name="CPUID" ColumnName="CPUID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="SocketID" ColumnName="SocketID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Cores" ColumnName="Cores" />
+                <ScalarProperty Name="Threads" ColumnName="Threads" />
+                <ScalarProperty Name="BaseClock" ColumnName="BaseClock" />
+                <ScalarProperty Name="BoostClock" ColumnName="BoostClock" />
+                <ScalarProperty Name="TDP" ColumnName="TDP" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EfficiencyRatings">
+            <EntityTypeMapping TypeName="DatabaseModel.EfficiencyRatings">
+              <MappingFragment StoreEntitySet="EfficiencyRatings">
+                <ScalarProperty Name="EfficiencyRatingID" ColumnName="EfficiencyRatingID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GPUMemoryTypes">
+            <EntityTypeMapping TypeName="DatabaseModel.GPUMemoryTypes">
+              <MappingFragment StoreEntitySet="GPUMemoryTypes">
+                <ScalarProperty Name="GPUMemoryTypeID" ColumnName="GPUMemoryTypeID" />
+                <ScalarProperty Name="MemoryType" ColumnName="MemoryType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GPUs">
+            <EntityTypeMapping TypeName="DatabaseModel.GPUs">
+              <MappingFragment StoreEntitySet="GPUs">
+                <ScalarProperty Name="GPUID" ColumnName="GPUID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="GPUMemoryTypeID" ColumnName="GPUMemoryTypeID" />
+                <ScalarProperty Name="MemoryGB" ColumnName="MemoryGB" />
+                <ScalarProperty Name="CoreBaseClock" ColumnName="CoreBaseClock" />
+                <ScalarProperty Name="CoreBoostClock" ColumnName="CoreBoostClock" />
+                <ScalarProperty Name="MemoryClock" ColumnName="MemoryClock" />
+                <ScalarProperty Name="GPULength" ColumnName="GPULength" />
+                <ScalarProperty Name="PowerConsumption" ColumnName="PowerConsumption" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="DatabaseModel.Manufacturers">
+              <MappingFragment StoreEntitySet="Manufacturers">
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MotherboardFormFactor">
+            <EntityTypeMapping TypeName="DatabaseModel.MotherboardFormFactor">
+              <MappingFragment StoreEntitySet="MotherboardFormFactor">
+                <ScalarProperty Name="MotherboardFFID" ColumnName="MotherboardFFID" />
+                <ScalarProperty Name="MotherboardFFName" ColumnName="MotherboardFFName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motherboards">
+            <EntityTypeMapping TypeName="DatabaseModel.Motherboards">
+              <MappingFragment StoreEntitySet="Motherboards">
+                <ScalarProperty Name="MotherboardID" ColumnName="MotherboardID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="SocketID" ColumnName="SocketID" />
+                <ScalarProperty Name="RAMTypeID" ColumnName="RAMTypeID" />
+                <ScalarProperty Name="MotherboardFFID" ColumnName="MotherboardFFID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PowerSupplies">
+            <EntityTypeMapping TypeName="DatabaseModel.PowerSupplies">
+              <MappingFragment StoreEntitySet="PowerSupplies">
+                <ScalarProperty Name="PowerSupplyID" ColumnName="PowerSupplyID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Wattage" ColumnName="Wattage" />
+                <ScalarProperty Name="EfficiencyRatingID" ColumnName="EfficiencyRatingID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RAMs">
+            <EntityTypeMapping TypeName="DatabaseModel.RAMs">
+              <MappingFragment StoreEntitySet="RAMs">
+                <ScalarProperty Name="RAMID" ColumnName="RAMID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="CapacityGB" ColumnName="CapacityGB" />
+                <ScalarProperty Name="SpeedMHz" ColumnName="SpeedMHz" />
+                <ScalarProperty Name="RAMTypeID" ColumnName="RAMTypeID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RAMTypes">
+            <EntityTypeMapping TypeName="DatabaseModel.RAMTypes">
+              <MappingFragment StoreEntitySet="RAMTypes">
+                <ScalarProperty Name="RAMTypeID" ColumnName="RAMTypeID" />
+                <ScalarProperty Name="RAMType" ColumnName="RAMType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DatabaseModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sockets">
+            <EntityTypeMapping TypeName="DatabaseModel.Sockets">
+              <MappingFragment StoreEntitySet="Sockets">
+                <ScalarProperty Name="SocketID" ColumnName="SocketID" />
+                <ScalarProperty Name="SocketName" ColumnName="SocketName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Storages">
+            <EntityTypeMapping TypeName="DatabaseModel.Storages">
+              <MappingFragment StoreEntitySet="Storages">
+                <ScalarProperty Name="StorageID" ColumnName="StorageID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="StorageTypeID" ColumnName="StorageTypeID" />
+                <ScalarProperty Name="CapacityGB" ColumnName="CapacityGB" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StorageTypes">
+            <EntityTypeMapping TypeName="DatabaseModel.StorageTypes">
+              <MappingFragment StoreEntitySet="StorageTypes">
+                <ScalarProperty Name="StorageTypeID" ColumnName="StorageTypeID" />
+                <ScalarProperty Name="StorageType" ColumnName="StorageType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DatabaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="DatabaseModel.Vendors">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,37 @@
+﻿<Page x:Class="ComputerConfiguratorService.View.AuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+      Background="White"
+      FontFamily="Segoe UI">
+
+    <Grid Width="1280" Height="720">
+        <ScrollViewer Margin="40" VerticalScrollBarVisibility="Auto">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="512" Margin="0,40,0,0">
+
+                <TextBlock Text="Вход в систему" FontSize="28" FontWeight="Bold" Foreground="#111518" TextAlignment="Center" Margin="0,0,0,24"/>
+
+                <StackPanel Margin="0,0,0,16">
+                    <TextBlock Text="Введите логин" FontSize="20" FontWeight="Medium" Foreground="#111518" Margin="4,0,0,4"/>
+                    <Border Background="#F0F2F5" CornerRadius="12">
+                        <xctk:WatermarkTextBox Watermark="Логин" Background="Transparent" BorderThickness="0" Padding="12" FontSize="18" Foreground="#111518" 
+                                               x:Name="LoginTextBox"/>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Введите пароль" FontSize="20" FontWeight="Medium" Foreground="#111518" Margin="4,0,0,4"/>
+                    <Border Background="#F0F2F5" CornerRadius="12">
+                        <xctk:WatermarkPasswordBox Watermark="Пароль" Background="Transparent" BorderThickness="0" Padding="12" FontSize="18" Foreground="#111518"
+                                                   x:Name="PasswordPassBx"/>
+                    </Border>
+                </StackPanel>
+
+                <Border CornerRadius="12" Background="#2094F3" Height="40" Margin="0,0,0,16">
+                    <Button Content="Войти" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="14" FontWeight="Bold" x:Name="LogInButton"
+                            Click="LogInButton_Click"/>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

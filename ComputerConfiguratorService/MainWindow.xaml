@@ -1,0 +1,38 @@
+﻿<Window x:Class="ComputerConfiguratorService.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PC Configurator Service" 
+        MaxHeight="1080" MaxWidth="1920" MinHeight="720" MinWidth="1280"
+        WindowStartupLocation="CenterScreen" WindowState="Normal"
+        Icon="/Resources/icon.png"
+        Background="White"
+        FontFamily="Segoe UI">
+
+    <Viewbox Stretch="Uniform">
+
+        <Grid Width="1280" Height="720">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="White" BorderBrush="#F0F2F5" BorderThickness="0,0,0,1" Padding="20,10">
+                <DockPanel LastChildFill="False" VerticalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                        <Image Source="/Resources/icon.png" Width="32" Height="32" Margin="0,0,8,0"/>
+                        <TextBlock Text="PC Service Configurator" FontSize="24" FontWeight="Bold" Foreground="#0E141B" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                        <TextBlock Name="DateTimeText" FontSize="16" Foreground="#60778A" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Border DockPanel.Dock="Right" VerticalAlignment="Center" Background="#E7EDF3" CornerRadius="12">
+                        <Button x:Name="BackButton" Content="Назад" Click="BackButton_Click" Background="Transparent" BorderThickness="0" FontSize="18" 
+                                FontWeight="Bold" Foreground="#0E141B" Padding="12,6" Cursor="Hand"/>
+                    </Border>
+                </DockPanel>
+            </Border>
+
+            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Background="White"/>
+        </Grid>
+    </Viewbox>
+</Window>

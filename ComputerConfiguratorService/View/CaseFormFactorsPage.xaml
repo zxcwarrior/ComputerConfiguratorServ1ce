@@ -1,0 +1,78 @@
+﻿<Page x:Class="ComputerConfiguratorService.View.CaseFormFactorsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ComputerConfiguratorService.View"
+      mc:Ignorable="d" 
+      Title="CaseFormFactorsPage">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="Добавить новый" 
+                Click="AddNewButton_Click" 
+                HorizontalAlignment="Left" 
+                Width="150" 
+                Height="40" 
+                Margin="0,10,0,10" 
+                FontSize="14"/>
+
+        <DataGrid x:Name="DGCaseFormFactors" 
+                  Grid.Row="1" 
+                  AutoGenerateColumns="False" 
+                  HeadersVisibility="Column" 
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" 
+                                    Binding="{Binding CaseFFName}" 
+                                    IsReadOnly="True" 
+                                    Width="*"/>
+                <DataGridTemplateColumn Header="Действия" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Редактировать" 
+                                        Click="EditButton_Click" 
+                                        Width="90" 
+                                        Height="30" 
+                                        Margin="5" 
+                                        FontSize="12"/>
+                                <Button Content="Удалить" 
+                                        Click="DeleteButton_Click" 
+                                        Width="90" 
+                                        Height="30" 
+                                        Margin="5" 
+                                        FontSize="12"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border x:Name="EditPanel" 
+                Grid.RowSpan="2" 
+                Visibility="Collapsed" 
+                Padding="10" 
+                CornerRadius="10" 
+                Margin="10">
+            <StackPanel>
+                <TextBlock Text="Редактирование/Добавление форм-фактора корпуса" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Название:" Width="120" FontSize="14"/>
+                    <TextBox x:Name="tbName" Width="200" Height="40" Padding="5" FontSize="14"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+                    <Button Content="Сохранить" Click="SaveButton_Click" Width="120" Height="40" Margin="0,0,5,0" FontSize="14"/>
+                    <Button Content="Отмена" Click="CancelButton_Click" Width="120" Height="40" Margin="5,0,0,0" FontSize="14"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
