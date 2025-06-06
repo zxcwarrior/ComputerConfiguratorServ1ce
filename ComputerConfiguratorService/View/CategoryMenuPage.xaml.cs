@@ -24,6 +24,7 @@ namespace ComputerConfiguratorService.View
         public CategoryMenuPage()
         {
             InitializeComponent();
+            CheckUser();
         }
         private void MenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -40,8 +41,18 @@ namespace ComputerConfiguratorService.View
                     case "Конфигуратор":
                         //Manager.MenuFrame.Navigate(new ComponentsPage());
                         break;
+                    case "Справочные данные":
+                        Manager.MenuFrame.Navigate(new BackDataPage());
+                        break;
                 }
             }
+        }
+        private void CheckUser()
+        {
+            if (Manager.AuthUser == null || Manager.AuthUser.Roles.RoleID != 1)
+                BackData.Visibility = Visibility.Collapsed;
+            else
+                BackData.Visibility = Visibility.Visible;
         }
     }
 }

@@ -13,52 +13,44 @@ namespace ComputerConfiguratorService.View
         {
             InitializeComponent();
         }
-        private void ManufacturersButton_Click(object sender, RoutedEventArgs e)
+        private void TypeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new ManufacturersPage());
-        }
-
-        private void SocketsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new SocketsPage());
-        }
-
-        private void RAMTypesButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new RAMTypesPage());
-        }
-
-        private void StorageTypesButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new StorageTypesPage());
-        }
-
-        private void CoolingTypesButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new CoolingTypesPage());
-        }
-
-        private void CaseFormFactorsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new CaseFormFactorsPage());
-        }
-        private void MotherboardFormFactorsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new MotherboardFormFactorPage());
-        }
-        private void EfficiencyRatingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new EfficiencyRatingsPage());
-        }
-
-        private void VendorsButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new VendorsPage());
-        }
-
-        private void GPUMemoryTypesButton_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new GPUMemoryTypesPage());
+            if (TypeListBox.SelectedItem is ListBoxItem item)
+            {
+                switch (item.Content.ToString())
+                {
+                    case "Производители":
+                        Manager.DetailFrame.Navigate(new ManufacturersPage());
+                        break;
+                    case "Сокеты":
+                        Manager.DetailFrame.Navigate(new SocketsPage());
+                        break;
+                    case "Типы RAM":
+                        Manager.DetailFrame.Navigate(new RAMTypesPage());
+                        break;
+                    case "Типы накопителей":
+                        Manager.DetailFrame.Navigate(new StorageTypesPage());
+                        break;
+                    case "Типы охлаждения":
+                        Manager.DetailFrame.Navigate(new CoolingTypesPage());
+                        break;
+                    case "Форм-факторы корпусов":
+                        Manager.DetailFrame.Navigate(new CaseFormFactorsPage());
+                        break;
+                    case "Форм-факторы мат.плат":
+                        Manager.DetailFrame.Navigate(new MotherboardFormFactorPage());
+                        break;
+                    case "Рейтинги эффективности":
+                        Manager.DetailFrame.Navigate(new EfficiencyRatingsPage());
+                        break;
+                    case "Вендоры":
+                        Manager.DetailFrame.Navigate(new VendorsPage());
+                        break;
+                    case "Типы памяти GPU":
+                        Manager.DetailFrame.Navigate(new GPUMemoryTypesPage());
+                        break;
+                }
+            }
         }
     }
 }

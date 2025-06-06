@@ -44,6 +44,7 @@
                     <ListBoxItem Content="Комплектующие"/>
                     <ListBoxItem Content="Готовые сборки"/>
                     <ListBoxItem Content="Конфигуратор"/>
+                    <ListBoxItem x:Name="BackData" Content="Справочные данные"/>
                     <!--<ListBoxItem>
                 <DockPanel>
                     <Image Source="/Resources/icon.png" Width="50" Height="25"/>
