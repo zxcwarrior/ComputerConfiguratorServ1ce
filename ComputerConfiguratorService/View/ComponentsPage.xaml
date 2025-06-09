@@ -49,12 +49,6 @@
                     <ListBoxItem Content="Накопители"/>
                     <ListBoxItem Content="Корпусы"/>
                     <ListBoxItem Content="Корпусные вентиляторы"/>
-                    <!--<ListBoxItem>
-                    <DockPanel>
-                        <Image Source="/Resources/icon.png" Width="50" Height="25"/>
-                        <TextBlock Text=""/>
-                    </DockPanel>
-                </ListBoxItem>-->
                 </ListBox>
             </StackPanel>
         </Border>

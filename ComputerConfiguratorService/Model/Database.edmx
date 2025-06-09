@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище DatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище DatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BuildCaseCooling">
           <Key>
             <PropertyRef Name="BuildCaseCoolingID" />
@@ -13,6 +13,46 @@
           <Property Name="BuildID" Type="int" Nullable="false" />
           <Property Name="CaseCoolingID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildHeadphones">
+          <Key>
+            <PropertyRef Name="BuildHeadphoneID" />
+          </Key>
+          <Property Name="BuildHeadphoneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="HeadphoneID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildKeyboards">
+          <Key>
+            <PropertyRef Name="BuildKeyboardID" />
+          </Key>
+          <Property Name="BuildKeyboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="KeyboardID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildMicrophones">
+          <Key>
+            <PropertyRef Name="BuildMicrophoneID" />
+          </Key>
+          <Property Name="BuildMicrophoneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="MicrophoneID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildMonitors">
+          <Key>
+            <PropertyRef Name="BuildMonitorID" />
+          </Key>
+          <Property Name="BuildMonitorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="MonitorID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildMouses">
+          <Key>
+            <PropertyRef Name="BuildMouseID" />
+          </Key>
+          <Property Name="BuildMouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="MouseID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BuildRAMs">
           <Key>
@@ -35,6 +75,14 @@
           <Property Name="CPUCoolingID" Type="int" Nullable="false" />
           <Property Name="PowerSupplyID" Type="int" Nullable="false" />
           <Property Name="CaseID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuildServices">
+          <Key>
+            <PropertyRef Name="BuildServiceID" />
+          </Key>
+          <Property Name="BuildServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BuildStorages">
           <Key>
@@ -143,12 +191,52 @@
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Headphones">
+          <Key>
+            <PropertyRef Name="HeadphonesID" />
+          </Key>
+          <Property Name="HeadphonesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Keyboards">
+          <Key>
+            <PropertyRef Name="KeyboardID" />
+          </Key>
+          <Property Name="KeyboardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Manufacturers">
           <Key>
             <PropertyRef Name="ManufacturerID" />
           </Key>
           <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ManufacturerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Microphones">
+          <Key>
+            <PropertyRef Name="MicrophoneID" />
+          </Key>
+          <Property Name="MicrophoneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Monitors">
+          <Key>
+            <PropertyRef Name="MonitorID" />
+          </Key>
+          <Property Name="MonitorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MotherboardFormFactor">
           <Key>
@@ -169,6 +257,25 @@
           <Property Name="MotherboardFFID" Type="int" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Mouses">
+          <Key>
+            <PropertyRef Name="MouseID" />
+          </Key>
+          <Property Name="MouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildID" Type="int" Nullable="false" />
+          <Property Name="Cost" Type="money" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="PowerSupplies">
           <Key>
@@ -208,6 +315,14 @@
           </Key>
           <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Sockets">
           <Key>
@@ -302,6 +417,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BuildHeadphones_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildHeadphones" Type="Self.BuildHeadphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildHeadphones">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildHeadphones_Headphones">
+          <End Role="Headphones" Type="Self.Headphones" Multiplicity="1" />
+          <End Role="BuildHeadphones" Type="Self.BuildHeadphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Headphones">
+              <PropertyRef Name="HeadphonesID" />
+            </Principal>
+            <Dependent Role="BuildHeadphones">
+              <PropertyRef Name="HeadphoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildKeyboards_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildKeyboards" Type="Self.BuildKeyboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildKeyboards">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildKeyboards_Keyboards">
+          <End Role="Keyboards" Type="Self.Keyboards" Multiplicity="1" />
+          <End Role="BuildKeyboards" Type="Self.BuildKeyboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyboards">
+              <PropertyRef Name="KeyboardID" />
+            </Principal>
+            <Dependent Role="BuildKeyboards">
+              <PropertyRef Name="KeyboardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMicrophones_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildMicrophones" Type="Self.BuildMicrophones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildMicrophones">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMicrophones_Microphones">
+          <End Role="Microphones" Type="Self.Microphones" Multiplicity="1" />
+          <End Role="BuildMicrophones" Type="Self.BuildMicrophones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Microphones">
+              <PropertyRef Name="MicrophoneID" />
+            </Principal>
+            <Dependent Role="BuildMicrophones">
+              <PropertyRef Name="MicrophoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMonitors_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildMonitors" Type="Self.BuildMonitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildMonitors">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMonitors_Monitors">
+          <End Role="Monitors" Type="Self.Monitors" Multiplicity="1" />
+          <End Role="BuildMonitors" Type="Self.BuildMonitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monitors">
+              <PropertyRef Name="MonitorID" />
+            </Principal>
+            <Dependent Role="BuildMonitors">
+              <PropertyRef Name="MonitorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMouses_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildMouses" Type="Self.BuildMouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildMouses">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMouses_Mouses">
+          <End Role="Mouses" Type="Self.Mouses" Multiplicity="1" />
+          <End Role="BuildMouses" Type="Self.BuildMouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mouses">
+              <PropertyRef Name="MouseID" />
+            </Principal>
+            <Dependent Role="BuildMouses">
+              <PropertyRef Name="MouseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Builds_Cases">
           <End Role="Cases" Type="Self.Cases" Multiplicity="1" />
           <End Role="Builds" Type="Self.Builds" Multiplicity="*" />
@@ -371,6 +606,30 @@
             </Principal>
             <Dependent Role="Builds">
               <PropertyRef Name="PowerSupplyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildServices_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildServices" Type="Self.BuildServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildServices">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildServices_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="BuildServices" Type="Self.BuildServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="BuildServices">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -518,6 +777,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Headphones_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Headphones" Type="Self.Headphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Headphones">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyboards_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Keyboards" Type="Self.Keyboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Keyboards">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Microphones_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Microphones" Type="Self.Microphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Microphones">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitors_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Monitors" Type="Self.Monitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Monitors">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Motherboards_Manufacturers">
           <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
@@ -563,6 +870,30 @@
             </Principal>
             <Dependent Role="Motherboards">
               <PropertyRef Name="SocketID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mouses_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Mouses" Type="Self.Mouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Mouses">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BuildID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -652,8 +983,14 @@
         </Association>
         <EntityContainer Name="Хранилище DatabaseModelContainer">
           <EntitySet Name="BuildCaseCooling" EntityType="Self.BuildCaseCooling" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildHeadphones" EntityType="Self.BuildHeadphones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildKeyboards" EntityType="Self.BuildKeyboards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildMicrophones" EntityType="Self.BuildMicrophones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildMonitors" EntityType="Self.BuildMonitors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildMouses" EntityType="Self.BuildMouses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildRAMs" EntityType="Self.BuildRAMs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Builds" EntityType="Self.Builds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildServices" EntityType="Self.BuildServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BuildStorages" EntityType="Self.BuildStorages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CaseCooling" EntityType="Self.CaseCooling" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CaseFormFactors" EntityType="Self.CaseFormFactors" Schema="dbo" store:Type="Tables" />
@@ -664,13 +1001,20 @@
           <EntitySet Name="EfficiencyRatings" EntityType="Self.EfficiencyRatings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GPUMemoryTypes" EntityType="Self.GPUMemoryTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GPUs" EntityType="Self.GPUs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Headphones" EntityType="Self.Headphones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keyboards" EntityType="Self.Keyboards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Microphones" EntityType="Self.Microphones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monitors" EntityType="Self.Monitors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MotherboardFormFactor" EntityType="Self.MotherboardFormFactor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Motherboards" EntityType="Self.Motherboards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mouses" EntityType="Self.Mouses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PowerSupplies" EntityType="Self.PowerSupplies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RAMs" EntityType="Self.RAMs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RAMTypes" EntityType="Self.RAMTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sockets" EntityType="Self.Sockets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Storages" EntityType="Self.Storages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StorageTypes" EntityType="Self.StorageTypes" Schema="dbo" store:Type="Tables" />
@@ -691,6 +1035,46 @@
           <AssociationSet Name="FK_BuildCaseCooling_CaseCooling" Association="Self.FK_BuildCaseCooling_CaseCooling">
             <End Role="CaseCooling" EntitySet="CaseCooling" />
             <End Role="BuildCaseCooling" EntitySet="BuildCaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildHeadphones_Builds" Association="Self.FK_BuildHeadphones_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildHeadphones" EntitySet="BuildHeadphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildHeadphones_Headphones" Association="Self.FK_BuildHeadphones_Headphones">
+            <End Role="Headphones" EntitySet="Headphones" />
+            <End Role="BuildHeadphones" EntitySet="BuildHeadphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildKeyboards_Builds" Association="Self.FK_BuildKeyboards_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildKeyboards" EntitySet="BuildKeyboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildKeyboards_Keyboards" Association="Self.FK_BuildKeyboards_Keyboards">
+            <End Role="Keyboards" EntitySet="Keyboards" />
+            <End Role="BuildKeyboards" EntitySet="BuildKeyboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMicrophones_Builds" Association="Self.FK_BuildMicrophones_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildMicrophones" EntitySet="BuildMicrophones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMicrophones_Microphones" Association="Self.FK_BuildMicrophones_Microphones">
+            <End Role="Microphones" EntitySet="Microphones" />
+            <End Role="BuildMicrophones" EntitySet="BuildMicrophones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMonitors_Builds" Association="Self.FK_BuildMonitors_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildMonitors" EntitySet="BuildMonitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMonitors_Monitors" Association="Self.FK_BuildMonitors_Monitors">
+            <End Role="Monitors" EntitySet="Monitors" />
+            <End Role="BuildMonitors" EntitySet="BuildMonitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMouses_Builds" Association="Self.FK_BuildMouses_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildMouses" EntitySet="BuildMouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMouses_Mouses" Association="Self.FK_BuildMouses_Mouses">
+            <End Role="Mouses" EntitySet="Mouses" />
+            <End Role="BuildMouses" EntitySet="BuildMouses" />
           </AssociationSet>
           <AssociationSet Name="FK_Builds_Cases" Association="Self.FK_Builds_Cases">
             <End Role="Cases" EntitySet="Cases" />
@@ -715,6 +1099,14 @@
           <AssociationSet Name="FK_Builds_PowerSupplies" Association="Self.FK_Builds_PowerSupplies">
             <End Role="PowerSupplies" EntitySet="PowerSupplies" />
             <End Role="Builds" EntitySet="Builds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildServices_Builds" Association="Self.FK_BuildServices_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildServices" EntitySet="BuildServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildServices_Services" Association="Self.FK_BuildServices_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="BuildServices" EntitySet="BuildServices" />
           </AssociationSet>
           <AssociationSet Name="FK_BuildStorages_Builds" Association="Self.FK_BuildStorages_Builds">
             <End Role="Builds" EntitySet="Builds" />
@@ -764,6 +1156,22 @@
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="GPUs" EntitySet="GPUs" />
           </AssociationSet>
+          <AssociationSet Name="FK_Headphones_Manufacturers" Association="Self.FK_Headphones_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Headphones" EntitySet="Headphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyboards_Manufacturers" Association="Self.FK_Keyboards_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Keyboards" EntitySet="Keyboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Microphones_Manufacturers" Association="Self.FK_Microphones_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Microphones" EntitySet="Microphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitors_Manufacturers" Association="Self.FK_Monitors_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Monitors" EntitySet="Monitors" />
+          </AssociationSet>
           <AssociationSet Name="FK_Motherboards_Manufacturers" Association="Self.FK_Motherboards_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Motherboards" EntitySet="Motherboards" />
@@ -779,6 +1187,14 @@
           <AssociationSet Name="FK_Motherboards_Sockets" Association="Self.FK_Motherboards_Sockets">
             <End Role="Sockets" EntitySet="Sockets" />
             <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mouses_Manufacturers" Association="Self.FK_Mouses_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Mouses" EntitySet="Mouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Builds" Association="Self.FK_Orders_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_PowerSupplies_EfficiencyRatings" Association="Self.FK_PowerSupplies_EfficiencyRatings">
             <End Role="EfficiencyRatings" EntitySet="EfficiencyRatings" />
@@ -809,8 +1225,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -824,6 +1239,56 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Builds" Relationship="Self.FK_BuildCaseCooling_Builds" FromRole="BuildCaseCooling" ToRole="Builds" />
           <NavigationProperty Name="CaseCooling" Relationship="Self.FK_BuildCaseCooling_CaseCooling" FromRole="BuildCaseCooling" ToRole="CaseCooling" />
+        </EntityType>
+        <EntityType Name="BuildHeadphones">
+          <Key>
+            <PropertyRef Name="BuildHeadphoneID" />
+          </Key>
+          <Property Name="BuildHeadphoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="HeadphoneID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildHeadphones_Builds" FromRole="BuildHeadphones" ToRole="Builds" />
+          <NavigationProperty Name="Headphones" Relationship="Self.FK_BuildHeadphones_Headphones" FromRole="BuildHeadphones" ToRole="Headphones" />
+        </EntityType>
+        <EntityType Name="BuildKeyboards">
+          <Key>
+            <PropertyRef Name="BuildKeyboardID" />
+          </Key>
+          <Property Name="BuildKeyboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="KeyboardID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildKeyboards_Builds" FromRole="BuildKeyboards" ToRole="Builds" />
+          <NavigationProperty Name="Keyboards" Relationship="Self.FK_BuildKeyboards_Keyboards" FromRole="BuildKeyboards" ToRole="Keyboards" />
+        </EntityType>
+        <EntityType Name="BuildMicrophones">
+          <Key>
+            <PropertyRef Name="BuildMicrophoneID" />
+          </Key>
+          <Property Name="BuildMicrophoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="MicrophoneID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildMicrophones_Builds" FromRole="BuildMicrophones" ToRole="Builds" />
+          <NavigationProperty Name="Microphones" Relationship="Self.FK_BuildMicrophones_Microphones" FromRole="BuildMicrophones" ToRole="Microphones" />
+        </EntityType>
+        <EntityType Name="BuildMonitors">
+          <Key>
+            <PropertyRef Name="BuildMonitorID" />
+          </Key>
+          <Property Name="BuildMonitorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="MonitorID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildMonitors_Builds" FromRole="BuildMonitors" ToRole="Builds" />
+          <NavigationProperty Name="Monitors" Relationship="Self.FK_BuildMonitors_Monitors" FromRole="BuildMonitors" ToRole="Monitors" />
+        </EntityType>
+        <EntityType Name="BuildMouses">
+          <Key>
+            <PropertyRef Name="BuildMouseID" />
+          </Key>
+          <Property Name="BuildMouseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="MouseID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildMouses_Builds" FromRole="BuildMouses" ToRole="Builds" />
+          <NavigationProperty Name="Mouses" Relationship="Self.FK_BuildMouses_Mouses" FromRole="BuildMouses" ToRole="Mouses" />
         </EntityType>
         <EntityType Name="BuildRAMs">
           <Key>
@@ -849,6 +1314,11 @@
           <Property Name="PowerSupplyID" Type="Int32" Nullable="false" />
           <Property Name="CaseID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BuildCaseCooling" Relationship="Self.FK_BuildCaseCooling_Builds" FromRole="Builds" ToRole="BuildCaseCooling" />
+          <NavigationProperty Name="BuildHeadphones" Relationship="Self.FK_BuildHeadphones_Builds" FromRole="Builds" ToRole="BuildHeadphones" />
+          <NavigationProperty Name="BuildKeyboards" Relationship="Self.FK_BuildKeyboards_Builds" FromRole="Builds" ToRole="BuildKeyboards" />
+          <NavigationProperty Name="BuildMicrophones" Relationship="Self.FK_BuildMicrophones_Builds" FromRole="Builds" ToRole="BuildMicrophones" />
+          <NavigationProperty Name="BuildMonitors" Relationship="Self.FK_BuildMonitors_Builds" FromRole="Builds" ToRole="BuildMonitors" />
+          <NavigationProperty Name="BuildMouses" Relationship="Self.FK_BuildMouses_Builds" FromRole="Builds" ToRole="BuildMouses" />
           <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__Build__72C60C4A" FromRole="Builds" ToRole="BuildRAMs" />
           <NavigationProperty Name="Cases" Relationship="Self.FK_Builds_Cases" FromRole="Builds" ToRole="Cases" />
           <NavigationProperty Name="CPUCooling" Relationship="Self.FK_Builds_CPUCooling" FromRole="Builds" ToRole="CPUCooling" />
@@ -856,7 +1326,19 @@
           <NavigationProperty Name="GPUs" Relationship="Self.FK_Builds_GPUs" FromRole="Builds" ToRole="GPUs" />
           <NavigationProperty Name="Motherboards" Relationship="Self.FK_Builds_Motherboards" FromRole="Builds" ToRole="Motherboards" />
           <NavigationProperty Name="PowerSupplies" Relationship="Self.FK_Builds_PowerSupplies" FromRole="Builds" ToRole="PowerSupplies" />
+          <NavigationProperty Name="BuildServices" Relationship="Self.FK_BuildServices_Builds" FromRole="Builds" ToRole="BuildServices" />
           <NavigationProperty Name="BuildStorages" Relationship="Self.FK_BuildStorages_Builds" FromRole="Builds" ToRole="BuildStorages" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Builds" FromRole="Builds" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="BuildServices">
+          <Key>
+            <PropertyRef Name="BuildServiceID" />
+          </Key>
+          <Property Name="BuildServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_BuildServices_Builds" FromRole="BuildServices" ToRole="Builds" />
+          <NavigationProperty Name="Services" Relationship="Self.FK_BuildServices_Services" FromRole="BuildServices" ToRole="Services" />
         </EntityType>
         <EntityType Name="BuildStorages">
           <Key>
@@ -986,6 +1468,30 @@
           <NavigationProperty Name="Manufacturers" Relationship="Self.FK_GPUs_Manufacturers" FromRole="GPUs" ToRole="Manufacturers" />
           <NavigationProperty Name="Vendors" Relationship="Self.FK_GPUs_Vendors" FromRole="GPUs" ToRole="Vendors" />
         </EntityType>
+        <EntityType Name="Headphones">
+          <Key>
+            <PropertyRef Name="HeadphonesID" />
+          </Key>
+          <Property Name="HeadphonesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="BuildHeadphones" Relationship="Self.FK_BuildHeadphones_Headphones" FromRole="Headphones" ToRole="BuildHeadphones" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Headphones_Manufacturers" FromRole="Headphones" ToRole="Manufacturers" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Keyboards">
+          <Key>
+            <PropertyRef Name="KeyboardID" />
+          </Key>
+          <Property Name="KeyboardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BuildKeyboards" Relationship="Self.FK_BuildKeyboards_Keyboards" FromRole="Keyboards" ToRole="BuildKeyboards" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Keyboards_Manufacturers" FromRole="Keyboards" ToRole="Manufacturers" />
+        </EntityType>
         <EntityType Name="Manufacturers">
           <Key>
             <PropertyRef Name="ManufacturerID" />
@@ -997,10 +1503,39 @@
           <NavigationProperty Name="CPUCooling" Relationship="Self.FK_CPUCooling_Manufacturers" FromRole="Manufacturers" ToRole="CPUCooling" />
           <NavigationProperty Name="CPUs" Relationship="Self.FK_CPUs_Manufacturers" FromRole="Manufacturers" ToRole="CPUs" />
           <NavigationProperty Name="GPUs" Relationship="Self.FK_GPUs_Manufacturers" FromRole="Manufacturers" ToRole="GPUs" />
+          <NavigationProperty Name="Headphones" Relationship="Self.FK_Headphones_Manufacturers" FromRole="Manufacturers" ToRole="Headphones" />
+          <NavigationProperty Name="Keyboards" Relationship="Self.FK_Keyboards_Manufacturers" FromRole="Manufacturers" ToRole="Keyboards" />
+          <NavigationProperty Name="Microphones" Relationship="Self.FK_Microphones_Manufacturers" FromRole="Manufacturers" ToRole="Microphones" />
+          <NavigationProperty Name="Monitors" Relationship="Self.FK_Monitors_Manufacturers" FromRole="Manufacturers" ToRole="Monitors" />
           <NavigationProperty Name="Motherboards" Relationship="Self.FK_Motherboards_Manufacturers" FromRole="Manufacturers" ToRole="Motherboards" />
+          <NavigationProperty Name="Mouses" Relationship="Self.FK_Mouses_Manufacturers" FromRole="Manufacturers" ToRole="Mouses" />
           <NavigationProperty Name="PowerSupplies" Relationship="Self.FK_PowerSupplies_Manufacturers" FromRole="Manufacturers" ToRole="PowerSupplies" />
           <NavigationProperty Name="RAMs" Relationship="Self.FK_RAMs_Manufacturers" FromRole="Manufacturers" ToRole="RAMs" />
           <NavigationProperty Name="Storages" Relationship="Self.FK_Storages_Manufacturers" FromRole="Manufacturers" ToRole="Storages" />
+        </EntityType>
+        <EntityType Name="Microphones">
+          <Key>
+            <PropertyRef Name="MicrophoneID" />
+          </Key>
+          <Property Name="MicrophoneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildMicrophones" Relationship="Self.FK_BuildMicrophones_Microphones" FromRole="Microphones" ToRole="BuildMicrophones" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Microphones_Manufacturers" FromRole="Microphones" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="Monitors">
+          <Key>
+            <PropertyRef Name="MonitorID" />
+          </Key>
+          <Property Name="MonitorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildMonitors" Relationship="Self.FK_BuildMonitors_Monitors" FromRole="Monitors" ToRole="BuildMonitors" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Monitors_Manufacturers" FromRole="Monitors" ToRole="Manufacturers" />
         </EntityType>
         <EntityType Name="MotherboardFormFactor">
           <Key>
@@ -1027,6 +1562,28 @@
           <NavigationProperty Name="MotherboardFormFactor" Relationship="Self.FK_Motherboards_MotherboardFormFactor" FromRole="Motherboards" ToRole="MotherboardFormFactor" />
           <NavigationProperty Name="RAMTypes" Relationship="Self.FK_Motherboards_RAMTypes" FromRole="Motherboards" ToRole="RAMTypes" />
           <NavigationProperty Name="Sockets" Relationship="Self.FK_Motherboards_Sockets" FromRole="Motherboards" ToRole="Sockets" />
+        </EntityType>
+        <EntityType Name="Mouses">
+          <Key>
+            <PropertyRef Name="MouseID" />
+          </Key>
+          <Property Name="MouseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuildMouses" Relationship="Self.FK_BuildMouses_Mouses" FromRole="Mouses" ToRole="BuildMouses" />
+          <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Mouses_Manufacturers" FromRole="Mouses" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildID" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Orders_Builds" FromRole="Orders" ToRole="Builds" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="PowerSupplies">
           <Key>
@@ -1075,6 +1632,15 @@
           <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ServiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="BuildServices" Relationship="Self.FK_BuildServices_Services" FromRole="Services" ToRole="BuildServices" />
         </EntityType>
         <EntityType Name="Sockets">
           <Key>
@@ -1150,6 +1716,126 @@
             </Principal>
             <Dependent Role="BuildCaseCooling">
               <PropertyRef Name="CaseCoolingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildHeadphones_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildHeadphones" Type="Self.BuildHeadphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildHeadphones">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildHeadphones_Headphones">
+          <End Role="Headphones" Type="Self.Headphones" Multiplicity="1" />
+          <End Role="BuildHeadphones" Type="Self.BuildHeadphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Headphones">
+              <PropertyRef Name="HeadphonesID" />
+            </Principal>
+            <Dependent Role="BuildHeadphones">
+              <PropertyRef Name="HeadphoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildKeyboards_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildKeyboards" Type="Self.BuildKeyboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildKeyboards">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildKeyboards_Keyboards">
+          <End Role="Keyboards" Type="Self.Keyboards" Multiplicity="1" />
+          <End Role="BuildKeyboards" Type="Self.BuildKeyboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyboards">
+              <PropertyRef Name="KeyboardID" />
+            </Principal>
+            <Dependent Role="BuildKeyboards">
+              <PropertyRef Name="KeyboardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMicrophones_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildMicrophones" Type="Self.BuildMicrophones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildMicrophones">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMicrophones_Microphones">
+          <End Role="Microphones" Type="Self.Microphones" Multiplicity="1" />
+          <End Role="BuildMicrophones" Type="Self.BuildMicrophones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Microphones">
+              <PropertyRef Name="MicrophoneID" />
+            </Principal>
+            <Dependent Role="BuildMicrophones">
+              <PropertyRef Name="MicrophoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMonitors_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildMonitors" Type="Self.BuildMonitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildMonitors">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMonitors_Monitors">
+          <End Role="Monitors" Type="Self.Monitors" Multiplicity="1" />
+          <End Role="BuildMonitors" Type="Self.BuildMonitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monitors">
+              <PropertyRef Name="MonitorID" />
+            </Principal>
+            <Dependent Role="BuildMonitors">
+              <PropertyRef Name="MonitorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMouses_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildMouses" Type="Self.BuildMouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildMouses">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildMouses_Mouses">
+          <End Role="Mouses" Type="Self.Mouses" Multiplicity="1" />
+          <End Role="BuildMouses" Type="Self.BuildMouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mouses">
+              <PropertyRef Name="MouseID" />
+            </Principal>
+            <Dependent Role="BuildMouses">
+              <PropertyRef Name="MouseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1249,6 +1935,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_BuildServices_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildServices" Type="Self.BuildServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="BuildServices">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BuildStorages_Builds">
           <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
           <End Role="BuildStorages" Type="Self.BuildStorages" Multiplicity="*" />
@@ -1258,6 +1956,30 @@
             </Principal>
             <Dependent Role="BuildStorages">
               <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="BuildID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BuildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuildServices_Services">
+          <End Role="Services" Type="Self.Services" Multiplicity="1" />
+          <End Role="BuildServices" Type="Self.BuildServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceID" />
+            </Principal>
+            <Dependent Role="BuildServices">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1405,6 +2127,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Headphones_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Headphones" Type="Self.Headphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Headphones">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyboards_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Keyboards" Type="Self.Keyboards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Keyboards">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Microphones_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Microphones" Type="Self.Microphones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Microphones">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitors_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Monitors" Type="Self.Monitors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Monitors">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Motherboards_Manufacturers">
           <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
           <End Role="Motherboards" Type="Self.Motherboards" Multiplicity="*" />
@@ -1413,6 +2183,18 @@
               <PropertyRef Name="ManufacturerID" />
             </Principal>
             <Dependent Role="Motherboards">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mouses_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Mouses" Type="Self.Mouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Mouses">
               <PropertyRef Name="ManufacturerID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1527,8 +2309,14 @@
         </Association>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BuildCaseCooling" EntityType="Self.BuildCaseCooling" />
+          <EntitySet Name="BuildHeadphones" EntityType="Self.BuildHeadphones" />
+          <EntitySet Name="BuildKeyboards" EntityType="Self.BuildKeyboards" />
+          <EntitySet Name="BuildMicrophones" EntityType="Self.BuildMicrophones" />
+          <EntitySet Name="BuildMonitors" EntityType="Self.BuildMonitors" />
+          <EntitySet Name="BuildMouses" EntityType="Self.BuildMouses" />
           <EntitySet Name="BuildRAMs" EntityType="Self.BuildRAMs" />
           <EntitySet Name="Builds" EntityType="Self.Builds" />
+          <EntitySet Name="BuildServices" EntityType="Self.BuildServices" />
           <EntitySet Name="BuildStorages" EntityType="Self.BuildStorages" />
           <EntitySet Name="CaseCooling" EntityType="Self.CaseCooling" />
           <EntitySet Name="CaseFormFactors" EntityType="Self.CaseFormFactors" />
@@ -1539,13 +2327,20 @@
           <EntitySet Name="EfficiencyRatings" EntityType="Self.EfficiencyRatings" />
           <EntitySet Name="GPUMemoryTypes" EntityType="Self.GPUMemoryTypes" />
           <EntitySet Name="GPUs" EntityType="Self.GPUs" />
+          <EntitySet Name="Headphones" EntityType="Self.Headphones" />
+          <EntitySet Name="Keyboards" EntityType="Self.Keyboards" />
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" />
+          <EntitySet Name="Microphones" EntityType="Self.Microphones" />
+          <EntitySet Name="Monitors" EntityType="Self.Monitors" />
           <EntitySet Name="MotherboardFormFactor" EntityType="Self.MotherboardFormFactor" />
           <EntitySet Name="Motherboards" EntityType="Self.Motherboards" />
+          <EntitySet Name="Mouses" EntityType="Self.Mouses" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="PowerSupplies" EntityType="Self.PowerSupplies" />
           <EntitySet Name="RAMs" EntityType="Self.RAMs" />
           <EntitySet Name="RAMTypes" EntityType="Self.RAMTypes" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Services" EntityType="Self.Services" />
           <EntitySet Name="Sockets" EntityType="Self.Sockets" />
           <EntitySet Name="Storages" EntityType="Self.Storages" />
           <EntitySet Name="StorageTypes" EntityType="Self.StorageTypes" />
@@ -1558,6 +2353,46 @@
           <AssociationSet Name="FK_BuildCaseCooling_CaseCooling" Association="Self.FK_BuildCaseCooling_CaseCooling">
             <End Role="CaseCooling" EntitySet="CaseCooling" />
             <End Role="BuildCaseCooling" EntitySet="BuildCaseCooling" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildHeadphones_Builds" Association="Self.FK_BuildHeadphones_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildHeadphones" EntitySet="BuildHeadphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildHeadphones_Headphones" Association="Self.FK_BuildHeadphones_Headphones">
+            <End Role="Headphones" EntitySet="Headphones" />
+            <End Role="BuildHeadphones" EntitySet="BuildHeadphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildKeyboards_Builds" Association="Self.FK_BuildKeyboards_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildKeyboards" EntitySet="BuildKeyboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildKeyboards_Keyboards" Association="Self.FK_BuildKeyboards_Keyboards">
+            <End Role="Keyboards" EntitySet="Keyboards" />
+            <End Role="BuildKeyboards" EntitySet="BuildKeyboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMicrophones_Builds" Association="Self.FK_BuildMicrophones_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildMicrophones" EntitySet="BuildMicrophones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMicrophones_Microphones" Association="Self.FK_BuildMicrophones_Microphones">
+            <End Role="Microphones" EntitySet="Microphones" />
+            <End Role="BuildMicrophones" EntitySet="BuildMicrophones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMonitors_Builds" Association="Self.FK_BuildMonitors_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildMonitors" EntitySet="BuildMonitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMonitors_Monitors" Association="Self.FK_BuildMonitors_Monitors">
+            <End Role="Monitors" EntitySet="Monitors" />
+            <End Role="BuildMonitors" EntitySet="BuildMonitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMouses_Builds" Association="Self.FK_BuildMouses_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildMouses" EntitySet="BuildMouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildMouses_Mouses" Association="Self.FK_BuildMouses_Mouses">
+            <End Role="Mouses" EntitySet="Mouses" />
+            <End Role="BuildMouses" EntitySet="BuildMouses" />
           </AssociationSet>
           <AssociationSet Name="FK__BuildRAMs__Build__72C60C4A" Association="Self.FK__BuildRAMs__Build__72C60C4A">
             <End Role="Builds" EntitySet="Builds" />
@@ -1591,9 +2426,21 @@
             <End Role="PowerSupplies" EntitySet="PowerSupplies" />
             <End Role="Builds" EntitySet="Builds" />
           </AssociationSet>
+          <AssociationSet Name="FK_BuildServices_Builds" Association="Self.FK_BuildServices_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildServices" EntitySet="BuildServices" />
+          </AssociationSet>
           <AssociationSet Name="FK_BuildStorages_Builds" Association="Self.FK_BuildStorages_Builds">
             <End Role="Builds" EntitySet="Builds" />
             <End Role="BuildStorages" EntitySet="BuildStorages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Builds" Association="Self.FK_Orders_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuildServices_Services" Association="Self.FK_BuildServices_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="BuildServices" EntitySet="BuildServices" />
           </AssociationSet>
           <AssociationSet Name="FK_BuildStorages_Storages" Association="Self.FK_BuildStorages_Storages">
             <End Role="Storages" EntitySet="Storages" />
@@ -1643,9 +2490,29 @@
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="GPUs" EntitySet="GPUs" />
           </AssociationSet>
+          <AssociationSet Name="FK_Headphones_Manufacturers" Association="Self.FK_Headphones_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Headphones" EntitySet="Headphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyboards_Manufacturers" Association="Self.FK_Keyboards_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Keyboards" EntitySet="Keyboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Microphones_Manufacturers" Association="Self.FK_Microphones_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Microphones" EntitySet="Microphones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitors_Manufacturers" Association="Self.FK_Monitors_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Monitors" EntitySet="Monitors" />
+          </AssociationSet>
           <AssociationSet Name="FK_Motherboards_Manufacturers" Association="Self.FK_Motherboards_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Motherboards" EntitySet="Motherboards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mouses_Manufacturers" Association="Self.FK_Mouses_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Mouses" EntitySet="Mouses" />
           </AssociationSet>
           <AssociationSet Name="FK_PowerSupplies_Manufacturers" Association="Self.FK_PowerSupplies_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
@@ -1700,6 +2567,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="BuildHeadphones">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildHeadphones">
+              <MappingFragment StoreEntitySet="BuildHeadphones">
+                <ScalarProperty Name="BuildHeadphoneID" ColumnName="BuildHeadphoneID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="HeadphoneID" ColumnName="HeadphoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildKeyboards">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildKeyboards">
+              <MappingFragment StoreEntitySet="BuildKeyboards">
+                <ScalarProperty Name="BuildKeyboardID" ColumnName="BuildKeyboardID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="KeyboardID" ColumnName="KeyboardID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildMicrophones">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildMicrophones">
+              <MappingFragment StoreEntitySet="BuildMicrophones">
+                <ScalarProperty Name="BuildMicrophoneID" ColumnName="BuildMicrophoneID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="MicrophoneID" ColumnName="MicrophoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildMonitors">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildMonitors">
+              <MappingFragment StoreEntitySet="BuildMonitors">
+                <ScalarProperty Name="BuildMonitorID" ColumnName="BuildMonitorID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="MonitorID" ColumnName="MonitorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildMouses">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildMouses">
+              <MappingFragment StoreEntitySet="BuildMouses">
+                <ScalarProperty Name="BuildMouseID" ColumnName="BuildMouseID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="MouseID" ColumnName="MouseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="BuildRAMs">
             <EntityTypeMapping TypeName="DatabaseModel.BuildRAMs">
               <MappingFragment StoreEntitySet="BuildRAMs">
@@ -1721,6 +2633,15 @@
                 <ScalarProperty Name="CPUCoolingID" ColumnName="CPUCoolingID" />
                 <ScalarProperty Name="PowerSupplyID" ColumnName="PowerSupplyID" />
                 <ScalarProperty Name="CaseID" ColumnName="CaseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildServices">
+            <EntityTypeMapping TypeName="DatabaseModel.BuildServices">
+              <MappingFragment StoreEntitySet="BuildServices">
+                <ScalarProperty Name="BuildServiceID" ColumnName="BuildServiceID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1841,11 +2762,55 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Headphones">
+            <EntityTypeMapping TypeName="DatabaseModel.Headphones">
+              <MappingFragment StoreEntitySet="Headphones">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="HeadphonesID" ColumnName="HeadphonesID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keyboards">
+            <EntityTypeMapping TypeName="DatabaseModel.Keyboards">
+              <MappingFragment StoreEntitySet="Keyboards">
+                <ScalarProperty Name="KeyboardID" ColumnName="KeyboardID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Manufacturers">
             <EntityTypeMapping TypeName="DatabaseModel.Manufacturers">
               <MappingFragment StoreEntitySet="Manufacturers">
                 <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
                 <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Microphones">
+            <EntityTypeMapping TypeName="DatabaseModel.Microphones">
+              <MappingFragment StoreEntitySet="Microphones">
+                <ScalarProperty Name="MicrophoneID" ColumnName="MicrophoneID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitors">
+            <EntityTypeMapping TypeName="DatabaseModel.Monitors">
+              <MappingFragment StoreEntitySet="Monitors">
+                <ScalarProperty Name="MonitorID" ColumnName="MonitorID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1868,6 +2833,27 @@
                 <ScalarProperty Name="MotherboardFFID" ColumnName="MotherboardFFID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mouses">
+            <EntityTypeMapping TypeName="DatabaseModel.Mouses">
+              <MappingFragment StoreEntitySet="Mouses">
+                <ScalarProperty Name="MouseID" ColumnName="MouseID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DatabaseModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="BuildID" ColumnName="BuildID" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1911,6 +2897,15 @@
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="DatabaseModel.Services">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

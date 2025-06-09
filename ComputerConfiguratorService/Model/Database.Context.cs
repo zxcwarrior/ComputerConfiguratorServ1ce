@@ -33,8 +33,14 @@ namespace ComputerConfiguratorService.Model
         }
     
         public virtual DbSet<BuildCaseCooling> BuildCaseCooling { get; set; }
+        public virtual DbSet<BuildHeadphones> BuildHeadphones { get; set; }
+        public virtual DbSet<BuildKeyboards> BuildKeyboards { get; set; }
+        public virtual DbSet<BuildMicrophones> BuildMicrophones { get; set; }
+        public virtual DbSet<BuildMonitors> BuildMonitors { get; set; }
+        public virtual DbSet<BuildMouses> BuildMouses { get; set; }
         public virtual DbSet<BuildRAMs> BuildRAMs { get; set; }
         public virtual DbSet<Builds> Builds { get; set; }
+        public virtual DbSet<BuildServices> BuildServices { get; set; }
         public virtual DbSet<BuildStorages> BuildStorages { get; set; }
         public virtual DbSet<CaseCooling> CaseCooling { get; set; }
         public virtual DbSet<CaseFormFactors> CaseFormFactors { get; set; }
@@ -45,13 +51,20 @@ namespace ComputerConfiguratorService.Model
         public virtual DbSet<EfficiencyRatings> EfficiencyRatings { get; set; }
         public virtual DbSet<GPUMemoryTypes> GPUMemoryTypes { get; set; }
         public virtual DbSet<GPUs> GPUs { get; set; }
+        public virtual DbSet<Headphones> Headphones { get; set; }
+        public virtual DbSet<Keyboards> Keyboards { get; set; }
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
+        public virtual DbSet<Microphones> Microphones { get; set; }
+        public virtual DbSet<Monitors> Monitors { get; set; }
         public virtual DbSet<MotherboardFormFactor> MotherboardFormFactor { get; set; }
         public virtual DbSet<Motherboards> Motherboards { get; set; }
+        public virtual DbSet<Mouses> Mouses { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<PowerSupplies> PowerSupplies { get; set; }
         public virtual DbSet<RAMs> RAMs { get; set; }
         public virtual DbSet<RAMTypes> RAMTypes { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<Sockets> Sockets { get; set; }
         public virtual DbSet<Storages> Storages { get; set; }
         public virtual DbSet<StorageTypes> StorageTypes { get; set; }

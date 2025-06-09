@@ -27,10 +27,9 @@ namespace ComputerConfiguratorService.View
 
         private void CheckUser()
         {
-            if (Manager.AuthUser == null || Manager.AuthUser.Roles.RoleID != 1)
-                BtnAdminPanel.Visibility = Visibility.Collapsed;
-            else
-                BtnAdminPanel.Visibility = Visibility.Visible;
+            BtnAdminPanel.Visibility = (Manager.AuthUser?.Roles.RoleID == 1)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
 
         private void LoadAllGPUs()
@@ -40,8 +39,7 @@ namespace ComputerConfiguratorService.View
                 .Include(g => g.Vendors)
                 .Include(g => g.GPUMemoryTypes)
                 .ToList();
-            BtnEdit.IsEnabled = false;
-            BtnDelete.IsEnabled = false;
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
         }
 
         private void LoadFilterLists()
@@ -57,27 +55,30 @@ namespace ComputerConfiguratorService.View
 
         private void LoadEditCombos()
         {
+            // Производители GPU
+            CbEditManufacturer.Items.Clear();
+            foreach (var m in _context.Manufacturers.OrderBy(m => m.ManufacturerName))
+                CbEditManufacturer.Items.Add(new ComboBoxItem { Content = m.ManufacturerName, Tag = m.ManufacturerID });
+
+            // Вендоры
             CbEditVendor.Items.Clear();
             foreach (var v in _context.Vendors.OrderBy(v => v.VendorName))
-                CbEditVendor.Items.Add(new ComboBoxItem { Content = v.VendorName });
+                CbEditVendor.Items.Add(new ComboBoxItem { Content = v.VendorName, Tag = v.VendorID });
 
+            // Типы памяти
             CbEditMemoryType.Items.Clear();
             foreach (var mt in _context.GPUMemoryTypes.OrderBy(mt => mt.MemoryType))
                 CbEditMemoryType.Items.Add(mt.MemoryType);
         }
 
         private void BtnToggleFilter_Click(object sender, RoutedEventArgs e)
-        {
-            FilterPanel.Visibility =
+            => FilterPanel.Visibility =
                 FilterPanel.Visibility == Visibility.Collapsed
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-        }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !e.Text.All(char.IsDigit);
-        }
+            => e.Handled = !e.Text.All(char.IsDigit);
 
         private void BtnApplyFilter_Click(object sender, RoutedEventArgs e)
         {
@@ -92,14 +93,11 @@ namespace ComputerConfiguratorService.View
                 .ToList();
 
             decimal priceMin = 0m, priceMax = decimal.MaxValue;
-            if (decimal.TryParse(TbPriceMin.Text, out var pMin))
-                priceMin = pMin;
-            if (decimal.TryParse(TbPriceMax.Text, out var pMax))
-                priceMax = pMax;
+            if (decimal.TryParse(TbPriceMin.Text, out var pMin)) priceMin = pMin;
+            if (decimal.TryParse(TbPriceMax.Text, out var pMax)) priceMax = pMax;
 
             int memoryExact = -1;
-            if (int.TryParse(TbMemoryGB.Text, out var mGb))
-                memoryExact = mGb;
+            if (int.TryParse(TbMemoryGB.Text, out var mGb)) memoryExact = mGb;
 
             string modelFilter = TbModelFilter.Text?.Trim().ToLower();
 
@@ -109,10 +107,10 @@ namespace ComputerConfiguratorService.View
                 .Include(g => g.GPUMemoryTypes)
                 .AsQueryable();
 
-            if (selectedVendors.Count > 0)
+            if (selectedVendors.Any())
                 query = query.Where(g => selectedVendors.Contains(g.Vendors.VendorName));
 
-            if (selectedMemoryTypes.Count > 0)
+            if (selectedMemoryTypes.Any())
                 query = query.Where(g => selectedMemoryTypes.Contains(g.GPUMemoryTypes.MemoryType));
 
             query = query.Where(g => g.Price >= priceMin && g.Price <= priceMax);
@@ -125,15 +123,13 @@ namespace ComputerConfiguratorService.View
 
             LVGPUs.ItemsSource = query.ToList();
             FilterPanel.Visibility = Visibility.Collapsed;
-            BtnEdit.IsEnabled = false;
-            BtnDelete.IsEnabled = false;
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
         }
 
         private void LVGPUs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            bool isSelected = LVGPUs.SelectedItem != null;
-            BtnEdit.IsEnabled = isSelected;
-            BtnDelete.IsEnabled = isSelected;
+            bool sel = LVGPUs.SelectedItem != null;
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = sel;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -145,20 +141,32 @@ namespace ComputerConfiguratorService.View
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (LVGPUs.SelectedItem is GPUs selected)
+            if (LVGPUs.SelectedItem is GPUs sel)
             {
-                _currentGPU = _context.GPUs.Find(selected.GPUID);
+                _currentGPU = _context.GPUs.Find(sel.GPUID);
                 if (_currentGPU != null)
                 {
+                    // Manufacturer
+                    CbEditManufacturer.SelectedItem = CbEditManufacturer.Items
+                        .OfType<ComboBoxItem>()
+                        .FirstOrDefault(i => (int)i.Tag == _currentGPU.ManufacturerID);
+                    // Vendor
                     CbEditVendor.SelectedItem = CbEditVendor.Items
                         .OfType<ComboBoxItem>()
-                        .FirstOrDefault(i => i.Content?.ToString() == _currentGPU.Vendors.VendorName);
-
+                        .FirstOrDefault(i => (int)i.Tag == _currentGPU.VendorID);
+                    // Memory Type
                     CbEditMemoryType.SelectedItem = _currentGPU.GPUMemoryTypes.MemoryType;
+
                     TbEditModel.Text = _currentGPU.Model;
                     TbEditMemoryGB.Text = _currentGPU.MemoryGB.ToString();
+                    TbEditCoreBaseClock.Text = _currentGPU.CoreBaseClock.ToString();
+                    TbEditCoreBoostClock.Text = _currentGPU.CoreBoostClock?.ToString() ?? "";
+                    TbEditMemoryClock.Text = _currentGPU.MemoryClock?.ToString() ?? "";
+                    TbEditGPULength.Text = _currentGPU.GPULength.ToString();
+                    TbEditPowerConsumption.Text = _currentGPU.PowerConsumption.ToString();
                     TbEditPrice.Text = _currentGPU.Price.ToString("N2");
                     TbEditImagePath.Text = _currentGPU.ImagePath;
+
                     EditPanel.Visibility = Visibility.Visible;
                 }
             }
@@ -166,33 +174,17 @@ namespace ComputerConfiguratorService.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (LVGPUs.SelectedItem is GPUs selected)
+            if (LVGPUs.SelectedItem is GPUs sel)
             {
-                var gpuToDelete = _context.GPUs.Find(selected.GPUID);
-                if (gpuToDelete != null)
+                var gpu = _context.GPUs.Find(sel.GPUID);
+                if (gpu != null &&
+                    MessageBox.Show($"Удалить «{gpu.Model}»?", "Подтвердите",
+                                    MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.Yes)
                 {
-                    var result = MessageBox.Show(
-                        $"Удалить видеокарту \"{gpuToDelete.Model}\"?",
-                        "Подтвердите удаление",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        _context.GPUs.Remove(gpuToDelete);
-                        try
-                        {
-                            _context.SaveChanges();
-                        }
-                        catch (System.Exception ex)
-                        {
-                            MessageBox.Show("Ошибка при удалении: " + ex.Message,
-                                            "Ошибка",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-                        }
-                        LoadAllGPUs();
-                    }
+                    _context.GPUs.Remove(gpu);
+                    _context.SaveChanges();
+                    LoadAllGPUs();
                 }
             }
         }
@@ -200,68 +192,69 @@ namespace ComputerConfiguratorService.View
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             var sb = new StringBuilder();
-
-            if (CbEditVendor.SelectedItem == null)
-                sb.AppendLine("• Выберите вендора.");
-
-            if (CbEditMemoryType.SelectedItem == null)
-                sb.AppendLine("• Выберите тип видеопамяти.");
-
-            if (string.IsNullOrWhiteSpace(TbEditModel.Text))
-                sb.AppendLine("• Введите модель.");
-
-            if (!int.TryParse(TbEditMemoryGB.Text, out var memoryGB) || memoryGB <= 0)
-                sb.AppendLine("• Неверный объем видеопамяти.");
-
-            if (!int.TryParse(TbEditCoreBaseClock.Text, out var coreBaseClock) || coreBaseClock <= 0)
-                sb.AppendLine("• Неверная базовая частота ядра.");
-
-            if (!int.TryParse(TbEditGPULength.Text, out var gpuLength) || gpuLength <= 0)
-                sb.AppendLine("• Неверная длина видеокарты.");
-
-            if (!int.TryParse(TbEditPowerConsumption.Text, out var powerConsumption) || powerConsumption <= 0)
-                sb.AppendLine("• Неверное потребление энергии.");
-
-            if (!decimal.TryParse(TbEditPrice.Text, out var price) || price <= 0)
-                sb.AppendLine("• Неверная цена.");
+            if (CbEditManufacturer.SelectedItem == null) sb.AppendLine("• Выберите производителя.");
+            if (CbEditVendor.SelectedItem == null) sb.AppendLine("• Выберите вендора.");
+            if (CbEditMemoryType.SelectedItem == null) sb.AppendLine("• Выберите тип памяти.");
+            if (string.IsNullOrWhiteSpace(TbEditModel.Text)) sb.AppendLine("• Введите модель.");
+            if (!int.TryParse(TbEditMemoryGB.Text, out var mem) || mem <= 0) sb.AppendLine("• Неверный объём.");
+            if (!int.TryParse(TbEditCoreBaseClock.Text, out var baseClk) || baseClk <= 0) sb.AppendLine("• Неверная базовая частота.");
+            if (!int.TryParse(TbEditGPULength.Text, out var length) || length <= 0) sb.AppendLine("• Неверная длина.");
+            if (!int.TryParse(TbEditPowerConsumption.Text, out var power) || power <= 0) sb.AppendLine("• Неверное энергопотребление.");
+            if (!decimal.TryParse(TbEditPrice.Text, out var pr) || pr <= 0) sb.AppendLine("• Неверная цена.");
 
             if (sb.Length > 0)
             {
-                MessageBox.Show(sb.ToString().TrimEnd(), "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(sb.ToString(), "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            // Сохранение данных
+            // manufacturer
+            var manItem = CbEditManufacturer.SelectedItem as ComboBoxItem;
+            var manId = (int)manItem.Tag;
+            var manEnt = _context.Manufacturers.Find(manId);
+
+            // vendor
+            var venItem = CbEditVendor.SelectedItem as ComboBoxItem;
+            var venId = (int)venItem.Tag;
+            var venEnt = _context.Vendors.Find(venId);
+
+            // memory type
+            var memType = CbEditMemoryType.SelectedItem as string;
+            var memEnt = _context.GPUMemoryTypes.First(mt => mt.MemoryType == memType);
+
             if (_currentGPU == null)
             {
-                var newGPU = new GPUs
+                var g = new GPUs
                 {
-                    Vendors = (Vendors)CbEditVendor.SelectedItem,
-                    GPUMemoryTypes = (GPUMemoryTypes)CbEditMemoryType.SelectedItem,
+                    ManufacturerID = manId,
+                    Vendors = venEnt,
+                    VendorID = venId,
+                    GPUMemoryTypeID = memEnt.GPUMemoryTypeID,
                     Model = TbEditModel.Text.Trim(),
-                    MemoryGB = memoryGB,
-                    CoreBaseClock = coreBaseClock,
-                    CoreBoostClock = string.IsNullOrEmpty(TbEditCoreBoostClock.Text) ? (int?)null : int.Parse(TbEditCoreBoostClock.Text),
-                    MemoryClock = string.IsNullOrEmpty(TbEditMemoryClock.Text) ? (int?)null : int.Parse(TbEditMemoryClock.Text),
-                    GPULength = gpuLength,
-                    PowerConsumption = powerConsumption,
-                    Price = price,
+                    MemoryGB = mem,
+                    CoreBaseClock = baseClk,
+                    CoreBoostClock = int.TryParse(TbEditCoreBoostClock.Text, out var cb) ? cb : (int?)null,
+                    MemoryClock = int.TryParse(TbEditMemoryClock.Text, out var mc) ? mc : (int?)null,
+                    GPULength = length,
+                    PowerConsumption = power,
+                    Price = pr,
                     ImagePath = TbEditImagePath.Text.Trim()
                 };
-                _context.GPUs.Add(newGPU);
+                _context.GPUs.Add(g);
             }
             else
             {
-                _currentGPU.Vendors = (Vendors)CbEditVendor.SelectedItem;
-                _currentGPU.GPUMemoryTypes = (GPUMemoryTypes)CbEditMemoryType.SelectedItem;
+                _currentGPU.ManufacturerID = manId;
+                _currentGPU.VendorID = venId;
+                _currentGPU.GPUMemoryTypeID = memEnt.GPUMemoryTypeID;
                 _currentGPU.Model = TbEditModel.Text.Trim();
-                _currentGPU.MemoryGB = memoryGB;
-                _currentGPU.CoreBaseClock = coreBaseClock;
-                _currentGPU.CoreBoostClock = string.IsNullOrEmpty(TbEditCoreBoostClock.Text) ? (int?)null : int.Parse(TbEditCoreBoostClock.Text);
-                _currentGPU.MemoryClock = string.IsNullOrEmpty(TbEditMemoryClock.Text) ? (int?)null : int.Parse(TbEditMemoryClock.Text);
-                _currentGPU.GPULength = gpuLength;
-                _currentGPU.PowerConsumption = powerConsumption;
-                _currentGPU.Price = price;
+                _currentGPU.MemoryGB = mem;
+                _currentGPU.CoreBaseClock = baseClk;
+                _currentGPU.CoreBoostClock = int.TryParse(TbEditCoreBoostClock.Text, out var cb2) ? cb2 : (int?)null;
+                _currentGPU.MemoryClock = int.TryParse(TbEditMemoryClock.Text, out var mc2) ? mc2 : (int?)null;
+                _currentGPU.GPULength = length;
+                _currentGPU.PowerConsumption = power;
+                _currentGPU.Price = pr;
                 _currentGPU.ImagePath = TbEditImagePath.Text.Trim();
             }
 
@@ -271,7 +264,15 @@ namespace ComputerConfiguratorService.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при сохранении: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                var msg = new StringBuilder();
+                msg.AppendLine("Ошибка при сохранении:");
+                msg.AppendLine(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    msg.AppendLine("Внутренняя ошибка:");
+                    msg.AppendLine(ex.InnerException.Message);
+                }
+                MessageBox.Show(msg.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -288,10 +289,16 @@ namespace ComputerConfiguratorService.View
 
         private void ClearEditFields()
         {
+            CbEditManufacturer.SelectedIndex = -1;
             CbEditVendor.SelectedIndex = -1;
             CbEditMemoryType.SelectedIndex = -1;
             TbEditModel.Clear();
             TbEditMemoryGB.Clear();
+            TbEditCoreBaseClock.Clear();
+            TbEditCoreBoostClock.Clear();
+            TbEditMemoryClock.Clear();
+            TbEditGPULength.Clear();
+            TbEditPowerConsumption.Clear();
             TbEditPrice.Clear();
             TbEditImagePath.Clear();
             _currentGPU = null;

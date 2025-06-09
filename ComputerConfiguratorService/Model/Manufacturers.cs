@@ -22,7 +22,12 @@ namespace ComputerConfiguratorService.Model
             this.CPUCooling = new HashSet<CPUCooling>();
             this.CPUs = new HashSet<CPUs>();
             this.GPUs = new HashSet<GPUs>();
+            this.Headphones = new HashSet<Headphones>();
+            this.Keyboards = new HashSet<Keyboards>();
+            this.Microphones = new HashSet<Microphones>();
+            this.Monitors = new HashSet<Monitors>();
             this.Motherboards = new HashSet<Motherboards>();
+            this.Mouses = new HashSet<Mouses>();
             this.PowerSupplies = new HashSet<PowerSupplies>();
             this.RAMs = new HashSet<RAMs>();
             this.Storages = new HashSet<Storages>();
@@ -42,7 +47,17 @@ namespace ComputerConfiguratorService.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GPUs> GPUs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Headphones> Headphones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Keyboards> Keyboards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Microphones> Microphones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Monitors> Monitors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Motherboards> Motherboards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mouses> Mouses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PowerSupplies> PowerSupplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

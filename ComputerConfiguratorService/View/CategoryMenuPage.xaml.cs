@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ComputerConfiguratorService.Utilities;
 
 namespace ComputerConfiguratorService.View
@@ -36,13 +24,22 @@ namespace ComputerConfiguratorService.View
                         Manager.MenuFrame.Navigate(new ComponentsPage());
                         break;
                     case "Готовые сборки":
-                        //Manager.MenuFrame.Navigate(new ComponentsPage());
+                        Manager.DetailFrame.Navigate(new CompleteBuildsPage());//not ready
                         break;
                     case "Конфигуратор":
-                        //Manager.MenuFrame.Navigate(new ComponentsPage());
+                        Manager.DetailFrame.Navigate(new ConfiguratorPage());//half ready 
                         break;
                     case "Справочные данные":
                         Manager.MenuFrame.Navigate(new BackDataPage());
+                        break;
+                    case "Аксессуары":
+                        Manager.MenuFrame.Navigate(new AccessoriesPage());
+                        break;
+                    case "Услуги":
+                        Manager.DetailFrame.Navigate(new ServicesPage());
+                        break;
+                    case "Заказы":
+                        Manager.DetailFrame.Navigate(new OrdersPage());//not ready
                         break;
                 }
             }

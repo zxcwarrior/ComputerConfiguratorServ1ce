@@ -1,75 +1,77 @@
-﻿using ComputerConfiguratorService.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
 {
-    /// <summary>
-    /// Логика взаимодействия для SocketsPage.xaml
-    /// </summary>
     public partial class SocketsPage : Page
     {
-        private Sockets selectedSocket = null;
-        private bool isNewRecord = false;
+        private Sockets _selected = null;
+        private bool _isNew = false;
+
         public SocketsPage()
         {
             InitializeComponent();
-            LoadSockets();
+            LoadReference();
         }
-        private void LoadSockets()
+
+        private void LoadReference()
         {
-            DGSockets.ItemsSource = DatabaseEntities.GetContext().Sockets.ToList();
+            var ctx = DatabaseEntities.GetContext();
+            LVReference.ItemsSource = ctx.Sockets
+                                         .OrderBy(s => s.SocketName)
+                                         .ToList();
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
         }
 
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedSocket = null;
-            isNewRecord = true;
-            tbName.Text = "";
+            _isNew = true;
+            _selected = null;
+            tbName.Clear();
             EditPanel.Visibility = Visibility.Visible;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedSocket = (sender as Button).DataContext as Sockets;
-            if (selectedSocket != null)
+            _selected = LVReference.SelectedItem as Sockets;
+            if (_selected != null)
             {
-                isNewRecord = false;
-                tbName.Text = selectedSocket.SocketName;
+                _isNew = false;
+                tbName.Text = _selected.SocketName;
                 EditPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = LVReference.SelectedItem as Sockets;
+            if (item != null &&
+                MessageBox.Show("Удалить этот сокет?", "Подтверждение",
+                                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                var ctx = DatabaseEntities.GetContext();
+                ctx.Sockets.Remove(item);
+                ctx.SaveChanges();
+                LoadReference();
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var context = DatabaseEntities.GetContext();
-            if (isNewRecord)
+            var ctx = DatabaseEntities.GetContext();
+            if (_isNew)
             {
-                Sockets newSocket = new Sockets
-                {
-                    SocketName = tbName.Text
-                };
-                context.Sockets.Add(newSocket);
+                ctx.Sockets.Add(new Sockets { SocketName = tbName.Text.Trim() });
             }
-            else if (selectedSocket != null)
+            else if (_selected != null)
             {
-                selectedSocket.SocketName = tbName.Text;
+                _selected.SocketName = tbName.Text.Trim();
             }
-            context.SaveChanges();
-            LoadSockets();
+            ctx.SaveChanges();
             EditPanel.Visibility = Visibility.Collapsed;
+            LoadReference();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -77,15 +79,11 @@ namespace ComputerConfiguratorService.View
             EditPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void LVReference_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var socket = (sender as Button).DataContext as Sockets;
-            if (socket != null && MessageBox.Show("Удалить этот сокет?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                DatabaseEntities.GetContext().Sockets.Remove(socket);
-                DatabaseEntities.GetContext().SaveChanges();
-                LoadSockets();
-            }
+            bool has = LVReference.SelectedItem != null;
+            BtnEdit.IsEnabled = has;
+            BtnDelete.IsEnabled = has;
         }
     }
 }

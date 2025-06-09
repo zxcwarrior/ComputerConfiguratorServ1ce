@@ -251,6 +251,10 @@
                 Visibility="Collapsed">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Производитель:" Width="120" VerticalAlignment="Center" FontSize="14" Foreground="#0E141B"/>
+                    <ComboBox x:Name="CbEditManufacturer" Width="200" FontSize="14" Foreground="#0E141B"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                     <TextBlock Text="Вендор:"
                                Width="120"
                                VerticalAlignment="Center"

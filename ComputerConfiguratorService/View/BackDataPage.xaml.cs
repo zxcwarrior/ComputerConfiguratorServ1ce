@@ -1,5 +1,5 @@
-﻿using ComputerConfiguratorService.Utilities;
-using System.Windows;
+﻿using System.Windows;
+using ComputerConfiguratorService.Utilities;
 using System.Windows.Controls;
 
 namespace ComputerConfiguratorService.View

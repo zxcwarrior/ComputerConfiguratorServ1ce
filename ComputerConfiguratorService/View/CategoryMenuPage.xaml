@@ -41,20 +41,15 @@
                             </Setter>
                         </Style>
                     </ListBox.ItemContainerStyle>
-                    <ListBoxItem Content="Комплектующие"/>
-                    <ListBoxItem Content="Готовые сборки"/>
-                    <ListBoxItem Content="Конфигуратор"/>
                     <ListBoxItem x:Name="BackData" Content="Справочные данные"/>
-                    <!--<ListBoxItem>
-                <DockPanel>
-                    <Image Source="/Resources/icon.png" Width="50" Height="25"/>
-                    <TextBlock Text="Залупа"/>
-                </DockPanel>
-            </ListBoxItem>-->
-
+                    <ListBoxItem Content="Комплектующие"/>
+                    <ListBoxItem Content="Аксессуары"/>
+                    <ListBoxItem Content="Услуги"/>
+                    <ListBoxItem Content="Конфигуратор"/>
+                    <ListBoxItem Content="Готовые сборки"/>
+                    <ListBoxItem Content="Заказы"/>
                 </ListBox>
             </StackPanel>
         </Border>
-
     </Grid>
 </Page>

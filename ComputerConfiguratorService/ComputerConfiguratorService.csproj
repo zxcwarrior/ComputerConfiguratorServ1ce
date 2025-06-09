@@ -87,10 +87,28 @@
     <Compile Include="Model\BuildCaseCooling.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\BuildHeadphones.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BuildKeyboards.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BuildMicrophones.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BuildMonitors.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BuildMouses.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\BuildRAMs.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Builds.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BuildServices.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\BuildStorages.cs">
@@ -138,13 +156,31 @@
     <Compile Include="Model\GPUs.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Headphones.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Keyboards.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Manufacturers.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Microphones.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Monitors.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\MotherboardFormFactor.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Motherboards.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Mouses.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Orders.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PowerSupplies.cs">
@@ -157,6 +193,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Roles.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Services.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Sockets.cs">
@@ -175,6 +214,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Manager.cs" />
+    <Compile Include="View\AccessoriesPage.xaml.cs">
+      <DependentUpon>AccessoriesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
@@ -193,8 +235,17 @@
     <Compile Include="View\CategoryMenuPage.xaml.cs">
       <DependentUpon>CategoryMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CompleteBuildsPage.xaml.cs">
+      <DependentUpon>CompleteBuildsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ComponentsPage.xaml.cs">
       <DependentUpon>ComponentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ConfiguratorMenu.xaml.cs">
+      <DependentUpon>ConfiguratorMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ConfiguratorPage.xaml.cs">
+      <DependentUpon>ConfiguratorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CoolingTypesPage.xaml.cs">
       <DependentUpon>CoolingTypesPage.xaml</DependentUpon>
@@ -214,17 +265,35 @@
     <Compile Include="View\GPUsPage.xaml.cs">
       <DependentUpon>GPUsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\HeadphonesPage.xaml.cs">
+      <DependentUpon>HeadphonesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeyboardsPage.xaml.cs">
+      <DependentUpon>KeyboardsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManufacturersPage.xaml.cs">
       <DependentUpon>ManufacturersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MicrophonesPage.xaml.cs">
+      <DependentUpon>MicrophonesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MonitorsPage.xaml.cs">
+      <DependentUpon>MonitorsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MotherboardFormFactorPage.xaml.cs">
       <DependentUpon>MotherboardFormFactorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MotherboardsPage.xaml.cs">
       <DependentUpon>MotherboardsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MousesPage.xaml.cs">
+      <DependentUpon>MousesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrdersPage.xaml.cs">
+      <DependentUpon>OrdersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PowerSuppliesPage.xaml.cs">
       <DependentUpon>PowerSuppliesPage.xaml</DependentUpon>
@@ -234,6 +303,9 @@
     </Compile>
     <Compile Include="View\RAMTypesPage.xaml.cs">
       <DependentUpon>RAMTypesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ServicesPage.xaml.cs">
+      <DependentUpon>ServicesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SocketsPage.xaml.cs">
       <DependentUpon>SocketsPage.xaml</DependentUpon>
@@ -259,6 +331,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AccessoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -283,7 +359,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\CompleteBuildsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ComponentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfiguratorMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ConfiguratorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -311,6 +399,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\HeadphonesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeyboardsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ManufacturersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -319,11 +415,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MicrophonesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MonitorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MotherboardFormFactorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MotherboardsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MousesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OrdersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -336,6 +448,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RAMTypesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ServicesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

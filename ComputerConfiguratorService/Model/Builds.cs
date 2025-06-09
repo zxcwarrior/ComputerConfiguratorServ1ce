@@ -18,8 +18,15 @@ namespace ComputerConfiguratorService.Model
         public Builds()
         {
             this.BuildCaseCooling = new HashSet<BuildCaseCooling>();
+            this.BuildHeadphones = new HashSet<BuildHeadphones>();
+            this.BuildKeyboards = new HashSet<BuildKeyboards>();
+            this.BuildMicrophones = new HashSet<BuildMicrophones>();
+            this.BuildMonitors = new HashSet<BuildMonitors>();
+            this.BuildMouses = new HashSet<BuildMouses>();
             this.BuildRAMs = new HashSet<BuildRAMs>();
+            this.BuildServices = new HashSet<BuildServices>();
             this.BuildStorages = new HashSet<BuildStorages>();
+            this.Orders = new HashSet<Orders>();
         }
     
         public int BuildID { get; set; }
@@ -34,6 +41,16 @@ namespace ComputerConfiguratorService.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildCaseCooling> BuildCaseCooling { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildHeadphones> BuildHeadphones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildKeyboards> BuildKeyboards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildMicrophones> BuildMicrophones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildMonitors> BuildMonitors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildMouses> BuildMouses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildRAMs> BuildRAMs { get; set; }
         public virtual Cases Cases { get; set; }
         public virtual CPUCooling CPUCooling { get; set; }
@@ -42,6 +59,10 @@ namespace ComputerConfiguratorService.Model
         public virtual Motherboards Motherboards { get; set; }
         public virtual PowerSupplies PowerSupplies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BuildServices> BuildServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BuildStorages> BuildStorages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

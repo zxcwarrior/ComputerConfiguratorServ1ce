@@ -1,75 +1,77 @@
-﻿using ComputerConfiguratorService.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
 {
-    /// <summary>
-    /// Логика взаимодействия для CoolingTypesPage.xaml
-    /// </summary>
     public partial class CoolingTypesPage : Page
     {
-        private CoolingTypes selectedCoolingType = null;
-        private bool isNewRecord = false;
+        private CoolingTypes _selected = null;
+        private bool _isNew = false;
+
         public CoolingTypesPage()
         {
             InitializeComponent();
-            LoadCoolingTypes();
+            LoadReference();
         }
-        private void LoadCoolingTypes()
+
+        private void LoadReference()
         {
-            DGCoolingTypes.ItemsSource = DatabaseEntities.GetContext().CoolingTypes.ToList();
+            var ctx = DatabaseEntities.GetContext();
+            LVReference.ItemsSource = ctx.CoolingTypes
+                                         .OrderBy(ct => ct.CoolingType)
+                                         .ToList();
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
         }
 
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedCoolingType = null;
-            isNewRecord = true;
-            tbName.Text = "";
+            _isNew = true;
+            _selected = null;
+            tbName.Clear();
             EditPanel.Visibility = Visibility.Visible;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedCoolingType = (sender as Button).DataContext as CoolingTypes;
-            if (selectedCoolingType != null)
+            _selected = LVReference.SelectedItem as CoolingTypes;
+            if (_selected != null)
             {
-                isNewRecord = false;
-                tbName.Text = selectedCoolingType.CoolingType;
+                _isNew = false;
+                tbName.Text = _selected.CoolingType;
                 EditPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = LVReference.SelectedItem as CoolingTypes;
+            if (item != null &&
+                MessageBox.Show("Удалить этот тип охлаждения?", "Подтверждение",
+                                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                var ctx = DatabaseEntities.GetContext();
+                ctx.CoolingTypes.Remove(item);
+                ctx.SaveChanges();
+                LoadReference();
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var context = DatabaseEntities.GetContext();
-            if (isNewRecord)
+            var ctx = DatabaseEntities.GetContext();
+            if (_isNew)
             {
-                CoolingTypes newCoolingType = new CoolingTypes
-                {
-                    CoolingType = tbName.Text
-                };
-                context.CoolingTypes.Add(newCoolingType);
+                ctx.CoolingTypes.Add(new CoolingTypes { CoolingType = tbName.Text.Trim() });
             }
-            else if (selectedCoolingType != null)
+            else if (_selected != null)
             {
-                selectedCoolingType.CoolingType = tbName.Text;
+                _selected.CoolingType = tbName.Text.Trim();
             }
-            context.SaveChanges();
-            LoadCoolingTypes();
+            ctx.SaveChanges();
             EditPanel.Visibility = Visibility.Collapsed;
+            LoadReference();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -77,15 +79,11 @@ namespace ComputerConfiguratorService.View
             EditPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void LVReference_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var coolingType = (sender as Button).DataContext as CoolingTypes;
-            if (coolingType != null && MessageBox.Show("Удалить этот тип охлаждения?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                DatabaseEntities.GetContext().CoolingTypes.Remove(coolingType);
-                DatabaseEntities.GetContext().SaveChanges();
-                LoadCoolingTypes();
-            }
+            bool has = LVReference.SelectedItem != null;
+            BtnEdit.IsEnabled = has;
+            BtnDelete.IsEnabled = has;
         }
     }
 }

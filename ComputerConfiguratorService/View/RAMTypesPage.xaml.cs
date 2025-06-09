@@ -1,75 +1,75 @@
-﻿using ComputerConfiguratorService.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
 {
-    /// <summary>
-    /// Логика взаимодействия для RAMTypesPage.xaml
-    /// </summary>
     public partial class RAMTypesPage : Page
     {
-        private RAMTypes selectedRAMType = null;
-        private bool isNewRecord = false;
+        private RAMTypes _selected = null;
+        private bool _isNew = false;
+
         public RAMTypesPage()
         {
             InitializeComponent();
-            LoadRAMTypes();
+            LoadReference();
         }
-        private void LoadRAMTypes()
+
+        private void LoadReference()
         {
-            DGRAMTypes.ItemsSource = DatabaseEntities.GetContext().RAMTypes.ToList();
+            var ctx = DatabaseEntities.GetContext();
+            LVReference.ItemsSource = ctx.RAMTypes.OrderBy(r => r.RAMType).ToList();
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
         }
 
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedRAMType = null;
-            isNewRecord = true;
-            tbName.Text = "";
+            _isNew = true;
+            _selected = null;
+            tbName.Clear();
             EditPanel.Visibility = Visibility.Visible;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedRAMType = (sender as Button).DataContext as RAMTypes;
-            if (selectedRAMType != null)
+            _selected = LVReference.SelectedItem as RAMTypes;
+            if (_selected != null)
             {
-                isNewRecord = false;
-                tbName.Text = selectedRAMType.RAMType;
+                _isNew = false;
+                tbName.Text = _selected.RAMType;
                 EditPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = LVReference.SelectedItem as RAMTypes;
+            if (item != null &&
+                MessageBox.Show("Удалить этот тип памяти?", "Подтверждение",
+                                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                var ctx = DatabaseEntities.GetContext();
+                ctx.RAMTypes.Remove(item);
+                ctx.SaveChanges();
+                LoadReference();
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var context = DatabaseEntities.GetContext();
-            if (isNewRecord)
+            var ctx = DatabaseEntities.GetContext();
+            if (_isNew)
             {
-                RAMTypes newRAMType = new RAMTypes
-                {
-                    RAMType = tbName.Text
-                };
-                context.RAMTypes.Add(newRAMType);
+                ctx.RAMTypes.Add(new RAMTypes { RAMType = tbName.Text.Trim() });
             }
-            else if (selectedRAMType != null)
+            else if (_selected != null)
             {
-                selectedRAMType.RAMType = tbName.Text;
+                _selected.RAMType = tbName.Text.Trim();
             }
-            context.SaveChanges();
-            LoadRAMTypes();
+            ctx.SaveChanges();
             EditPanel.Visibility = Visibility.Collapsed;
+            LoadReference();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -77,15 +77,11 @@ namespace ComputerConfiguratorService.View
             EditPanel.Visibility = Visibility.Collapsed;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void LVReference_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var ramType = (sender as Button).DataContext as RAMTypes;
-            if (ramType != null && MessageBox.Show("Удалить этот тип RAM?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                DatabaseEntities.GetContext().RAMTypes.Remove(ramType);
-                DatabaseEntities.GetContext().SaveChanges();
-                LoadRAMTypes();
-            }
+            bool has = LVReference.SelectedItem != null;
+            BtnEdit.IsEnabled = has;
+            BtnDelete.IsEnabled = has;
         }
     }
 }

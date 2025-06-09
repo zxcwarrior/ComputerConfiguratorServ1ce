@@ -24,7 +24,6 @@ namespace ComputerConfiguratorService.View
             login = LoginTextBox.Text;
             password = PasswordPassBx.Password;
 
-            // Проверка на пустой логин и пароль
             if (string.IsNullOrWhiteSpace(login) && string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Пожалуйста, введите логин и пароль.", "Ошибка ввода", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -43,7 +42,6 @@ namespace ComputerConfiguratorService.View
 
             try
             {
-                // Попытка авторизации
                 var userObj = DatabaseEntities.GetContext().Users
                     .FirstOrDefault(x => x.UserLogin == login && x.UserPassword == password);
 
@@ -52,7 +50,6 @@ namespace ComputerConfiguratorService.View
                     Manager.AuthUser = userObj;
                     MessageBox.Show("Авторизация успешна!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Переход на следующую страницу после успешного входа
                     Manager.MainFrame.Navigate(new MenuPage());
                 }
                 else
@@ -62,7 +59,6 @@ namespace ComputerConfiguratorService.View
             }
             catch (Exception ex)
             {
-                // Обработка ошибок при работе с базой данных
                 MessageBox.Show($"Произошла ошибка при авторизации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

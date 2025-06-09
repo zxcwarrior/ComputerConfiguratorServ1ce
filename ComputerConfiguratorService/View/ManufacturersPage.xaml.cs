@@ -1,97 +1,89 @@
-﻿using ComputerConfiguratorService.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
 {
-    /// <summary>
-    /// Логика взаимодействия для ManufacturersPage.xaml
-    /// </summary>
     public partial class ManufacturersPage : Page
     {
-        private Manufacturers selectedManufacturer = null;
-        private bool isNewRecord = false;
+        private Manufacturers _selected = null;
+        private bool _isNew = false;
+
         public ManufacturersPage()
         {
             InitializeComponent();
-            LoadManufacturers();
-        }
-        // Загрузка данных в DataGrid
-        private void LoadManufacturers()
-        {
-            DGManufacturers.ItemsSource = DatabaseEntities.GetContext().Manufacturers.ToList();
+            LoadReference();
         }
 
-        // Кнопка "Добавить новый"
+        private void LoadReference()
+        {
+            var ctx = DatabaseEntities.GetContext();
+            LVReference.ItemsSource = ctx.Manufacturers
+                                         .OrderBy(m => m.ManufacturerName)
+                                         .ToList();
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
+        }
+
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedManufacturer = null; // Ничего не выбрано
-            isNewRecord = true; // Это новая запись
-            tbName.Text = ""; // Поле для названия пустое
-            EditPanel.Visibility = Visibility.Visible; // Показываем форму
+            _isNew = true;
+            _selected = null;
+            tbName.Clear();
+            EditPanel.Visibility = Visibility.Visible;
         }
 
-        // Кнопка "Редактировать"
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedManufacturer = (sender as Button).DataContext as Manufacturers;
-            if (selectedManufacturer != null)
+            _selected = LVReference.SelectedItem as Manufacturers;
+            if (_selected != null)
             {
-                isNewRecord = false; // Это редактирование
-                tbName.Text = selectedManufacturer.ManufacturerName;
-                EditPanel.Visibility = Visibility.Visible; // Показываем форму
+                _isNew = false;
+                tbName.Text = _selected.ManufacturerName;
+                EditPanel.Visibility = Visibility.Visible;
             }
         }
 
-        // Кнопка "Сохранить"
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            var context = DatabaseEntities.GetContext();
-            if (isNewRecord) // Новая запись
-            {
-                Manufacturers newManufacturer = new Manufacturers
-                {
-                    ManufacturerName = tbName.Text
-                };
-                context.Manufacturers.Add(newManufacturer);
-            }
-            else if (selectedManufacturer != null) // Редактирование
-            {
-                selectedManufacturer.ManufacturerName = tbName.Text;
-            }
-            context.SaveChanges(); // Сохраняем в базу
-            LoadManufacturers(); // Обновляем DataGrid
-            EditPanel.Visibility = Visibility.Collapsed; // Скрываем форму
-        }
-
-        // Кнопка "Отмена"
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            EditPanel.Visibility = Visibility.Collapsed; // Просто закрываем
-        }
-
-        // Кнопка "Удалить"
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var manufacturer = (sender as Button).DataContext as Manufacturers;
-            if (manufacturer != null && MessageBox.Show("Удалить этого производителя?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            var item = LVReference.SelectedItem as Manufacturers;
+            if (item != null &&
+                MessageBox.Show("Удалить этого производителя?", "Подтверждение",
+                                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                DatabaseEntities.GetContext().Manufacturers.Remove(manufacturer);
-                DatabaseEntities.GetContext().SaveChanges();
-                LoadManufacturers();
+                var ctx = DatabaseEntities.GetContext();
+                ctx.Manufacturers.Remove(item);
+                ctx.SaveChanges();
+                LoadReference();
             }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ctx = DatabaseEntities.GetContext();
+            if (_isNew)
+            {
+                ctx.Manufacturers.Add(new Manufacturers { ManufacturerName = tbName.Text.Trim() });
+            }
+            else if (_selected != null)
+            {
+                _selected.ManufacturerName = tbName.Text.Trim();
+            }
+            ctx.SaveChanges();
+            EditPanel.Visibility = Visibility.Collapsed;
+            LoadReference();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void LVReference_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            bool has = LVReference.SelectedItem != null;
+            BtnEdit.IsEnabled = has;
+            BtnDelete.IsEnabled = has;
         }
     }
 }

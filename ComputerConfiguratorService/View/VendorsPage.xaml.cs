@@ -1,91 +1,77 @@
-﻿using ComputerConfiguratorService.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
 {
-    /// <summary>
-    /// Логика взаимодействия для VendorsPage.xaml
-    /// </summary>
     public partial class VendorsPage : Page
     {
-        private Vendors selectedVendor = null;
-        private bool isNewRecord = false;
+        private Vendors _selected = null;
+        private bool _isNew = false;
+
         public VendorsPage()
         {
             InitializeComponent();
-            LoadVendors();
+            LoadReference();
         }
-        private void LoadVendors()
+
+        private void LoadReference()
         {
-            DGVendors.ItemsSource = DatabaseEntities.GetContext().Vendors.ToList();
+            var ctx = DatabaseEntities.GetContext();
+            LVReference.ItemsSource = ctx.Vendors.OrderBy(v => v.VendorName).ToList();
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = false;
         }
 
         private void AddNewButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedVendor = null;
-            isNewRecord = true;
-            tbName.Text = "";
+            _isNew = true; _selected = null; tbName.Clear();
             EditPanel.Visibility = Visibility.Visible;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            selectedVendor = (sender as Button).DataContext as Vendors;
-            if (selectedVendor != null)
+            _selected = LVReference.SelectedItem as Vendors;
+            if (_selected != null)
             {
-                isNewRecord = false;
-                tbName.Text = selectedVendor.VendorName;
+                _isNew = false; tbName.Text = _selected.VendorName;
                 EditPanel.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = LVReference.SelectedItem as Vendors;
+            if (item != null &&
+                MessageBox.Show("Удалить этого вендора?", "Подтверждение",
+                                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                var ctx = DatabaseEntities.GetContext();
+                ctx.Vendors.Remove(item);
+                ctx.SaveChanges();
+                LoadReference();
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var context = DatabaseEntities.GetContext();
-            if (isNewRecord)
-            {
-                Vendors newVendor = new Vendors
-                {
-                    VendorName = tbName.Text
-                };
-                context.Vendors.Add(newVendor);
-            }
-            else if (selectedVendor != null)
-            {
-                selectedVendor.VendorName = tbName.Text;
-            }
-            context.SaveChanges();
-            LoadVendors();
+            var ctx = DatabaseEntities.GetContext();
+            if (_isNew)
+                ctx.Vendors.Add(new Vendors { VendorName = tbName.Text.Trim() });
+            else if (_selected != null)
+                _selected.VendorName = tbName.Text.Trim();
+            ctx.SaveChanges();
             EditPanel.Visibility = Visibility.Collapsed;
+            LoadReference();
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void CancelButton_Click(object sender, RoutedEventArgs e) =>
             EditPanel.Visibility = Visibility.Collapsed;
-        }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void LVReference_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var vendor = (sender as Button).DataContext as Vendors;
-            if (vendor != null && MessageBox.Show("Удалить этого вендора?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                DatabaseEntities.GetContext().Vendors.Remove(vendor);
-                DatabaseEntities.GetContext().SaveChanges();
-                LoadVendors();
-            }
+            bool has = LVReference.SelectedItem != null;
+            BtnEdit.IsEnabled = BtnDelete.IsEnabled = has;
         }
     }
 }
