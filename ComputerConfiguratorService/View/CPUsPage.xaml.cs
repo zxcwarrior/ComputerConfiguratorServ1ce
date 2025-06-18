@@ -126,6 +126,7 @@ namespace ComputerConfiguratorService.View
                     TbEditBaseClock.Text = _currentCPU.BaseClock.ToString("N2");
                     TbEditBoostClock.Text = _currentCPU.BoostClock.ToString("N2");
                     TbEditTDP.Text = _currentCPU.TDP.ToString();
+                    TbEditPowerConsuption.Text = _currentCPU.PowerConsumption.ToString();
                     TbEditPrice.Text = _currentCPU.Price.ToString("N2");
                     TbEditImagePath.Text = _currentCPU.ImagePath;
                     EditPanel.Visibility = Visibility.Visible;
@@ -176,6 +177,8 @@ namespace ComputerConfiguratorService.View
                 sb.AppendLine("• Неверная турбо-частота.");
             if (!int.TryParse(TbEditTDP.Text, out var tdp))
                 sb.AppendLine("• Неверно указан TDP.");
+            if (!int.TryParse(TbEditPowerConsuption.Text, out var powerConsuption))
+                sb.AppendLine("• Неверно указан TDP.");
             if (!decimal.TryParse(TbEditPrice.Text, out var price))
                 sb.AppendLine("• Неверно указана цена.");
 
@@ -207,6 +210,7 @@ namespace ComputerConfiguratorService.View
                     BaseClock = baseClock,
                     BoostClock = boostClock,
                     TDP = tdp,
+                    PowerConsumption = powerConsuption,
                     Price = price,
                     ImagePath = TbEditImagePath.Text.Trim()
                 };
@@ -222,6 +226,7 @@ namespace ComputerConfiguratorService.View
                 _currentCPU.BaseClock = baseClock;
                 _currentCPU.BoostClock = boostClock;
                 _currentCPU.TDP = tdp;
+                _currentCPU.PowerConsumption = powerConsuption;
                 _currentCPU.Price = price;
                 _currentCPU.ImagePath = TbEditImagePath.Text.Trim();
             }
@@ -253,6 +258,7 @@ namespace ComputerConfiguratorService.View
             TbEditBaseClock.Clear();
             TbEditBoostClock.Clear();
             TbEditTDP.Clear();
+            TbEditPowerConsuption.Clear();
             TbEditPrice.Clear();
             TbEditImagePath.Clear();
             _currentCPU = null;

@@ -23,7 +23,7 @@ namespace ComputerConfiguratorService
             timer.Start();
 
             Manager.MainFrame = MainFrame;
-            BackButton.CommandTarget = Manager.MainFrame;
+            Manager.BackButton = BackButton;
             Manager.MainFrame.Navigate(new AuthPage());
         }
 
@@ -39,18 +39,15 @@ namespace ComputerConfiguratorService
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.GoBack();
-        }
+            Manager.MainFrame.Navigate(new AuthPage());
 
-        private void MainFrame_ContentRendered(object sender, EventArgs e)
-        {
-            if (Manager.MainFrame.CanGoBack)
+            if (Manager.MainFrame.Navigate(new AuthPage()))
             {
-                BackButton.Visibility = Visibility.Visible;
+                BackButton.Visibility = Visibility.Collapsed;
             }
             else
             {
-                BackButton.Visibility = Visibility.Collapsed;
+                BackButton.Visibility = Visibility.Visible;
             }
         }
     }

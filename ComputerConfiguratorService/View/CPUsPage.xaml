@@ -240,7 +240,7 @@
         </ListView>
 
         <Border x:Name="EditPanel"
-                Grid.Row="3"
+                Grid.Row="3"                
                 Background="White"
                 BorderBrush="#E5E7EB"
                 BorderThickness="1"
@@ -340,12 +340,24 @@
                              FontSize="14"
                              Foreground="#0E141B"
                              PreviewTextInput="NumericOnly"/>
-                    <TextBlock Text="  Цена (₽):" 
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Энергопотребление (W):"                                
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               Foreground="#0E141B"/>
+                    <TextBox x:Name="TbEditPowerConsuption"
+                             Width="80"
+                             FontSize="14"
+                             Foreground="#0E141B"
+                             PreviewTextInput="NumericOnly"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Цена (₽):" 
                                Width="60"
                                VerticalAlignment="Center"
                                FontSize="14"
-                               Foreground="#0E141B"
-                               Margin="10,0,0,0"/>
+                               Foreground="#0E141B"/>
                     <TextBox x:Name="TbEditPrice"
                              Width="80"
                              FontSize="14"

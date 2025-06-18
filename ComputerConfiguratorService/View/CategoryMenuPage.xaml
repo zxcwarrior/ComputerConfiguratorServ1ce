@@ -42,9 +42,9 @@
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBoxItem x:Name="BackData" Content="Справочные данные"/>
-                    <ListBoxItem Content="Комплектующие"/>
-                    <ListBoxItem Content="Аксессуары"/>
-                    <ListBoxItem Content="Услуги"/>
+                    <ListBoxItem Content="Комплектующие" x:Name="Components"/>
+                    <ListBoxItem Content="Аксессуары" x:Name="Accessories"/>
+                    <ListBoxItem Content="Услуги" x:Name="Services"/>
                     <ListBoxItem Content="Конфигуратор"/>
                     <ListBoxItem Content="Готовые сборки"/>
                     <ListBoxItem Content="Заказы"/>

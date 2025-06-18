@@ -51,6 +51,7 @@ namespace ComputerConfiguratorService.View
                     MessageBox.Show("Авторизация успешна!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     Manager.MainFrame.Navigate(new MenuPage());
+                    Manager.BackButton.Visibility = Visibility.Visible;
                 }
                 else
                 {

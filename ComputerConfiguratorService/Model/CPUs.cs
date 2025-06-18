@@ -31,6 +31,7 @@ namespace ComputerConfiguratorService.Model
         public int TDP { get; set; }
         public decimal Price { get; set; }
         public string ImagePath { get; set; }
+        public Nullable<int> PowerConsumption { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Builds> Builds { get; set; }

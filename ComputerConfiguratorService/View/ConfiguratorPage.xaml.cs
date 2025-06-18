@@ -1,222 +1,522 @@
-﻿using ComputerConfiguratorService.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
+using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
 {
     public partial class ConfiguratorPage : Page
     {
-        private readonly DatabaseEntities _context;
+        private readonly DatabaseEntities _ctx = DatabaseEntities.GetContext();
 
-        private CPUs _selCpu;
-        private Motherboards _selMb;
-        private GPUs _selGpu;
-        private PowerSupplies _selPsu;
-        private Cases _selCase;
+        // Одиночный выбор
+        private CPUs selCpu;
+        private Motherboards selMb;
+        private GPUs selGpu;
+        private Cases selCase;
+        private PowerSupplies selPsu;
+        private CPUCooling selCpuCooling;
 
-        private List<BuildRAMs> _selRams;
-        private List<BuildStorages> _selStorages;
-        private List<BuildCaseCooling> _selCaseFans;
+        // Множественный выбор
+        private readonly List<BuildCaseCooling> _caseFans = new List<BuildCaseCooling>();
+        private readonly List<BuildRAMs> _ramList = new List<BuildRAMs>();
+        private readonly List<BuildStorages> _storList = new List<BuildStorages>();
+
+        // Аксессуары и услуги
+        private readonly List<BuildHeadphones> _headList = new List<BuildHeadphones>();
+        private readonly List<BuildKeyboards> _keyList = new List<BuildKeyboards>();
+        private readonly List<BuildMouses> _mouseList = new List<BuildMouses>();
+        private readonly List<BuildMonitors> _monList = new List<BuildMonitors>();
+        private readonly List<BuildMicrophones> _micList = new List<BuildMicrophones>();
+        private readonly List<BuildServices> _servList = new List<BuildServices>();
 
         public ConfiguratorPage()
         {
             InitializeComponent();
-            _context = DatabaseEntities.GetContext();
-
-            _selRams = new List<BuildRAMs>();
-            _selStorages = new List<BuildStorages>();
-            _selCaseFans = new List<BuildCaseCooling>();
-
             LoadAll();
             UpdateSummary();
         }
 
         private void LoadAll()
         {
-            LvCPU.ItemsSource = _context.CPUs.ToList();
-            LvMB.ItemsSource = _context.Motherboards.Include(m => m.RAMTypes).ToList();
-            LvGPU.ItemsSource = _context.GPUs.ToList();
-            LvRAM.ItemsSource = _context.RAMs.ToList();
-            LvStorage.ItemsSource = _context.Storages.ToList();
-            LvCase.ItemsSource = _context.Cases.ToList();
-            LvCaseCooling.ItemsSource = _context.CaseCooling.ToList();
-            LvPowerSupply.ItemsSource = _context.PowerSupplies.ToList();
+            LvCPU.ItemsSource = _ctx.CPUs.ToList();
+            LvMB.ItemsSource = _ctx.Motherboards.ToList();
+            LvGPU.ItemsSource = _ctx.GPUs.ToList();
+            LvCase.ItemsSource = _ctx.Cases.ToList();
+            LvPSU.ItemsSource = _ctx.PowerSupplies.ToList();
+            LvCPUCooling.ItemsSource = _ctx.CPUCooling.ToList();
+            LvCaseCooling.ItemsSource = _ctx.CaseCooling.ToList();
+            LvRAM.ItemsSource = _ctx.RAMs.ToList();
+            LvStorage.ItemsSource = _ctx.Storages.ToList();
+            LvHeadphones.ItemsSource = _ctx.Headphones.ToList();
+            LvKeyboards.ItemsSource = _ctx.Keyboards.ToList();
+            LvMouses.ItemsSource = _ctx.Mouses.ToList();
+            LvMonitors.ItemsSource = _ctx.Monitors.ToList();
+            LvMicrophones.ItemsSource = _ctx.Microphones.ToList();
+            LvServices.ItemsSource = _ctx.Services.ToList();
         }
 
-        private void LvComponent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CollapseAllBorders()
         {
-            var lv = sender as ListView;
-            if (lv == null) return;
+            BorderCPU.Visibility = Visibility.Collapsed;
+            BorderMB.Visibility = Visibility.Collapsed;
+            BorderGPU.Visibility = Visibility.Collapsed;
+            BorderCase.Visibility = Visibility.Collapsed;
+            BorderPSU.Visibility = Visibility.Collapsed;
+            BorderCPUCooling.Visibility = Visibility.Collapsed;
+            BorderCaseCooling.Visibility = Visibility.Collapsed;
+            BorderRAM.Visibility = Visibility.Collapsed;
+            BorderStorage.Visibility = Visibility.Collapsed;
+            BorderHeadphones.Visibility = Visibility.Collapsed;
+            BorderKeyboards.Visibility = Visibility.Collapsed;
+            BorderMouses.Visibility = Visibility.Collapsed;
+            BorderMonitors.Visibility = Visibility.Collapsed;
+            BorderMicrophones.Visibility = Visibility.Collapsed;
+            BorderServices.Visibility = Visibility.Collapsed;
+        }
 
-            switch (lv.Name)
+        private void BtnToggleCPU_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderCPU.Visibility = Visibility.Visible;
+            if (selMb != null)
             {
-                case "LvCPU":
-                    _selCpu = lv.SelectedItem as CPUs;
-                    break;
-                case "LvMB":
-                    _selMb = lv.SelectedItem as Motherboards;
-                    break;
-                case "LvGPU":
-                    _selGpu = lv.SelectedItem as GPUs;
-                    break;
-                case "LvPowerSupply":
-                    _selPsu = lv.SelectedItem as PowerSupplies;
-                    break;
-                case "LvCase":
-                    _selCase = lv.SelectedItem as Cases;
-                    break;
+                LvCPU.ItemsSource = _ctx.CPUs.Where(c => c.Sockets.SocketID == selMb.Sockets.SocketID).ToList();
             }
+            else
+            {
+                LvCPU.ItemsSource = _ctx.CPUs.ToList();
+            }
+        }
 
+        private void BtnToggleMB_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderMB.Visibility = Visibility.Visible;
+            if (selCpu != null)
+            {
+                LvMB.ItemsSource = _ctx.Motherboards.Where(m => m.Sockets.SocketID == selCpu.Sockets.SocketID).ToList();
+            }
+            else if (_ramList.Any())
+            {
+                var ramType = _ramList.First().RAMs.RAMTypes.RAMTypeID;
+                LvMB.ItemsSource = _ctx.Motherboards.Where(m => m.RAMTypes.RAMTypeID == ramType).ToList();
+            }
+            else
+            {
+                LvMB.ItemsSource = _ctx.Motherboards.ToList();
+            }
+        }
+
+        private void BtnToggleGPU_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderGPU.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleCase_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderCase.Visibility = Visibility.Visible;
+        }
+
+        private void BtnTogglePSU_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderPSU.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleCPUCooling_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderCPUCooling.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleCaseCooling_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderCaseCooling.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleRAM_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderRAM.Visibility = Visibility.Visible;
+            if (selMb != null)
+            {
+                LvRAM.ItemsSource = _ctx.RAMs.Where(r => r.RAMTypes.RAMTypeID == selMb.RAMTypes.RAMTypeID).ToList();
+            }
+            else
+            {
+                LvRAM.ItemsSource = _ctx.RAMs.ToList();
+            }
+        }
+
+        private void BtnToggleStorage_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderStorage.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleHeadphones_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderHeadphones.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleKeyboards_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderKeyboards.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleMouses_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderMouses.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleMonitors_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderMonitors.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleMicrophones_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderMicrophones.Visibility = Visibility.Visible;
+        }
+
+        private void BtnToggleServices_Click(object sender, RoutedEventArgs e)
+        {
+            CollapseAllBorders();
+            BorderServices.Visibility = Visibility.Visible;
+        }
+
+        private void Component_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender == LvCPU)
+            {
+                selCpu = LvCPU.SelectedItem as CPUs;
+                BorderCPU.Visibility = Visibility.Collapsed;
+                CheckCoolingCompatibility();
+                CheckPowerCompatibility();
+            }
+            else if (sender == LvMB)
+            {
+                selMb = LvMB.SelectedItem as Motherboards;
+                BorderMB.Visibility = Visibility.Collapsed;
+            }
+            else if (sender == LvGPU)
+            {
+                selGpu = LvGPU.SelectedItem as GPUs;
+                BorderGPU.Visibility = Visibility.Collapsed;
+                CheckPowerCompatibility();
+            }
+            else if (sender == LvCase)
+            {
+                selCase = LvCase.SelectedItem as Cases;
+                BorderCase.Visibility = Visibility.Collapsed;
+            }
+            else if (sender == LvPSU)
+            {
+                selPsu = LvPSU.SelectedItem as PowerSupplies;
+                BorderPSU.Visibility = Visibility.Collapsed;
+                CheckPowerCompatibility();
+            }
+            else if (sender == LvCPUCooling)
+            {
+                selCpuCooling = LvCPUCooling.SelectedItem as CPUCooling;
+                BorderCPUCooling.Visibility = Visibility.Collapsed;
+                CheckCoolingCompatibility();
+            }
+            UpdateSummary();
+        }
+
+        private void CheckCoolingCompatibility()
+        {
+            if (selCpu != null && selCpuCooling != null)
+            {
+                if (selCpu.TDP > selCpuCooling.MaxSupportedTDP)
+                {
+                    MessageBox.Show($"Несовместимость: Охлаждение '{selCpuCooling.Model}' (макс. {selCpuCooling.MaxSupportedTDP} Вт) " +
+                                    $"не справится с процессором '{selCpu.Model}' (TDP {selCpu.TDP} Вт).",
+                                    "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private void CheckPowerCompatibility()
+        {
+            if (selPsu != null && (selCpu != null || selGpu != null))
+            {
+                decimal totalWattage = 100m; // Фиксированная мощность для остальных компонентов
+                if (selCpu != null) totalWattage += (decimal)selCpu.PowerConsumption;
+                if (selGpu != null) totalWattage += selGpu.PowerConsumption;
+
+                if (totalWattage > selPsu.Wattage)
+                {
+                    MessageBox.Show($"Несовместимость: Блок питания '{selPsu.Model}' ({selPsu.Wattage} Вт) " +
+                                    $"не обеспечивает достаточную мощность ({totalWattage} Вт требуется).",
+                                    "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private void BtnAddCaseCooling_Click(object sender, RoutedEventArgs e)
+        {
+            var fan = LvCaseCooling.SelectedItem as CaseCooling;
+            if (fan == null) return;
+            if (!int.TryParse(TbCaseCoolingQty.Text, out int qty) || qty < 1) return;
+            _caseFans.Add(new BuildCaseCooling
+            {
+                BuildID = 0,
+                CaseCoolingID = fan.CaseCoolingID,
+                CaseCooling = fan,
+                Quantity = qty
+            });
+            BorderCaseCooling.Visibility = Visibility.Collapsed;
             UpdateSummary();
         }
 
         private void BtnAddRAM_Click(object sender, RoutedEventArgs e)
         {
-            RAMs ram = LvRAM.SelectedItem as RAMs;
+            var ram = LvRAM.SelectedItem as RAMs;
             if (ram == null) return;
-            int qty;
-            if (!int.TryParse(TbRAMQty.Text, out qty) || qty < 1) return;
-
-            BuildRAMs br = new BuildRAMs();
-            br.RAMID = ram.RAMID;
-            br.Quantity = qty;
-            br.RAMs = ram;
-            _selRams.Add(br);
-            LbRAM.Items.Add(ram.Model + " ×" + qty);
+            if (!int.TryParse(TbRAMQty.Text, out int qty) || qty < 1) return;
+            _ramList.Add(new BuildRAMs
+            {
+                BuildID = 0,
+                RAMID = ram.RAMID,
+                RAMs = ram,
+                Quantity = qty
+            });
+            BorderRAM.Visibility = Visibility.Collapsed;
             UpdateSummary();
         }
 
         private void BtnAddStorage_Click(object sender, RoutedEventArgs e)
         {
-            Storages st = LvStorage.SelectedItem as Storages;
+            var st = LvStorage.SelectedItem as Storages;
             if (st == null) return;
-            int qty;
-            if (!int.TryParse(TbStorageQty.Text, out qty) || qty < 1) return;
-
-            BuildStorages bs = new BuildStorages();
-            bs.StorageID = st.StorageID;
-            bs.Quantity = qty;
-            bs.Storages = st;
-            _selStorages.Add(bs);
-            LbStorage.Items.Add(st.Model + " ×" + qty);
+            if (!int.TryParse(TbStorageQty.Text, out int qty) || qty < 1) return;
+            _storList.Add(new BuildStorages
+            {
+                BuildID = 0,
+                StorageID = st.StorageID,
+                Storages = st,
+                Quantity = qty
+            });
+            BorderStorage.Visibility = Visibility.Collapsed;
             UpdateSummary();
         }
 
-        private void BtnAddCaseCooling_Click(object sender, RoutedEventArgs e)
+        private void BtnAddHeadphones_Click(object sender, RoutedEventArgs e)
         {
-            CaseCooling cc = LvCaseCooling.SelectedItem as CaseCooling;
-            if (cc == null) return;
-            int qty;
-            if (!int.TryParse(TbCaseCoolingQty.Text, out qty) || qty < 1) return;
+            var hp = LvHeadphones.SelectedItem as Headphones;
+            if (hp == null) return;
+            _headList.Add(new BuildHeadphones
+            {
+                BuildID = 0,
+                HeadphoneID = hp.HeadphonesID,
+                Headphones = hp
+            });
+            BorderHeadphones.Visibility = Visibility.Collapsed;
+            UpdateSummary();
+        }
 
-            BuildCaseCooling bc = new BuildCaseCooling();
-            bc.CaseCoolingID = cc.CaseCoolingID;
-            bc.Quantity = qty;
-            bc.CaseCooling = cc;
-            _selCaseFans.Add(bc);
-            LbCaseFans.Items.Add(cc.Model + " ×" + qty);
+        private void BtnAddKeyboards_Click(object sender, RoutedEventArgs e)
+        {
+            var kb = LvKeyboards.SelectedItem as Keyboards;
+            if (kb == null) return;
+            _keyList.Add(new BuildKeyboards
+            {
+                BuildID = 0,
+                KeyboardID = kb.KeyboardID,
+                Keyboards = kb
+            });
+            BorderKeyboards.Visibility = Visibility.Collapsed;
+            UpdateSummary();
+        }
+
+        private void BtnAddMouses_Click(object sender, RoutedEventArgs e)
+        {
+            var mo = LvMouses.SelectedItem as Mouses;
+            if (mo == null) return;
+            _mouseList.Add(new BuildMouses
+            {
+                BuildID = 0,
+                MouseID = mo.MouseID,
+                Mouses = mo
+            });
+            BorderMouses.Visibility = Visibility.Collapsed;
+            UpdateSummary();
+        }
+
+        private void BtnAddMonitors_Click(object sender, RoutedEventArgs e)
+        {
+            var mn = LvMonitors.SelectedItem as Monitors;
+            if (mn == null) return;
+            _monList.Add(new BuildMonitors
+            {
+                BuildID = 0,
+                MonitorID = mn.MonitorID,
+                Monitors = mn
+            });
+            BorderMonitors.Visibility = Visibility.Collapsed;
+            UpdateSummary();
+        }
+
+        private void BtnAddMicrophones_Click(object sender, RoutedEventArgs e)
+        {
+            var mc = LvMicrophones.SelectedItem as Microphones;
+            if (mc == null) return;
+            _micList.Add(new BuildMicrophones
+            {
+                BuildID = 0,
+                MicrophoneID = mc.MicrophoneID,
+                Microphones = mc
+            });
+            BorderMicrophones.Visibility = Visibility.Collapsed;
+            UpdateSummary();
+        }
+
+        private void BtnAddServices_Click(object sender, RoutedEventArgs e)
+        {
+            var sv = LvServices.SelectedItem as Services;
+            if (sv == null) return;
+            _servList.Add(new BuildServices
+            {
+                BuildID = 0,
+                ServiceID = sv.ServiceID,
+                Services = sv
+            });
+            BorderServices.Visibility = Visibility.Collapsed;
             UpdateSummary();
         }
 
         private void UpdateSummary()
         {
             SpSummary.Children.Clear();
-            decimal total = 0;
-
-            Action<string, decimal> add = (label, price) =>
+            decimal total = 0m;
+            void AddLine(string label, decimal price)
             {
-                TextBlock t = new TextBlock();
-                t.Text = label + ": ₽" + price.ToString("N2");
-                t.FontSize = 14;
-                t.Margin = new Thickness(0, 2, 0, 2);
-                SpSummary.Children.Add(t);
+                SpSummary.Children.Add(new TextBlock
+                {
+                    Text = $"{label}: ₽{price:N2}",
+                    Margin = new Thickness(0, 2, 0, 2)
+                });
                 total += price;
-            };
+            }
 
-            if (_selCpu != null) add(_selCpu.Model, _selCpu.Price);
-            if (_selMb != null) add(_selMb.Model, _selMb.Price);
-            if (_selGpu != null) add(_selGpu.Model, _selGpu.Price);
-            if (_selPsu != null) add(_selPsu.Model, _selPsu.Price);
-            if (_selCase != null) add(_selCase.Model, _selCase.Price);
+            if (selCpu != null) AddLine(selCpu.Model, selCpu.Price);
+            if (selMb != null) AddLine(selMb.Model, selMb.Price);
+            if (selGpu != null) AddLine(selGpu.Model, selGpu.Price);
+            if (selCase != null) AddLine(selCase.Model, selCase.Price);
+            if (selPsu != null) AddLine(selPsu.Model, selPsu.Price);
+            if (selCpuCooling != null) AddLine(selCpuCooling.Model, selCpuCooling.Price);
 
-            foreach (BuildRAMs r in _selRams)
-                add(r.RAMs.Model + "×" + r.Quantity, r.RAMs.Price * r.Quantity);
-            foreach (BuildStorages s in _selStorages)
-                add(s.Storages.Model + "×" + s.Quantity, s.Storages.Price * s.Quantity);
-            foreach (BuildCaseCooling f in _selCaseFans)
-                add(f.CaseCooling.Model + "×" + f.Quantity, f.CaseCooling.Price * f.Quantity);
+            foreach (var cf in _caseFans)
+                AddLine($"{cf.CaseCooling.Model}×{cf.Quantity}", cf.CaseCooling.Price * cf.Quantity);
 
-            TbTotalPrice.Text = "Итого: ₽" + total.ToString("N2");
+            foreach (var r in _ramList)
+                AddLine($"{r.RAMs.Model}×{r.Quantity}", r.RAMs.Price * r.Quantity);
+
+            foreach (var s in _storList)
+                AddLine($"{s.Storages.Model}×{s.Quantity}", s.Storages.Price * s.Quantity);
+
+            foreach (var h in _headList)
+                AddLine(h.Headphones.Model, h.Headphones.Price);
+
+            foreach (var k in _keyList)
+                AddLine(k.Keyboards.Model, k.Keyboards.Price);
+
+            foreach (var m in _mouseList)
+                AddLine(m.Mouses.Model, m.Mouses.Price);
+
+            foreach (var m in _monList)
+                AddLine(m.Monitors.Model, m.Monitors.Price);
+
+            foreach (var m in _micList)
+                AddLine(m.Microphones.Model, m.Microphones.Price);
+
+            foreach (var s in _servList)
+                AddLine(s.Services.ServiceName, s.Services.Price);
+
+            TbTotal.Text = $"Итого: ₽{total:N2}";
         }
 
-        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        private bool ValidateBuild()
         {
-            _selCpu = null;
-            _selMb = null;
-            _selGpu = null;
-            _selPsu = null;
-            _selCase = null;
-            _selRams.Clear();
-            _selStorages.Clear();
-            _selCaseFans.Clear();
-
-            LvCPU.SelectedIndex = -1;
-            LvMB.SelectedIndex = -1;
-            LvGPU.SelectedIndex = -1;
-            LvPowerSupply.SelectedIndex = -1;
-            LvCase.SelectedIndex = -1;
-
-            LbRAM.Items.Clear();
-            LbStorage.Items.Clear();
-            LbCaseFans.Items.Clear();
-
-            UpdateSummary();
+            if (selCpu == null || selMb == null || selGpu == null || selCase == null ||
+                selPsu == null || selCpuCooling == null || _ramList.Count == 0 || _storList.Count == 0)
+            {
+                MessageBox.Show("Пожалуйста, выберите все обязательные компоненты (процессор, материнская плата, видеокарта, корпус, блок питания, охлаждение процессора, оперативная память и накопители).",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
         }
 
-        private void BtnSaveBuild_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (_selCpu == null || _selMb == null || _selGpu == null || _selPsu == null || _selCase == null)
-            {
-                MessageBox.Show("Выберите все основные компоненты!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            if (!ValidateBuild()) return;
 
-            Builds build = new Builds();
-            build.BuildName = "Сборка " + DateTime.Now.ToString("dd.MM.yyyy HH:mm");
-            build.CPUID = _selCpu.CPUID;
-            build.MotherboardID = _selMb.MotherboardID;
-            build.GPUID = _selGpu.GPUID;
-            build.PowerSupplyID = _selPsu.PowerSupplyID;
-            build.CaseID = _selCase.CaseID;
-
-            _context.Builds.Add(build);
-            _context.SaveChanges();
-
-            foreach (BuildRAMs r in _selRams)
+            try
             {
-                r.BuildID = build.BuildID;
-                _context.BuildRAMs.Add(r);
-            }
-            foreach (BuildStorages s in _selStorages)
-            {
-                s.BuildID = build.BuildID;
-                _context.BuildStorages.Add(s);
-            }
-            foreach (BuildCaseCooling f in _selCaseFans)
-            {
-                f.BuildID = build.BuildID;
-                _context.BuildCaseCooling.Add(f);
-            }
+                var build = new Builds
+                {
+                    BuildName = $"Сборка {DateTime.Now:yyyyMMddHHmm}",
+                    CPUID = selCpu.CPUID,
+                    MotherboardID = selMb.MotherboardID,
+                    GPUID = selGpu.GPUID,
+                    CaseID = selCase.CaseID,
+                    PowerSupplyID = selPsu.PowerSupplyID,
+                    CPUCoolingID = selCpuCooling.CPUCoolingID
+                };
+                _ctx.Builds.Add(build);
+                _ctx.SaveChanges();
 
-            _context.SaveChanges();
-            MessageBox.Show("Сборка сохранена", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+                foreach (var r in _ramList)
+                {
+                    r.BuildID = build.BuildID;
+                    _ctx.BuildRAMs.Add(r);
+                }
+
+                foreach (var s in _storList)
+                {
+                    s.BuildID = build.BuildID;
+                    _ctx.BuildStorages.Add(s);
+                }
+
+                foreach (var cf in _caseFans)
+                {
+                    cf.BuildID = build.BuildID;
+                    _ctx.BuildCaseCooling.Add(cf);
+                }
+
+                foreach (var h in _headList) { h.BuildID = build.BuildID; _ctx.BuildHeadphones.Add(h); }
+                foreach (var k in _keyList) { k.BuildID = build.BuildID; _ctx.BuildKeyboards.Add(k); }
+                foreach (var m in _mouseList) { m.BuildID = build.BuildID; _ctx.BuildMouses.Add(m); }
+                foreach (var m in _monList) { m.BuildID = build.BuildID; _ctx.BuildMonitors.Add(m); }
+                foreach (var m in _micList) { m.BuildID = build.BuildID; _ctx.BuildMicrophones.Add(m); }
+                foreach (var s in _servList) { s.BuildID = build.BuildID; _ctx.BuildServices.Add(s); }
+
+                _ctx.SaveChanges();
+                MessageBox.Show("Сборка и все опции успешно сохранены.",
+                    "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении сборки: {ex.Message}",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-        private void NumericOnly(object sender, TextCompositionEventArgs e)
+
+        private void NumericOnly(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(char.IsDigit);
         }

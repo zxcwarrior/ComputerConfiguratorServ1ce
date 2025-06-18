@@ -9,5 +9,6 @@ namespace ComputerConfiguratorService.Utilities
         public static Frame MenuFrame { get; set; }
         public static Frame DetailFrame { get; set; }
         public static Users AuthUser { get; set; }
+        public static Button BackButton { get; set; }
     }
 }

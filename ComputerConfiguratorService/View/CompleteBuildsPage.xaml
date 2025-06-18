@@ -20,18 +20,34 @@
                    Foreground="#0E141B"
                    HorizontalAlignment="Center"/>
 
-        <!-- Кнопка удаления -->
+        <!-- Панель кнопок -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
-            <Button x:Name="BtnDelete" Content="Удалить" Width="120" Height="36" Margin="4"
+            <Button x:Name="BtnDetails"
+                    Content="Подробнее"
+                    Width="120" Height="36" Margin="4"
                     Background="#E7EDF3" BorderThickness="0" Foreground="#0E141B"
-                    FontWeight="Bold" Click="BtnDelete_Click" IsEnabled="False"/>
+                    FontWeight="Bold"
+                    Click="BtnDetails_Click"
+                    IsEnabled="False"/>
+            <Button x:Name="BtnDelete"
+                    Content="Удалить"
+                    Width="120" Height="36" Margin="4"
+                    Background="#E7EDF3" BorderThickness="0" Foreground="#0E141B"
+                    FontWeight="Bold"
+                    Click="BtnDelete_Click"
+                    IsEnabled="False"/>
         </StackPanel>
 
         <!-- Список сборок -->
-        <ListView x:Name="LVBuilds" Grid.Row="2" Margin="10" SelectionChanged="LVBuilds_SelectionChanged">
+        <ListView x:Name="LVBuilds"
+                  Grid.Row="2"
+                  Margin="10"
+                  SelectionChanged="LVBuilds_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="16" Margin="8" Background="White" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1">
+                    <Border Padding="16" Margin="8"
+                            Background="White" CornerRadius="12"
+                            BorderBrush="#E5E7EB" BorderThickness="1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="160"/>
@@ -39,13 +55,19 @@
                                 <ColumnDefinition Width="120"/>
                             </Grid.ColumnDefinitions>
                             <!-- Изображение корпуса -->
-                            <Image Source="{Binding ImagePath}" Height="100" Width="160" Stretch="Uniform" Grid.Column="0"/>
-                            <!-- Название и детали -->
+                            <Image Source="{Binding ImagePath}"
+                                   Height="100" Width="160"
+                                   Stretch="Uniform" Grid.Column="0"/>
+                            <!-- Название и ID -->
                             <StackPanel Grid.Column="1" Margin="12,0,0,0">
-                                <TextBlock Text="{Binding BuildName}" FontSize="16" FontWeight="Bold" Foreground="#0E141B"/>
-                                <TextBlock Text="{Binding BuildID, StringFormat='ID: {0}'}" FontSize="14" Foreground="#4E7397" Margin="0,4,0,0"/>
+                                <TextBlock Text="{Binding BuildName}"
+                                           FontSize="16" FontWeight="Bold"
+                                           Foreground="#0E141B"/>
+                                <TextBlock Text="{Binding BuildID, StringFormat='ID: {0}'}"
+                                           FontSize="14" Foreground="#4E7397"
+                                           Margin="0,4,0,0"/>
                             </StackPanel>
-                            <!-- Цена -->
+                            <!-- Итоговая цена -->
                             <TextBlock Grid.Column="2"
                                        Text="{Binding TotalPrice, StringFormat='₽{0:N2}'}"
                                        FontSize="18" FontWeight="Bold"

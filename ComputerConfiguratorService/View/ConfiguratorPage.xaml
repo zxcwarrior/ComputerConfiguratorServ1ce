@@ -5,286 +5,453 @@
       Background="#F1F5F9"
       FontFamily="Segoe UI"
       Language="ru-RU">
-
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Левая панель: выбор компонентов -->
+        <!-- Левая панель -->
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
-
+            <StackPanel Margin="0,0,16,0">
                 <TextBlock Text="Конфигуратор сборки"
                            FontSize="28"
                            FontWeight="Black"
-                           Margin="0,0,0,12" />
+                           Margin="0,0,0,12"/>
 
                 <!-- CPU -->
-                <TextBlock Text="Процессор" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvCPU"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Button Content="Добавить процессор" Width="180" Margin="4" Click="BtnToggleCPU_Click"/>
+                <Border x:Name="BorderCPU" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <ListView x:Name="LvCPU" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding Cores, StringFormat='Ядер: {0}'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
 
-                <!-- Motherboard -->
-                <TextBlock Text="Материнская плата" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvMB"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <!-- Материнская плата -->
+                <Button Content="Добавить материнскую плату" Width="180" Margin="4" Click="BtnToggleMB_Click"/>
+                <Border x:Name="BorderMB" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <ListView x:Name="LvMB" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding RAMType.RAMType, StringFormat='Тип RAM: {0}'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
 
                 <!-- GPU -->
-                <TextBlock Text="Видеокарта" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvGPU"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Button Content="Добавить видеокарту" Width="180" Margin="4" Click="BtnToggleGPU_Click"/>
+                <Border x:Name="BorderGPU" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <ListView x:Name="LvGPU" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding MemoryGB, StringFormat='Память: {0} ГБ'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+                <!-- Корпус -->
+                <Button Content="Добавить корпус" Width="180" Margin="4" Click="BtnToggleCase_Click"/>
+                <Border x:Name="BorderCase" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <ListView x:Name="LvCase" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding CaseFF.CaseFFName, StringFormat='Форм-фактор: {0}'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+                <!-- Блок питания -->
+                <Button Content="Добавить блок питания" Width="180" Margin="4" Click="BtnTogglePSU_Click"/>
+                <Border x:Name="BorderPSU" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <ListView x:Name="LvPSU" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding Wattage, StringFormat='Мощность: {0} Вт'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+                <!-- Охлаждение процессора -->
+                <Button Content="Добавить охлаждение процессора" Width="180" Margin="4" Click="BtnToggleCPUCooling_Click"/>
+                <Border x:Name="BorderCPUCooling" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <ListView x:Name="LvCPUCooling" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding CoolingTypes.CoolingType, StringFormat='Тип: {0}'}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+
+                <!-- Охлаждение корпуса -->
+                <Button Content="Добавить охлаждение корпуса" Width="180" Margin="4" Click="BtnToggleCaseCooling_Click"/>
+                <Border x:Name="BorderCaseCooling" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                        <ListView x:Name="LvCaseCooling" SelectionChanged="Component_SelectionChanged">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                            CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                        <StackPanel>
+                                            <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                            <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding FanSize, StringFormat='Размер: {0} мм'}" FontSize="12"/>
+                                            <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <TextBlock Text="Кол-во:"/>
+                            <TextBox x:Name="TbCaseCoolingQty" Width="50" PreviewTextInput="NumericOnly"/>
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddCaseCooling_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
                 <!-- RAM -->
-                <TextBlock Text="Оперативная память" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvRAM"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <StackPanel Orientation="Horizontal" Margin="0,4,0,8">
-                    <TextBlock Text="Кол-во:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <TextBox x:Name="TbRAMQty" Width="40" PreviewTextInput="NumericOnly"/>
-                    <Button Content="Добавить" Click="BtnAddRAM_Click" Margin="8,0,0,0"/>
-                </StackPanel>
-                <ListBox x:Name="LbRAM" Height="80"/>
+                <Button Content="Добавить оперативную память" Width="180" Margin="4" Click="BtnToggleRAM_Click"/>
+                <Border x:Name="BorderRAM" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                        <ListView x:Name="LvRAM" SelectionChanged="Component_SelectionChanged">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                            CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                        <StackPanel>
+                                            <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                            <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding CapacityGB, StringFormat='Объём: {0} ГБ'}" FontSize="12"/>
+                                            <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <TextBlock Text="Кол-во:"/>
+                            <TextBox x:Name="TbRAMQty" Width="50" PreviewTextInput="NumericOnly"/>
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddRAM_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
                 <!-- Storage -->
-                <TextBlock Text="Накопители" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvStorage"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <StackPanel Orientation="Horizontal" Margin="0,4,0,8">
-                    <TextBlock Text="Кол-во:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <TextBox x:Name="TbStorageQty" Width="40" PreviewTextInput="NumericOnly"/>
-                    <Button Content="Добавить" Click="BtnAddStorage_Click" Margin="8,0,0,0"/>
-                </StackPanel>
-                <ListBox x:Name="LbStorage" Height="80"/>
+                <Button Content="Добавить накопители" Width="180" Margin="4" Click="BtnToggleStorage_Click"/>
+                <Border x:Name="BorderStorage" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                        <ListView x:Name="LvStorage" SelectionChanged="Component_SelectionChanged">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                            CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                        <StackPanel>
+                                            <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
+                                            <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding CapacityGB, StringFormat='Объём: {0} ГБ'}" FontSize="12"/>
+                                            <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <TextBlock Text="Кол-во:"/>
+                            <TextBox x:Name="TbStorageQty" Width="50" PreviewTextInput="NumericOnly"/>
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddStorage_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
-                <!-- Case -->
-                <TextBlock Text="Корпус" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvCase"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <!-- Аксессуары и услуги -->
+                <Separator Margin="0,16"/>
+                <TextBlock Text="Аксессуары и услуги" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
 
-                <!-- Case Cooling -->
-                <TextBlock Text="Корпусные вентиляторы" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvCaseCooling"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate> 
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <StackPanel Orientation="Horizontal" Margin="0,4,0,8">
-                    <TextBlock Text="Кол-во:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <TextBox x:Name="TbCaseCoolingQty" Width="40" PreviewTextInput="NumericOnly"/>
-                    <Button Content="Добавить" Click="BtnAddCaseCooling_Click" Margin="8,0,0,0"/>
-                </StackPanel>
-                <ListBox x:Name="LbCaseFans" Height="80"/>
+                <!-- Headphones -->
+                <Button Content="Добавить наушники" Width="180" Margin="4" Click="BtnToggleHeadphones_Click"/>
+                <Border x:Name="BorderHeadphones" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                        <ListView x:Name="LvHeadphones" SelectionChanged="Component_SelectionChanged">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddHeadphones_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
-                <!-- PSU -->
-                <TextBlock Text="Блок питания" FontSize="16" FontWeight="Bold" Margin="0,8,0,4"/>
-                <ListView x:Name="LvPowerSupply"
-                          Height="150"
-                          SelectionChanged="LvComponent_SelectionChanged">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border Width="160" Margin="4" Padding="8"
-                                    Background="White" CornerRadius="8"
-                                    BorderBrush="#E5E7EB" BorderThickness="1">
-                                <StackPanel>
-                                    <Image Source="{Binding ImagePath}" Height="50" Stretch="Uniform"/>
-                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}"
-                                               FontSize="12" Foreground="#0E141B"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <!-- Keyboards -->
+                <Button Content="Добавить клавиатуру" Width="180" Margin="4" Click="BtnToggleKeyboards_Click"/>
+                <Border x:Name="BorderKeyboards" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                        <ListView x:Name="LvKeyboards" SelectionChanged="Component_SelectionChanged">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                        <StackPanel>
+                                            <Image Source="{Binding ImagePath}" Height="40" Stretch="Uniform"/>
+                                            <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddKeyboards_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
+                <!-- Mouses -->
+                <Button Content="Добавить мышь" Width="180" Margin="4" Click="BtnToggleMouses_Click"/>
+                <Border x:Name="BorderMouses" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                        <ListView x:Name="LvMouses" SelectionChanged="Component_SelectionChanged">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                        <StackPanel>
+                                            <Image Source="{Binding ImagePath}" Height="40" Stretch="Uniform"/>
+                                            <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                            <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddMouses_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Monitors -->
+                <Button Content="Добавить монитор" Width="180" Margin="4" Click="BtnToggleMonitors_Click"/>
+                <Border x:Name="BorderMonitors" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                    <ListView x:Name="LvMonitors" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="40" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddMonitors_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Microphones -->
+                <Button Content="Добавить микрофон" Width="180" Margin="4" Click="BtnToggleMicrophones_Click"/>
+                <Border x:Name="BorderMicrophones" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                    <ListView x:Name="LvMicrophones" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <Image Source="{Binding ImagePath}" Height="40" Stretch="Uniform"/>
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddMicrophones_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Services -->
+                <Button Content="Добавить услугу" Width="180" Margin="4" Click="BtnToggleServices_Click"/>
+                <Border x:Name="BorderServices" Visibility="Collapsed" Background="White" CornerRadius="8" Padding="8">
+                    <StackPanel>
+                    <ListView x:Name="LvServices" SelectionChanged="Component_SelectionChanged">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border HorizontalAlignment="Stretch" Margin="4" Padding="8" Background="White"
+                                        CornerRadius="8" BorderBrush="#E5E7EB" BorderThickness="1">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding ServiceName}" FontWeight="Bold" FontSize="14" Margin="0,4,0,0"/>
+                                        <TextBlock Text="{Binding Price, StringFormat='₽{0:N2}'}" FontSize="14" FontWeight="Bold" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                        <StackPanel Margin="0,8,0,0">
+                            <Button Content="Добавить" Width="80" Margin="0,4,0,0" Click="BtnAddServices_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Правая панель: итог сборки -->
-        <Border Grid.Column="1"
-                Background="White"
-                BorderBrush="#E5E7EB"
-                BorderThickness="1"
-                CornerRadius="8"
-                Padding="16">
+        <!-- Правая панель -->
+        <Border Grid.Column="1" Background="White" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="8" Padding="16">
             <StackPanel>
-                <TextBlock Text="Итоговая сборка"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Margin="0,0,0,12"/>
+                <TextBlock Text="Итог сборки" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
                 <StackPanel x:Name="SpSummary"/>
                 <Separator Margin="0,8"/>
-                <TextBlock x:Name="TbTotalPrice"
-                           Text="Итого: ₽0.00"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           Margin="0,0,0,12"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="BtnSaveBuild"
-                            Content="Сохранить сборку"
-                            Width="140"
-                            Height="36"
-                            Background="#0E141B"
-                            Foreground="White"
-                            Click="BtnSaveBuild_Click"/>
-                    <Button x:Name="BtnClear"
-                            Content="Очистить"
-                            Width="100"
-                            Height="36"
-                            Background="#E7EDF3"
-                            Margin="8,0,0,0"
-                            Click="BtnClear_Click"/>
-                </StackPanel>
+                <TextBlock x:Name="TbTotal" Text="Итого: ₽0.00" FontSize="18" FontWeight="Bold" Margin="0,0,0,12"/>
+                <Button x:Name="BtnSave" Content="Сохранить сборку" Width="160" Height="36"
+                        Background="#0E141B" Foreground="White" Click="BtnSave_Click"/>
             </StackPanel>
         </Border>
     </Grid>

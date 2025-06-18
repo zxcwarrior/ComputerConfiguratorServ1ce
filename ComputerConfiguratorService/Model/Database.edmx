@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище DatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище DatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BuildCaseCooling">
           <Key>
             <PropertyRef Name="BuildCaseCoolingID" />
@@ -158,6 +158,7 @@
           <Property Name="TDP" Type="int" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="nvarchar(max)" />
+          <Property Name="PowerConsumption" Type="int" />
         </EntityType>
         <EntityType Name="EfficiencyRatings">
           <Key>
@@ -369,7 +370,7 @@
           <Property Name="VendorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__BuildRAMs__Build__72C60C4A">
+        <Association Name="FK__BuildRAMs__Build__2739D489">
           <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
           <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -381,7 +382,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BuildRAMs__RAMID__73BA3083">
+        <Association Name="FK__BuildRAMs__RAMID__282DF8C2">
           <End Role="RAMs" Type="Self.RAMs" Multiplicity="1" />
           <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1020,11 +1021,11 @@
           <EntitySet Name="StorageTypes" EntityType="Self.StorageTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__BuildRAMs__Build__72C60C4A" Association="Self.FK__BuildRAMs__Build__72C60C4A">
+          <AssociationSet Name="FK__BuildRAMs__Build__2739D489" Association="Self.FK__BuildRAMs__Build__2739D489">
             <End Role="Builds" EntitySet="Builds" />
             <End Role="BuildRAMs" EntitySet="BuildRAMs" />
           </AssociationSet>
-          <AssociationSet Name="FK__BuildRAMs__RAMID__73BA3083" Association="Self.FK__BuildRAMs__RAMID__73BA3083">
+          <AssociationSet Name="FK__BuildRAMs__RAMID__282DF8C2" Association="Self.FK__BuildRAMs__RAMID__282DF8C2">
             <End Role="RAMs" EntitySet="RAMs" />
             <End Role="BuildRAMs" EntitySet="BuildRAMs" />
           </AssociationSet>
@@ -1225,7 +1226,8 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1298,8 +1300,8 @@
           <Property Name="BuildID" Type="Int32" Nullable="false" />
           <Property Name="RAMID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Builds" Relationship="Self.FK__BuildRAMs__Build__72C60C4A" FromRole="BuildRAMs" ToRole="Builds" />
-          <NavigationProperty Name="RAMs" Relationship="Self.FK__BuildRAMs__RAMID__73BA3083" FromRole="BuildRAMs" ToRole="RAMs" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK__BuildRAMs__Build__2739D489" FromRole="BuildRAMs" ToRole="Builds" />
+          <NavigationProperty Name="RAMs" Relationship="Self.FK__BuildRAMs__RAMID__282DF8C2" FromRole="BuildRAMs" ToRole="RAMs" />
         </EntityType>
         <EntityType Name="Builds">
           <Key>
@@ -1319,7 +1321,7 @@
           <NavigationProperty Name="BuildMicrophones" Relationship="Self.FK_BuildMicrophones_Builds" FromRole="Builds" ToRole="BuildMicrophones" />
           <NavigationProperty Name="BuildMonitors" Relationship="Self.FK_BuildMonitors_Builds" FromRole="Builds" ToRole="BuildMonitors" />
           <NavigationProperty Name="BuildMouses" Relationship="Self.FK_BuildMouses_Builds" FromRole="Builds" ToRole="BuildMouses" />
-          <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__Build__72C60C4A" FromRole="Builds" ToRole="BuildRAMs" />
+          <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__Build__2739D489" FromRole="Builds" ToRole="BuildRAMs" />
           <NavigationProperty Name="Cases" Relationship="Self.FK_Builds_Cases" FromRole="Builds" ToRole="Cases" />
           <NavigationProperty Name="CPUCooling" Relationship="Self.FK_Builds_CPUCooling" FromRole="Builds" ToRole="CPUCooling" />
           <NavigationProperty Name="CPUs" Relationship="Self.FK_Builds_CPUs" FromRole="Builds" ToRole="CPUs" />
@@ -1426,6 +1428,7 @@
           <Property Name="TDP" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PowerConsumption" Type="Int32" />
           <NavigationProperty Name="Builds" Relationship="Self.FK_Builds_CPUs" FromRole="CPUs" ToRole="Builds" />
           <NavigationProperty Name="Manufacturers" Relationship="Self.FK_CPUs_Manufacturers" FromRole="CPUs" ToRole="Manufacturers" />
           <NavigationProperty Name="Sockets" Relationship="Self.FK_CPUs_Sockets" FromRole="CPUs" ToRole="Sockets" />
@@ -1476,9 +1479,9 @@
           <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BuildHeadphones" Relationship="Self.FK_BuildHeadphones_Headphones" FromRole="Headphones" ToRole="BuildHeadphones" />
           <NavigationProperty Name="Manufacturers" Relationship="Self.FK_Headphones_Manufacturers" FromRole="Headphones" ToRole="Manufacturers" />
-          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Keyboards">
           <Key>
@@ -1582,8 +1585,8 @@
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BuildID" Type="Int32" Nullable="false" />
           <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Builds" Relationship="Self.FK_Orders_Builds" FromRole="Orders" ToRole="Builds" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Builds" Relationship="Self.FK_Orders_Builds" FromRole="Orders" ToRole="Builds" />
         </EntityType>
         <EntityType Name="PowerSupplies">
           <Key>
@@ -1612,7 +1615,7 @@
           <Property Name="RAMTypeID" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__RAMID__73BA3083" FromRole="RAMs" ToRole="BuildRAMs" />
+          <NavigationProperty Name="BuildRAMs" Relationship="Self.FK__BuildRAMs__RAMID__282DF8C2" FromRole="RAMs" ToRole="BuildRAMs" />
           <NavigationProperty Name="Manufacturers" Relationship="Self.FK_RAMs_Manufacturers" FromRole="RAMs" ToRole="Manufacturers" />
           <NavigationProperty Name="RAMTypes" Relationship="Self.FK_RAMs_RAMTypes" FromRole="RAMs" ToRole="RAMTypes" />
         </EntityType>
@@ -1839,7 +1842,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BuildRAMs__Build__72C60C4A">
+        <Association Name="FK__BuildRAMs__Build__2739D489">
           <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
           <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1851,7 +1854,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__BuildRAMs__RAMID__73BA3083">
+        <Association Name="FK__BuildRAMs__RAMID__282DF8C2">
           <End Role="RAMs" Type="Self.RAMs" Multiplicity="1" />
           <End Role="BuildRAMs" Type="Self.BuildRAMs" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2394,11 +2397,11 @@
             <End Role="Mouses" EntitySet="Mouses" />
             <End Role="BuildMouses" EntitySet="BuildMouses" />
           </AssociationSet>
-          <AssociationSet Name="FK__BuildRAMs__Build__72C60C4A" Association="Self.FK__BuildRAMs__Build__72C60C4A">
+          <AssociationSet Name="FK__BuildRAMs__Build__2739D489" Association="Self.FK__BuildRAMs__Build__2739D489">
             <End Role="Builds" EntitySet="Builds" />
             <End Role="BuildRAMs" EntitySet="BuildRAMs" />
           </AssociationSet>
-          <AssociationSet Name="FK__BuildRAMs__RAMID__73BA3083" Association="Self.FK__BuildRAMs__RAMID__73BA3083">
+          <AssociationSet Name="FK__BuildRAMs__RAMID__282DF8C2" Association="Self.FK__BuildRAMs__RAMID__282DF8C2">
             <End Role="RAMs" EntitySet="RAMs" />
             <End Role="BuildRAMs" EntitySet="BuildRAMs" />
           </AssociationSet>
@@ -2724,6 +2727,7 @@
                 <ScalarProperty Name="TDP" ColumnName="TDP" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="PowerConsumption" ColumnName="PowerConsumption" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2765,11 +2769,11 @@
           <EntitySetMapping Name="Headphones">
             <EntityTypeMapping TypeName="DatabaseModel.Headphones">
               <MappingFragment StoreEntitySet="Headphones">
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="HeadphonesID" ColumnName="HeadphonesID" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2850,10 +2854,10 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="DatabaseModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="BuildID" ColumnName="BuildID" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

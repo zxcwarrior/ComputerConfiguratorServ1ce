@@ -47,9 +47,12 @@ namespace ComputerConfiguratorService.View
         private void CheckUser()
         {
             if (Manager.AuthUser == null || Manager.AuthUser.Roles.RoleID != 1)
+            {
                 BackData.Visibility = Visibility.Collapsed;
-            else
-                BackData.Visibility = Visibility.Visible;
+                Components.Visibility = Visibility.Collapsed;
+                Accessories.Visibility = Visibility.Collapsed;
+                Services.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

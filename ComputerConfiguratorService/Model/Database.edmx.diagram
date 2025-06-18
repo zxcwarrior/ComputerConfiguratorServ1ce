@@ -4,45 +4,45 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a6f3161baaa64b08a0d5fe4599ffb30b" Name="Diagram1">
-        <EntityTypeShape EntityType="DatabaseModel.BuildCaseCooling" Width="1.5" PointX="5.25" PointY="31.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildHeadphones" Width="1.5" PointX="13.5" PointY="44.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildKeyboards" Width="1.5" PointX="13.5" PointY="48.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildMicrophones" Width="1.5" PointX="16.5" PointY="48" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildMonitors" Width="1.5" PointX="13.5" PointY="51.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildMouses" Width="1.5" PointX="13.5" PointY="55.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildRAMs" Width="1.5" PointX="13.5" PointY="39.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Builds" Width="1.5" PointX="11.25" PointY="38" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildServices" Width="1.5" PointX="13.5" PointY="36.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.BuildStorages" Width="1.5" PointX="16.5" PointY="38" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.CaseCooling" Width="1.5" PointX="3" PointY="31.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.CaseFormFactors" Width="1.5" PointX="0.75" PointY="43.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Cases" Width="1.5" PointX="3" PointY="38.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.CoolingTypes" Width="1.5" PointX="3.75" PointY="48.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.CPUCooling" Width="1.5" PointX="6" PointY="38.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.CPUs" Width="1.5" PointX="3" PointY="43.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.EfficiencyRatings" Width="1.5" PointX="0.75" PointY="35.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.GPUMemoryTypes" Width="1.5" PointX="3.75" PointY="22.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.GPUs" Width="1.5" PointX="6" PointY="43" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Headphones" Width="1.5" PointX="3" PointY="51.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Keyboards" Width="1.5" PointX="3" PointY="54.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Manufacturers" Width="1.5" PointX="0.75" PointY="38.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Microphones" Width="1.5" PointX="3" PointY="57.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Monitors" Width="1.5" PointX="3" PointY="60.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.MotherboardFormFactor" Width="1.5" PointX="3.75" PointY="28" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Motherboards" Width="1.5" PointX="6" PointY="34.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Mouses" Width="1.5" PointX="3" PointY="68" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Orders" Width="1.5" PointX="13.5" PointY="62.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.PowerSupplies" Width="1.5" PointX="3" PointY="34.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.RAMs" Width="1.5" PointX="9" PointY="38.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.RAMTypes" Width="1.5" PointX="3.75" PointY="25.375" IsExpanded="true" />
+      <Diagram DiagramId="c7805dc6ce55413c971b3f1d3c10a3ac" Name="Diagram1" ZoomLevel="34">
+        <EntityTypeShape EntityType="DatabaseModel.BuildCaseCooling" Width="1.5" PointX="5.25" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildHeadphones" Width="1.5" PointX="13.5" PointY="45.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildKeyboards" Width="1.5" PointX="13.5" PointY="48.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildMicrophones" Width="1.5" PointX="16.5" PointY="48.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildMonitors" Width="1.5" PointX="13.5" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildMouses" Width="1.5" PointX="13.5" PointY="55.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildRAMs" Width="1.5" PointX="13.5" PointY="40" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Builds" Width="1.5" PointX="11.25" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildServices" Width="1.5" PointX="13.5" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.BuildStorages" Width="1.5" PointX="16.5" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.CaseCooling" Width="1.5" PointX="3" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.CaseFormFactors" Width="1.5" PointX="0.75" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Cases" Width="1.5" PointX="3" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.CoolingTypes" Width="1.5" PointX="3.75" PointY="48.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.CPUCooling" Width="1.5" PointX="6" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.CPUs" Width="1.5" PointX="3" PointY="43.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.EfficiencyRatings" Width="1.5" PointX="0.75" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.GPUMemoryTypes" Width="1.5" PointX="3.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.GPUs" Width="1.5" PointX="6" PointY="43.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Headphones" Width="1.5" PointX="3" PointY="52" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Keyboards" Width="1.5" PointX="3" PointY="55" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Manufacturers" Width="1.5" PointX="0.75" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Microphones" Width="1.5" PointX="3" PointY="58.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Monitors" Width="1.5" PointX="3" PointY="61.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.MotherboardFormFactor" Width="1.5" PointX="3.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Motherboards" Width="1.5" PointX="6" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Mouses" Width="1.5" PointX="3" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Orders" Width="1.5" PointX="13.5" PointY="62.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.PowerSupplies" Width="1.5" PointX="3" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.RAMs" Width="1.5" PointX="9" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.RAMTypes" Width="1.5" PointX="3.75" PointY="25.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModel.Roles" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Services" Width="1.5" PointX="11.25" PointY="34.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Sockets" Width="1.5" PointX="0.75" PointY="46.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Storages" Width="1.5" PointX="9" PointY="34.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.StorageTypes" Width="1.5" PointX="6.75" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Services" Width="1.5" PointX="11.25" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Sockets" Width="1.5" PointX="0.75" PointY="46.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Storages" Width="1.5" PointX="9" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.StorageTypes" Width="1.5" PointX="6.75" PointY="28.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DatabaseModel.Users" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DatabaseModel.Vendors" Width="1.5" PointX="3.75" PointY="64.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Vendors" Width="1.5" PointX="3.75" PointY="64.75" IsExpanded="true" />
         <AssociationConnector Association="DatabaseModel.FK_BuildCaseCooling_Builds" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_BuildCaseCooling_CaseCooling" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_BuildHeadphones_Builds" ManuallyRouted="false" />
@@ -55,8 +55,8 @@
         <AssociationConnector Association="DatabaseModel.FK_BuildMonitors_Monitors" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_BuildMouses_Builds" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_BuildMouses_Mouses" ManuallyRouted="false" />
-        <AssociationConnector Association="DatabaseModel.FK__BuildRAMs__Build__72C60C4A" ManuallyRouted="false" />
-        <AssociationConnector Association="DatabaseModel.FK__BuildRAMs__RAMID__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__BuildRAMs__Build__2739D489" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__BuildRAMs__RAMID__282DF8C2" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Builds_Cases" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Builds_CPUCooling" ManuallyRouted="false" />
         <AssociationConnector Association="DatabaseModel.FK_Builds_CPUs" ManuallyRouted="false" />

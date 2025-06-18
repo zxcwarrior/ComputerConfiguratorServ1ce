@@ -26,13 +26,12 @@
                     </StackPanel>
 
                     <Border DockPanel.Dock="Right" VerticalAlignment="Center" Background="#E7EDF3" CornerRadius="12">
-                        <Button x:Name="BackButton" Content="Назад" Click="BackButton_Click" Background="Transparent" BorderThickness="0" FontSize="18" 
-                                FontWeight="Bold" Foreground="#0E141B" Padding="12,6" Cursor="Hand"/>
+                        <Button x:Name="BackButton" Content="Выйти с аккаунта" Click="BackButton_Click" Background="Transparent" BorderThickness="0" FontSize="18" 
+                                FontWeight="Bold" Foreground="#0E141B" Padding="12,6" Cursor="Hand" Visibility="Collapsed"/>
                     </Border>
                 </DockPanel>
             </Border>
-
-            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered" Background="White"/>
+            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Background="White"/>
         </Grid>
     </Viewbox>
 </Window>

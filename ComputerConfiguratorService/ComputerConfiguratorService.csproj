@@ -241,9 +241,6 @@
     <Compile Include="View\ComponentsPage.xaml.cs">
       <DependentUpon>ComponentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ConfiguratorMenu.xaml.cs">
-      <DependentUpon>ConfiguratorMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ConfiguratorPage.xaml.cs">
       <DependentUpon>ConfiguratorPage.xaml</DependentUpon>
     </Compile>
@@ -364,10 +361,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ComponentsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ConfiguratorMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
