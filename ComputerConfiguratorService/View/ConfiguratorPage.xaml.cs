@@ -60,35 +60,22 @@ namespace ComputerConfiguratorService.View
 
         private void CollapseAllBorders()
         {
-            BorderCPU.Visibility = Visibility.Collapsed;
-            BorderMB.Visibility = Visibility.Collapsed;
-            BorderGPU.Visibility = Visibility.Collapsed;
-            BorderCase.Visibility = Visibility.Collapsed;
-            BorderPSU.Visibility = Visibility.Collapsed;
-            BorderCPUCooling.Visibility = Visibility.Collapsed;
-            BorderCaseCooling.Visibility = Visibility.Collapsed;
-            BorderRAM.Visibility = Visibility.Collapsed;
-            BorderStorage.Visibility = Visibility.Collapsed;
-            BorderHeadphones.Visibility = Visibility.Collapsed;
-            BorderKeyboards.Visibility = Visibility.Collapsed;
-            BorderMouses.Visibility = Visibility.Collapsed;
-            BorderMonitors.Visibility = Visibility.Collapsed;
-            BorderMicrophones.Visibility = Visibility.Collapsed;
-            BorderServices.Visibility = Visibility.Collapsed;
+            BorderCPU.Visibility = BorderMB.Visibility = BorderGPU.Visibility =
+            BorderCase.Visibility = BorderPSU.Visibility = BorderCPUCooling.Visibility =
+            BorderCaseCooling.Visibility = BorderRAM.Visibility = BorderStorage.Visibility =
+            BorderHeadphones.Visibility = BorderKeyboards.Visibility = BorderMouses.Visibility =
+            BorderMonitors.Visibility = BorderMicrophones.Visibility = BorderServices.Visibility =
+                Visibility.Collapsed;
         }
 
+        // Панели выбора компонентов
         private void BtnToggleCPU_Click(object sender, RoutedEventArgs e)
         {
             CollapseAllBorders();
             BorderCPU.Visibility = Visibility.Visible;
-            if (selMb != null)
-            {
-                LvCPU.ItemsSource = _ctx.CPUs.Where(c => c.Sockets.SocketID == selMb.Sockets.SocketID).ToList();
-            }
-            else
-            {
-                LvCPU.ItemsSource = _ctx.CPUs.ToList();
-            }
+            LvCPU.ItemsSource = selMb != null
+                ? _ctx.CPUs.Where(c => c.SocketID == selMb.SocketID).ToList()
+                : _ctx.CPUs.ToList();
         }
 
         private void BtnToggleMB_Click(object sender, RoutedEventArgs e)
@@ -96,18 +83,14 @@ namespace ComputerConfiguratorService.View
             CollapseAllBorders();
             BorderMB.Visibility = Visibility.Visible;
             if (selCpu != null)
-            {
-                LvMB.ItemsSource = _ctx.Motherboards.Where(m => m.Sockets.SocketID == selCpu.Sockets.SocketID).ToList();
-            }
+                LvMB.ItemsSource = _ctx.Motherboards.Where(m => m.SocketID == selCpu.SocketID).ToList();
             else if (_ramList.Any())
             {
-                var ramType = _ramList.First().RAMs.RAMTypes.RAMTypeID;
-                LvMB.ItemsSource = _ctx.Motherboards.Where(m => m.RAMTypes.RAMTypeID == ramType).ToList();
+                int ramTypeId = _ramList.First().RAMs.RAMTypeID;
+                LvMB.ItemsSource = _ctx.Motherboards.Where(m => m.RAMTypeID == ramTypeId).ToList();
             }
             else
-            {
                 LvMB.ItemsSource = _ctx.Motherboards.ToList();
-            }
         }
 
         private void BtnToggleGPU_Click(object sender, RoutedEventArgs e)
@@ -144,14 +127,9 @@ namespace ComputerConfiguratorService.View
         {
             CollapseAllBorders();
             BorderRAM.Visibility = Visibility.Visible;
-            if (selMb != null)
-            {
-                LvRAM.ItemsSource = _ctx.RAMs.Where(r => r.RAMTypes.RAMTypeID == selMb.RAMTypes.RAMTypeID).ToList();
-            }
-            else
-            {
-                LvRAM.ItemsSource = _ctx.RAMs.ToList();
-            }
+            LvRAM.ItemsSource = selMb != null
+                ? _ctx.RAMs.Where(r => r.RAMTypeID == selMb.RAMTypeID).ToList()
+                : _ctx.RAMs.ToList();
         }
 
         private void BtnToggleStorage_Click(object sender, RoutedEventArgs e)
@@ -196,6 +174,7 @@ namespace ComputerConfiguratorService.View
             BorderServices.Visibility = Visibility.Visible;
         }
 
+        // Обработка выбора компонента
         private void Component_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (sender == LvCPU)
@@ -238,170 +217,208 @@ namespace ComputerConfiguratorService.View
 
         private void CheckCoolingCompatibility()
         {
-            if (selCpu != null && selCpuCooling != null)
+            if (selCpu != null && selCpuCooling != null &&
+                selCpu.TDP > selCpuCooling.MaxSupportedTDP)
             {
-                if (selCpu.TDP > selCpuCooling.MaxSupportedTDP)
-                {
-                    MessageBox.Show($"Несовместимость: Охлаждение '{selCpuCooling.Model}' (макс. {selCpuCooling.MaxSupportedTDP} Вт) " +
-                                    $"не справится с процессором '{selCpu.Model}' (TDP {selCpu.TDP} Вт).",
-                                    "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                MessageBox.Show(
+                    $"Несовместимость: охлаждение '{selCpuCooling.Model}' поддерживает до {selCpuCooling.MaxSupportedTDP}W, " +
+                    $"а процессор '{selCpu.Model}' имеет TDP {selCpu.TDP}W.",
+                    "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void CheckPowerCompatibility()
         {
-            if (selPsu != null && (selCpu != null || selGpu != null))
+            if (selPsu != null)
             {
-                decimal totalWattage = 100m; // Фиксированная мощность для остальных компонентов
-                if (selCpu != null) totalWattage += (decimal)selCpu.PowerConsumption;
-                if (selGpu != null) totalWattage += selGpu.PowerConsumption;
+                decimal required = 100m;
+                if (selCpu != null) required += selCpu.TDP;
+                if (selGpu != null) required += selGpu.PowerConsumption;
 
-                if (totalWattage > selPsu.Wattage)
+                if (required > selPsu.Wattage)
                 {
-                    MessageBox.Show($"Несовместимость: Блок питания '{selPsu.Model}' ({selPsu.Wattage} Вт) " +
-                                    $"не обеспечивает достаточную мощность ({totalWattage} Вт требуется).",
-                                    "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(
+                        $"Несовместимость: блок питания '{selPsu.Model}' ({selPsu.Wattage}W) не обеспечивает {required}W.",
+                        "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
 
+        // Добавление корпусных вентиляторов (с ограничением MaxCoolers)
         private void BtnAddCaseCooling_Click(object sender, RoutedEventArgs e)
         {
-            var fan = LvCaseCooling.SelectedItem as CaseCooling;
-            if (fan == null) return;
-            if (!int.TryParse(TbCaseCoolingQty.Text, out int qty) || qty < 1) return;
-            _caseFans.Add(new BuildCaseCooling
+            if (selCase == null)
             {
-                BuildID = 0,
-                CaseCoolingID = fan.CaseCoolingID,
-                CaseCooling = fan,
-                Quantity = qty
-            });
-            BorderCaseCooling.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                MessageBox.Show("Сначала выберите корпус.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (LvCaseCooling.SelectedItem is CaseCooling fan &&
+                int.TryParse(TbCaseCoolingQty.Text, out int qty) && qty > 0)
+            {
+                int maxFans = selCase.MaxCoolers;
+                if (_caseFans.Sum(f => f.Quantity) + qty > maxFans)
+                {
+                    MessageBox.Show($"Максимум вентиляторов в корпусе: {maxFans}.", "Превышено ограничение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                _caseFans.Add(new BuildCaseCooling
+                {
+                    BuildID = 0,
+                    CaseCoolingID = fan.CaseCoolingID,
+                    CaseCooling = fan,
+                    Quantity = qty
+                });
+                BorderCaseCooling.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
+        // Добавление RAM (до 4 планок)
         private void BtnAddRAM_Click(object sender, RoutedEventArgs e)
         {
-            var ram = LvRAM.SelectedItem as RAMs;
-            if (ram == null) return;
-            if (!int.TryParse(TbRAMQty.Text, out int qty) || qty < 1) return;
-            _ramList.Add(new BuildRAMs
+            if (LvRAM.SelectedItem is RAMs ram &&
+                int.TryParse(TbRAMQty.Text, out int qty) && qty > 0)
             {
-                BuildID = 0,
-                RAMID = ram.RAMID,
-                RAMs = ram,
-                Quantity = qty
-            });
-            BorderRAM.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                if (_ramList.Sum(r => r.Quantity) + qty > 4)
+                {
+                    MessageBox.Show("Общее количество планок RAM не может превышать 4.", "Превышено ограничение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                _ramList.Add(new BuildRAMs
+                {
+                    BuildID = 0,
+                    RAMID = ram.RAMID,
+                    RAMs = ram,
+                    Quantity = qty
+                });
+                BorderRAM.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
+        // Добавление хранилищ (до 6)
         private void BtnAddStorage_Click(object sender, RoutedEventArgs e)
         {
-            var st = LvStorage.SelectedItem as Storages;
-            if (st == null) return;
-            if (!int.TryParse(TbStorageQty.Text, out int qty) || qty < 1) return;
-            _storList.Add(new BuildStorages
+            if (LvStorage.SelectedItem is Storages st &&
+                int.TryParse(TbStorageQty.Text, out int qty) && qty > 0)
             {
-                BuildID = 0,
-                StorageID = st.StorageID,
-                Storages = st,
-                Quantity = qty
-            });
-            BorderStorage.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                if (_storList.Sum(s => s.Quantity) + qty > 6)
+                {
+                    MessageBox.Show("Общее количество накопителей не может превышать 6.", "Превышено ограничение", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                _storList.Add(new BuildStorages
+                {
+                    BuildID = 0,
+                    StorageID = st.StorageID,
+                    Storages = st,
+                    Quantity = qty
+                });
+                BorderStorage.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
+        // Остальные Add-методы (аксессуары и услуги) без ограничений
         private void BtnAddHeadphones_Click(object sender, RoutedEventArgs e)
         {
-            var hp = LvHeadphones.SelectedItem as Headphones;
-            if (hp == null) return;
-            _headList.Add(new BuildHeadphones
+            if (LvHeadphones.SelectedItem is Headphones hp)
             {
-                BuildID = 0,
-                HeadphoneID = hp.HeadphonesID,
-                Headphones = hp
-            });
-            BorderHeadphones.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                _headList.Add(new BuildHeadphones
+                {
+                    BuildID = 0,
+                    HeadphoneID = hp.HeadphonesID,
+                    Headphones = hp,
+                });
+                BorderHeadphones.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
         private void BtnAddKeyboards_Click(object sender, RoutedEventArgs e)
         {
-            var kb = LvKeyboards.SelectedItem as Keyboards;
-            if (kb == null) return;
-            _keyList.Add(new BuildKeyboards
+            if (LvKeyboards.SelectedItem is Keyboards kb)
             {
-                BuildID = 0,
-                KeyboardID = kb.KeyboardID,
-                Keyboards = kb
-            });
-            BorderKeyboards.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                _keyList.Add(new BuildKeyboards
+                {
+                    BuildID = 0,
+                    KeyboardID = kb.KeyboardID,
+                    Keyboards = kb,
+                });
+                BorderKeyboards.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
         private void BtnAddMouses_Click(object sender, RoutedEventArgs e)
         {
-            var mo = LvMouses.SelectedItem as Mouses;
-            if (mo == null) return;
-            _mouseList.Add(new BuildMouses
+            if (LvMouses.SelectedItem is Mouses mo)
             {
-                BuildID = 0,
-                MouseID = mo.MouseID,
-                Mouses = mo
-            });
-            BorderMouses.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                _mouseList.Add(new BuildMouses
+                {
+                    BuildID = 0,
+                    MouseID = mo.MouseID,
+                    Mouses = mo,
+                });
+                BorderMouses.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
         private void BtnAddMonitors_Click(object sender, RoutedEventArgs e)
         {
-            var mn = LvMonitors.SelectedItem as Monitors;
-            if (mn == null) return;
-            _monList.Add(new BuildMonitors
+            if (LvMonitors.SelectedItem is Monitors mon)
             {
-                BuildID = 0,
-                MonitorID = mn.MonitorID,
-                Monitors = mn
-            });
-            BorderMonitors.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                _monList.Add(new BuildMonitors
+                {
+                    BuildID = 0,
+                    MonitorID = mon.MonitorID,
+                    Monitors = mon,
+                });
+                BorderMonitors.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
         private void BtnAddMicrophones_Click(object sender, RoutedEventArgs e)
         {
-            var mc = LvMicrophones.SelectedItem as Microphones;
-            if (mc == null) return;
-            _micList.Add(new BuildMicrophones
+            if (LvMicrophones.SelectedItem is Microphones mic)
             {
-                BuildID = 0,
-                MicrophoneID = mc.MicrophoneID,
-                Microphones = mc
-            });
-            BorderMicrophones.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                _micList.Add(new BuildMicrophones
+                {
+                    BuildID = 0,
+                    MicrophoneID = mic.MicrophoneID,
+                    Microphones = mic,
+                });
+                BorderMicrophones.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
         private void BtnAddServices_Click(object sender, RoutedEventArgs e)
         {
-            var sv = LvServices.SelectedItem as Services;
-            if (sv == null) return;
-            _servList.Add(new BuildServices
+            if (LvServices.SelectedItem is Services sv)
             {
-                BuildID = 0,
-                ServiceID = sv.ServiceID,
-                Services = sv
-            });
-            BorderServices.Visibility = Visibility.Collapsed;
-            UpdateSummary();
+                _servList.Add(new BuildServices
+                {
+                    BuildID = 0,
+                    ServiceID = sv.ServiceID,
+                    Services = sv,
+                });
+                BorderServices.Visibility = Visibility.Collapsed;
+                UpdateSummary();
+            }
         }
 
         private void UpdateSummary()
         {
             SpSummary.Children.Clear();
             decimal total = 0m;
+
             void AddLine(string label, decimal price)
             {
                 SpSummary.Children.Add(new TextBlock
@@ -452,9 +469,12 @@ namespace ComputerConfiguratorService.View
         private bool ValidateBuild()
         {
             if (selCpu == null || selMb == null || selGpu == null || selCase == null ||
-                selPsu == null || selCpuCooling == null || _ramList.Count == 0 || _storList.Count == 0)
+                selPsu == null || selCpuCooling == null || !_ramList.Any() || !_storList.Any())
             {
-                MessageBox.Show("Пожалуйста, выберите все обязательные компоненты (процессор, материнская плата, видеокарта, корпус, блок питания, охлаждение процессора, оперативная память и накопители).",
+                MessageBox.Show(
+                    "Пожалуйста, выберите обязательные компоненты:\n" +
+                    "процессор, материнская плата, видеокарта, корпус, блок питания,\n" +
+                    "охлаждение процессора, RAM и накопители.",
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
@@ -469,7 +489,7 @@ namespace ComputerConfiguratorService.View
             {
                 var build = new Builds
                 {
-                    BuildName = $"Сборка {DateTime.Now:yyyyMMddHHmm}",
+                    BuildName = $"Сборка_{DateTime.Now:yyyyMMddHHmm}",
                     CPUID = selCpu.CPUID,
                     MotherboardID = selMb.MotherboardID,
                     GPUID = selGpu.GPUID,
@@ -480,39 +500,26 @@ namespace ComputerConfiguratorService.View
                 _ctx.Builds.Add(build);
                 _ctx.SaveChanges();
 
-                foreach (var r in _ramList)
-                {
-                    r.BuildID = build.BuildID;
-                    _ctx.BuildRAMs.Add(r);
-                }
+                // Этап 1: RAM, Storage, CaseCooling
+                foreach (var r in _ramList) { r.BuildID = build.BuildID; _ctx.BuildRAMs.Add(r); }
+                foreach (var s in _storList) { s.BuildID = build.BuildID; _ctx.BuildStorages.Add(s); }
+                foreach (var cf in _caseFans) { cf.BuildID = build.BuildID; _ctx.BuildCaseCooling.Add(cf); }
+                _ctx.SaveChanges();
 
-                foreach (var s in _storList)
-                {
-                    s.BuildID = build.BuildID;
-                    _ctx.BuildStorages.Add(s);
-                }
-
-                foreach (var cf in _caseFans)
-                {
-                    cf.BuildID = build.BuildID;
-                    _ctx.BuildCaseCooling.Add(cf);
-                }
-
+                // Этап 2: аксессуары и услуги
                 foreach (var h in _headList) { h.BuildID = build.BuildID; _ctx.BuildHeadphones.Add(h); }
                 foreach (var k in _keyList) { k.BuildID = build.BuildID; _ctx.BuildKeyboards.Add(k); }
                 foreach (var m in _mouseList) { m.BuildID = build.BuildID; _ctx.BuildMouses.Add(m); }
                 foreach (var m in _monList) { m.BuildID = build.BuildID; _ctx.BuildMonitors.Add(m); }
                 foreach (var m in _micList) { m.BuildID = build.BuildID; _ctx.BuildMicrophones.Add(m); }
                 foreach (var s in _servList) { s.BuildID = build.BuildID; _ctx.BuildServices.Add(s); }
-
                 _ctx.SaveChanges();
-                MessageBox.Show("Сборка и все опции успешно сохранены.",
-                    "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                MessageBox.Show("Сборка и опции успешно сохранены.", "Готово", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сохранении сборки: {ex.Message}",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при сохранении сборки: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -32,6 +32,9 @@
             <Button x:Name="BtnDelete" Content="Удалить" Width="120" Height="36" Margin="4"
                     Background="#E7EDF3" BorderThickness="0" Foreground="#0E141B"
                     FontWeight="Bold" Click="BtnDelete_Click" IsEnabled="False"/>
+            <Button x:Name="BtnDetails" Content="Подробнее" Width="120" Height="36" Margin="4"
+                    Background="#E7EDF3" BorderThickness="0" Foreground="#0E141B"
+                    FontWeight="Bold" Click="BtnDetails_Click" IsEnabled="False"/>
         </StackPanel>
 
         <!-- Список заказов -->

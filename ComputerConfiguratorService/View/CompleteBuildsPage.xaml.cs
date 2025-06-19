@@ -98,6 +98,18 @@ namespace ComputerConfiguratorService.View
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (_selected == null) return;
+
+            bool usedInOrders = _context.Orders.Any(o => o.BuildID == _selected.BuildID);
+            if (usedInOrders)
+            {
+                MessageBox.Show(
+                    $"Нельзя удалить сборку «{_selected.BuildName}», так как она используется в заказах.",
+                    "Удаление невозможно",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
             if (MessageBox.Show($"Удалить сборку «{_selected.BuildName}»?",
                 "Подтвердите удаление", MessageBoxButton.YesNo, MessageBoxImage.Warning)
                 != MessageBoxResult.Yes) return;
