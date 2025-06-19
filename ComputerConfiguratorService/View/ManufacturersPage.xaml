@@ -36,7 +36,7 @@
         </StackPanel>
 
         <!-- Список -->
-        <ListView x:Name="LVReference"
+        <ListView x:Name="LVReference" FontSize="22"
               Grid.Row="2"
               SelectionChanged="LVReference_SelectionChanged"
               BorderBrush="#E5E7EB"

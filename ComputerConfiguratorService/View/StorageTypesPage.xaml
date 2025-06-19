@@ -33,7 +33,7 @@
         </StackPanel>
 
         <!-- Список значений -->
-        <ListView x:Name="LVReference" Grid.Row="2" SelectionChanged="LVReference_SelectionChanged"
+        <ListView x:Name="LVReference" Grid.Row="2" SelectionChanged="LVReference_SelectionChanged" FontSize="22"
               BorderBrush="#E5E7EB" BorderThickness="1">
             <ListView.View>
                 <GridView>

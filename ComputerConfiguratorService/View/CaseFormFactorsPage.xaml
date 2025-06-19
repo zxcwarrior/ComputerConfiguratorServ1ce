@@ -36,14 +36,14 @@
         </StackPanel>
 
         <!-- Список -->
-        <ListView x:Name="LVReference"
+        <ListView x:Name="LVReference" FontSize="28"
               Grid.Row="2"
               SelectionChanged="LVReference_SelectionChanged"
               BorderBrush="#E5E7EB"
               BorderThickness="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Форм-фактор" Width="300"
+                    <GridViewColumn Header="Форм-фактор" Width="300" 
                           DisplayMemberBinding="{Binding CaseFFName}"/>
                 </GridView>
             </ListView.View>

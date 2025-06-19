@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using ComputerConfiguratorService.Model;
 
 namespace ComputerConfiguratorService.View
@@ -83,6 +85,8 @@ namespace ComputerConfiguratorService.View
         {
             bool has = LVReference.SelectedItem != null;
             BtnEdit.IsEnabled = has;
+            BtnEdit.Background = System.Windows.Media.Brushes.Green;
+            BtnDelete.Background = System.Windows.Media.Brushes.Green;
             BtnDelete.IsEnabled = has;
         }
     }

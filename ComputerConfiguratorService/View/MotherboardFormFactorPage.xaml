@@ -21,7 +21,7 @@
             <Button x:Name="BtnDelete" Content="Удалить" Width="100" Height="32"
               Background="#E7EDF3" Click="DeleteButton_Click" IsEnabled="False"/>
         </StackPanel>
-        <ListView x:Name="LVReference" Grid.Row="2" SelectionChanged="LVReference_SelectionChanged"
+        <ListView x:Name="LVReference" Grid.Row="2" SelectionChanged="LVReference_SelectionChanged" FontSize="22"
               BorderBrush="#E5E7EB" BorderThickness="1">
             <ListView.View>
                 <GridView>

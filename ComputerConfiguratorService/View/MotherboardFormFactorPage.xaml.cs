@@ -74,6 +74,8 @@ namespace ComputerConfiguratorService.View
         {
             bool has = LVReference.SelectedItem != null;
             BtnEdit.IsEnabled = BtnDelete.IsEnabled = has;
+            BtnEdit.Background = System.Windows.Media.Brushes.Green;
+            BtnDelete.Background = System.Windows.Media.Brushes.Green;
         }
     }
 }
